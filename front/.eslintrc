@@ -1,81 +1,37 @@
 {
-    "parser": "@typescript-eslint/parser",
-    "env": {
-      "browser": true,
-      "node": true
-    },
-    "extends": [
-        "prettier",
-        "airbnb",
-        "airbnb/hooks",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ],
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "rules": {
-        "no-undef": "off",
-        "react/function-component-definition":[
-            2, 
-            { "namedComponents": [
-              "arrow-function", 
-              "function-declaration"
-            ] }
-        ],
-        "react/no-unused-prop-types": "off",
-        "no-param-reassign": ["error", { "props": false }],
-        "comma-dangle": "off",
-        "@typescript-eslint/comma-dangle": ["error", "only-multiline"],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-        "react/jsx-props-no-spreading": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-        "import/extensions": [
-          "error",
-          "ignorePackages",
-          {
-            "js": "never",
-            "jsx": "never",
-            "ts": "never",
-            "tsx": "never"
-          }
-        ],
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-noninteractive-element-interactions": "off",
-        "jsx-a11y/label-has-associated-control": [
-          2,
-          {
-            "labelAttributes": ["htmlFor"]
-          }
-        ],
-        "import/order": [
-          "error",
-          {
-            "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
-            "alphabetize": {
-              "order": "asc",
-              "caseInsensitive": true
-            }
-          }
-        ]
-      },
-    "settings": {
-      "react": {
-        "version": "detect"
-      },
-      "import/resolver": {
-        "node": {
-          "extensions": [".js", ".jsx", ".ts", ".tsx"]
-        }
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-undef": "off",
+    "react/no-unused-prop-types": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": ["error", "only-multiline"],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
       }
-    },
-    "overrides": [
-      {
-        "files": ["*.ts", "*.tsx"],
-        "rules": {
-          "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
-        }
-      }
-    ]
-  }
-  
+    }
+  ]
+}

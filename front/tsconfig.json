@@ -29,7 +29,7 @@
       "@components/*": ["components/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
-      "@utils/*": ["utils/*"],
+      "@functions/*": ["functions/*"],
       "@typings/*": ["typings/*"]
     }
   },
