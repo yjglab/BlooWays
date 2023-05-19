@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const User = require("../models/user");
 const Blooway = require("../models/blooway");
 const Area = require("../models/area");
 const AreaTalk = require("../models/areaTalk");
+const path = require("path");
+const fs = require("fs");
+
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const { isNotSignIn, isSignIn } = require("./middlewares");
@@ -291,6 +295,76 @@ router.post(
       io.of(`/bw-${blooway.link}`)
         .to(`/bw-${blooway.link}-${area.id}`)
         .emit("message", talkWithUser);
+      res.send("ok");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+try {
+  fs.readdirSync("uploads");
+} catch (error) {
+  console.error("mkdir uploads");
+  fs.mkdirSync("uploads");
+}
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, cb) {
+      cb(null, "uploads/");
+    },
+    filename(req, file, cb) {
+      const ext = path.extname(file.originalname);
+      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+router.post(
+  "/blooways/:blooway/areas/:area/images",
+  isSignIn,
+  upload.array("image"),
+  async (req, res, next) => {
+    try {
+      const blooway = await Blooway.findOne({
+        where: { link: req.params.blooway },
+        include: [
+          {
+            model: Area,
+          },
+        ],
+      });
+      if (!blooway) {
+        return res.status(404).send("존재하지 않는 블루웨이입니다.");
+      }
+      const area = blooway.Areas.find(
+        (v) => v.name === decodeURIComponent(req.params.area)
+      );
+      if (!area) {
+        return res.status(404).send("존재하지 않는 에리어입니다.");
+      }
+      for (let i = 0; i < req.files.length; i++) {
+        const talk = await AreaTalk.create({
+          UserId: req.user.id,
+          AreaId: area.id,
+          content: req.files[i].path,
+        });
+        const talkWithUser = await AreaTalk.findOne({
+          where: { id: talk.id },
+          include: [
+            {
+              model: User,
+            },
+            {
+              model: Area,
+            },
+          ],
+        });
+        const io = req.app.get("io");
+        io.of(`/bw-${blooway.url}`)
+          .to(`/bw-${blooway.url}-${area.id}`)
+          .emit("message", talkWithUser);
+      }
       res.send("ok");
     } catch (error) {
       next(error);
