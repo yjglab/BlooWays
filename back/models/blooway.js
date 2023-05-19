@@ -10,7 +10,7 @@ module.exports = class Blooway extends Model {
           allowNull: false,
           unique: true,
         },
-        url: {
+        link: {
           type: DataTypes.STRING(30),
           allowNull: false,
           unique: true,
@@ -38,6 +38,6 @@ module.exports = class Blooway extends Model {
       as: "Members",
     });
     db.Blooway.hasMany(db.Area);
-    db.Blooway.hasMany(db.PrivateTalk);
+    db.Blooway.hasMany(db.Private);
   }
 };

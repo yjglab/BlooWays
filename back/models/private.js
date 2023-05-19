@@ -1,7 +1,7 @@
 const DataTypes = require("sequelize");
 const { Model } = DataTypes;
 
-module.exports = class PrivateTalk extends Model {
+module.exports = class Private extends Model {
   static init(sequelize) {
     return super.init(
       {
@@ -11,8 +11,8 @@ module.exports = class PrivateTalk extends Model {
         },
       },
       {
-        modelName: "PrivateTalk",
-        tableName: "privatetalks",
+        modelName: "Private",
+        tableName: "privates",
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",
         sequelize,
@@ -20,8 +20,8 @@ module.exports = class PrivateTalk extends Model {
     );
   }
   static associate(db) {
-    db.PrivateTalk.belongsTo(db.Blooway);
-    db.PrivateTalk.belongsTo(db.User, { as: "Sender" });
-    db.PrivateTalk.belongsTo(db.User, { as: "Receiver" });
+    db.Private.belongsTo(db.Blooway);
+    db.Private.belongsTo(db.User, { as: "Sender" });
+    db.Private.belongsTo(db.User, { as: "Receiver" });
   }
 };

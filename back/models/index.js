@@ -4,7 +4,7 @@ const blooway = require("./blooway");
 const bloowayMember = require("./bloowayMember");
 const area = require("./area");
 const areaTalk = require("./areaTalk");
-const privateTalk = require("./privateTalk");
+const private = require("./private");
 const mention = require("./mention");
 
 const env = process.env.NODE_ENV || "development";
@@ -23,7 +23,7 @@ db.Blooway = blooway;
 db.BloowayMember = bloowayMember;
 db.Area = area;
 db.AreaTalk = areaTalk;
-db.PrivateTalk = privateTalk;
+db.Private = private;
 db.Mention = mention;
 
 Object.keys(db).forEach((modelName) => {

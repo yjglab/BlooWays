@@ -6,7 +6,7 @@ module.exports = class Mention extends Model {
     return super.init(
       {
         category: {
-          type: DataTypes.ENUM("area", "privateTalk", "common"),
+          type: DataTypes.ENUM("area", "private", "common"),
           allowNull: false,
         },
         talkId: {
