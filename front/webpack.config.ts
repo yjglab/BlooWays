@@ -21,7 +21,7 @@ const config: Configuration = {
       '@components': path.resolve(__dirname, 'components'),
       '@layouts': path.resolve(__dirname, 'layouts'),
       '@pages': path.resolve(__dirname, 'pages'),
-      '@utils': path.resolve(__dirname, 'utils'),
+      '@functions': path.resolve(__dirname, 'functions'),
       '@typings': path.resolve(__dirname, 'typings'),
     },
   },
@@ -56,7 +56,7 @@ const config: Configuration = {
       },
       {
         test: /\.css?$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ],
   },
@@ -73,12 +73,12 @@ const config: Configuration = {
   },
   devServer: {
     historyApiFallback: true,
-    port: 4040,
+    port: 4090,
     devMiddleware: { publicPath: '/dist/' },
     static: { directory: path.resolve(__dirname) },
     proxy: {
       '/api/': {
-        target: 'http://localhost:4080',
+        target: 'http://localhost:4094',
         changeOrigin: true,
         ws: true,
       },

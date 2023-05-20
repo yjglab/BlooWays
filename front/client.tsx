@@ -1,17 +1,17 @@
 import axios from 'axios';
 import 'core-js/stable';
+import './styles/globals.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import App from './layouts/App';
+import CreateDOM from 'react-dom/client';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production' ? 'https://blooways.com' : 'http://localhost:4080';
+  process.env.NODE_ENV === 'production' ? 'https://blooways.com' : 'http://localhost:4090';
 
-render(
-  <BrowserRouter>
+const app = CreateDOM.createRoot(document.querySelector('#app')!);
+app.render(
+  <React.StrictMode>
     <App />
-  </BrowserRouter>,
-  document.querySelector('#app'),
+  </React.StrictMode>,
 );
