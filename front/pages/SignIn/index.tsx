@@ -1,13 +1,13 @@
 import ApiFetcher from '@functions/ApiFetcher';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
-import { NavLink, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import useSWR from 'swr';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 const SignIn = () => {
-  const { data: userData, error, mutate } = useSWR('/api/users', ApiFetcher);
+  const { data: userData, error: apiError, mutate } = useSWR('/api/users', ApiFetcher);
   const [signInError, setSignInError] = useState(false);
 
   interface SignInValues {
@@ -43,10 +43,10 @@ const SignIn = () => {
     [mutate],
   );
 
-  console.log(error, userData);
-  if (!error && userData) {
+  console.log(apiError, userData);
+  if (!apiError && userData) {
     // signIn ok
-    return <Navigate to='/blooway/testBlooway/area/전체' />;
+    return <Navigate to={`/blooway/${userData.username}/area/전체`} />;
   }
 
   return (
@@ -63,11 +63,11 @@ const SignIn = () => {
             </h2>
             <p className='mt-2 text-center text-sm '>
               BlooWays 멤버가 아니신가요?{' '}
-              <NavLink key={''} to='/signup'>
+              <Link key={''} to='/signup'>
                 <span className='underline cursor-pointer font-medium text-indigo-500 hover:text-indigo-600'>
                   가입하기
                 </span>
-              </NavLink>
+              </Link>
             </p>
           </div>
 

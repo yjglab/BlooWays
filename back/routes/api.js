@@ -809,11 +809,19 @@ router.post("/users", isNotSignIn, async (req, res, next) => {
       username: req.body.username,
       password: hashed,
     });
-    // test 제거
-    const testBlooway = await Blooway.findOne({ where: { id: 1 } });
-    const testArea = await Area.findOne({ where: { id: 1 } });
-    await testBlooway.addMembers(user);
-    await testArea.addMembers(user);
+
+    // 기본 블루웨이 생성
+    const baseBlooway = await Blooway.create({
+      name: user.username,
+      link: user.username,
+    });
+    const baseArea = await Area.create({
+      name: "전체",
+      secret: false,
+      AreaId: baseBlooway.id,
+    });
+    await baseBlooway.addMembers(user);
+    await baseArea.addMembers(user);
     res.status(201).send("ok");
   } catch (error) {
     console.error(error);
