@@ -30,7 +30,8 @@
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@functions/*": ["functions/*"],
-      "@typings/*": ["typings/*"]
+      "@typings/*": ["typings/*"],
+      "@public/*": ["public/*"]
     }
   },
 }

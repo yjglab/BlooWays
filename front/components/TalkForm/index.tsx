@@ -44,7 +44,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
       }
       return (
         <button className={`${focus && 'bg-red-400 text-white'} p-2 flex border-none items-center w-full`}>
-          <Avvvatars size={16} style='shape' value={data[index].email} />
+          <Avvvatars size={32} style='shape' value={data[index].email} />
           <span>{highlightedDisplay}</span>
         </button>
       );

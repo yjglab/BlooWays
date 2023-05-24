@@ -98,7 +98,7 @@ const SignUp = () => {
                   id='email'
                   type='text'
                   placeholder='이메일 주소'
-                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('email', {
                     required: '이메일은 필수 입력입니다',
                     maxLength: 100,
@@ -115,7 +115,7 @@ const SignUp = () => {
                 <input
                   id='username'
                   type='text'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   placeholder='사용자명 (4~10자)'
                   {...register('username', {
                     required: '사용자명은 필수 입력입니다',
@@ -136,7 +136,7 @@ const SignUp = () => {
                   id='password'
                   type='password'
                   placeholder='비밀번호 (영문/숫자/특수기호 조합 8자 이상)'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
                     // pattern: {
@@ -152,7 +152,7 @@ const SignUp = () => {
                   id='passwordCheck'
                   type='password'
                   placeholder='비밀번호 확인'
-                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('passwordCheck', {
                     required: '',
                   })}
@@ -165,7 +165,7 @@ const SignUp = () => {
                 <input
                   id='term'
                   type='checkbox'
-                  className='h-4 w-4 rounded-md border-slate-300 text-indigo-500 focus:ring-indigo-500'
+                  className='h-4 w-4 rounded-md border-slate-300 text-amber-500 focus:ring-amber-500'
                   {...register('term', {
                     required: '서비스 약관에 동의해주세요',
                   })}
@@ -174,7 +174,7 @@ const SignUp = () => {
                   <button
                     type='button'
                     onClick={onToggleTerms}
-                    className='cursor-pointer underline text-slate-500 hover:text-indigo-600'
+                    className='cursor-pointer underline text-slate-500 hover:text-amber-600'
                   >
                     BlooWays 서비스 이용 약관
                   </button>
@@ -182,7 +182,7 @@ const SignUp = () => {
                 </label>
               </div>
               <Link to='/signin'>
-                <span className='underline mb-4 cursor-pointer text-sm text-indigo-500 hover:text-indigo-600'>
+                <span className='underline mb-4 cursor-pointer text-sm text-amber-500 hover:text-amber-600'>
                   이미 회원입니다
                 </span>
               </Link>
@@ -191,7 +191,7 @@ const SignUp = () => {
             {toggleTerm && (
               <div className='group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
                 <div className='mx-auto max-w-2xl text-center relative top-14'>
-                  <h2 className='text-sm font-semibold leading-6 text-indigo-500'>BlooWays</h2>
+                  <h2 className='text-sm font-semibold leading-6 text-amber-500'>BlooWays</h2>
                   <p className=' text-2xl font-bold tracking-tight  sm:text-2xl '>서비스 이용 약관</p>
                   <p className='mt-1 text-sm leading-8 '>
                     공정거래위원회 표준약관 제10023호 (2015. 6. 26. 개정)
@@ -224,11 +224,11 @@ const SignUp = () => {
               <button
                 type='submit'
                 disabled={isSubmitting}
-                className='group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                className='group mt-1.5 relative flex w-full justify-center rounded-md border border-transparent bg-amber-500 py-2 px-4 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2'
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <UserPlusIcon
-                    className='h-5 w-5 text-indigo-600 group-hover:text-indigo-50'
+                    className='h-5 w-5 text-amber-600 group-hover:text-amber-50'
                     aria-hidden='true'
                   />
                 </span>

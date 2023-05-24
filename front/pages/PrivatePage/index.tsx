@@ -165,7 +165,7 @@ const PrivatePage: FC = () => {
   return (
     <div className='flex flex-wrap w-full h-screen flex-col relative' onDrop={onDrop} onDragOver={onDragOver}>
       <div className='h-8 flex w-full p-4 items-center'>
-        <Avvvatars size={16} style='shape' value={userData.email} />
+        <Avvvatars size={32} style='shape' value={userData.email} />
         <span>{userData.username}</span>
       </div>
       <TalkList

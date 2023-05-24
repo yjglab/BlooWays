@@ -31,6 +31,7 @@ const Blooway = () => {
   const [showAddAreaModal, setShowAddAreaModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showBloowayModal, setShowBloowayModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSignOut = useCallback(() => {
     axios
@@ -51,6 +52,7 @@ const Blooway = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm<CreateBloowayValues>();
 
@@ -58,10 +60,10 @@ const Blooway = () => {
     (formData) => {
       const { bloowayName, bloowayLink } = formData;
       if (!bloowayName || !bloowayName.trim()) {
-        return;
+        return toast.error('블루웨이 이름을 입력해주세요', { position: 'bottom-center' });
       }
       if (!bloowayLink || !bloowayLink.trim()) {
-        return;
+        return toast.error('키워드 링크를 입력해주세요', { position: 'bottom-center' });
       }
       axios
         .post('/api/blooways', {
@@ -71,10 +73,12 @@ const Blooway = () => {
         .then(() => {
           revalidateUser();
           setShowCreateBloowayModal(false);
+          setValue('bloowayName', '');
+          setValue('bloowayLink', '');
         })
         .catch((error) => {
           console.dir(error);
-          toast.error(error.response?.data, { position: 'bottom-center' });
+          setErrorMessage(error.response?.data);
         });
     },
     [revalidateUser],
@@ -125,16 +129,16 @@ const Blooway = () => {
 
   return (
     <div>
-      <div className='h-5 bg-indigo-500 text-white p-2 text-center'>
+      <div className='h-5 bg-amber-500 text-white p-2 text-center'>
         {userData && (
           <div className='float-right'>
             <span onClick={onClickUserProfile}>
-              <Avvvatars size={16} style='shape' value={userData.email} />
+              <Avvvatars size={32} style='shape' value={userData.email} />
             </span>
             {showUserMenu && (
               <Menu show={showUserMenu} onCloseModal={onClickUserProfile}>
                 <div className='flex p-2'>
-                  <Avvvatars size={16} style='shape' value={userData.email} />
+                  <Avvvatars size={32} style='shape' value={userData.email} />
                   <div>
                     <span>{userData.username}</span>
                     <span>Active</span>
@@ -149,7 +153,7 @@ const Blooway = () => {
         )}
       </div>
       <div className='flex w-full'>
-        <div className='w-8 inline-flex flex-col items-center bg-indigo-600 text-center'>
+        <div className='w-8 inline-flex flex-col items-center bg-amber-600 text-center'>
           {userData?.Blooways.map((blooway) => {
             return (
               <Link key={blooway.id} to={`/blooway/${blooway.link}/area/전체`}>
@@ -188,51 +192,65 @@ const Blooway = () => {
           </Switch>
         </div>
       </div>
-      <Modal show={showCreateBloowayModal} onCloseModal={onCloseModal}>
-        <form onSubmit={handleSubmit(onCreateBlooway)}>
-          <label htmlFor='bloowayName' className='sr-only'>
-            <span>새 블루웨이 이름</span>
-            <input
-              id='bloowayName'
-              type='text'
-              className='relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-              placeholder='블루웨이 이름'
-              {...register('bloowayName', {
-                required: '사용자명은 필수 입력입니다',
-                minLength: {
-                  value: 4,
-                  message: '2자 이상의 블루웨이 이름을 입력해주세요',
-                },
-                maxLength: {
-                  value: 10,
-                  message: '30자 이하의 블루웨이 이름을 입력해주세요',
-                },
-              })}
-            />
-          </label>
-          <label htmlFor='bloowayLink' className='sr-only'>
-            <span>새 블루웨이 링크 키워드</span>
-            <input
-              id='bloowayLink'
-              type='text'
-              className='relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-              placeholder='링크 키워드'
-              {...register('bloowayLink', {
-                required: '사용자명은 필수 입력입니다',
-                minLength: {
-                  value: 2,
-                  message: '2자 이상의 키워드를 입력해주세요',
-                },
-                maxLength: {
-                  value: 30,
-                  message: '30자 이내의 키워드를 입력해주세요',
-                },
-              })}
-            />
-          </label>
-          <button disabled={isSubmitting} type='submit'>
-            생성하기
-          </button>
+      <Modal
+        modalType={0}
+        modalTitle='새로운 블루웨이 생성하기'
+        show={showCreateBloowayModal}
+        onCloseModal={onCloseModal}
+      >
+        <form id='create-blooway-modal' className='w-full' onSubmit={handleSubmit(onCreateBlooway)}>
+          <div className='w-full my-4'>
+            <div className='mb-4'>
+              <span className='mb-2'>블루웨이 이름</span>
+              <input
+                id='bloowayName'
+                type='text'
+                className='relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                placeholder='30자 이내로 설정해주세요'
+                {...register('bloowayName', {
+                  required: '사용자명은 필수 입력입니다',
+                  minLength: {
+                    value: 4,
+                    message: '2자 이상의 블루웨이 이름을 입력해주세요',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '30자 이하의 블루웨이 이름을 입력해주세요',
+                  },
+                })}
+              />
+            </div>
+            <div>
+              <span className='mb-2'>키워드 링크</span>
+              <input
+                id='bloowayLink'
+                type='text'
+                className='relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                placeholder='30자 이내로 설정해주세요'
+                {...register('bloowayLink', {
+                  required: '사용자명은 필수 입력입니다',
+                  minLength: {
+                    value: 2,
+                    message: '2자 이상의 키워드를 입력해주세요',
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: '30자 이내의 키워드를 입력해주세요',
+                  },
+                })}
+              />
+            </div>
+          </div>
+          <p className='mt-6 h-8 text-sm text-center text-amber-400'>{errorMessage}</p>
+          <div className=' flex justify-center gap-2 '>
+            <button
+              disabled={isSubmitting}
+              type='submit'
+              className='inline-flex justify-center rounded-md border border-transparent bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2'
+            >
+              생성하기
+            </button>
+          </div>
         </form>
       </Modal>
       <AddAreaModal

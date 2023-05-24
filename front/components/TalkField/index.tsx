@@ -41,7 +41,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   return (
     <div className='flex p-4 hover:bg-slate-200'>
       <div className='flex w-5 mr-2'>
-        <Avvvatars size={16} style='shape' value={user.email} />
+        <Avvvatars size={32} style='shape' value={user.email} />
       </div>
       <div className='flex flex-wrap w-full'>
         <div className='flex flex-[0,0,100%] items-center'>

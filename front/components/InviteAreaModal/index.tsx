@@ -52,14 +52,14 @@ const InviteAreaModal: FC<InviteAreaModalProps> = ({ show, onCloseModal, setShow
   );
 
   return (
-    <Modal show={show} onCloseModal={onCloseModal}>
+    <Modal modalType={0} modalTitle='invite area member' show={show} onCloseModal={onCloseModal}>
       <form onSubmit={handleSubmit(onInviteMember)}>
         <label htmlFor='memberEmail' className='sr-only'>
           <span>에리어 멤버 초대</span>
           <input
             id='memberEmail'
             type='text'
-            className='relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+            className='relative block w-full appearance-none rounded-t-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
             placeholder='이메일 주소'
             {...register('memberEmail', {
               required: '이메일은 필수 입력입니다',
