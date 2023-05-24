@@ -814,11 +814,12 @@ router.post("/users", isNotSignIn, async (req, res, next) => {
     const baseBlooway = await Blooway.create({
       name: user.username,
       link: user.username,
+      BuilderId: user.id,
     });
     const baseArea = await Area.create({
       name: "전체",
       secret: false,
-      AreaId: baseBlooway.id,
+      BloowayId: baseBlooway.id,
     });
     await baseBlooway.addMembers(user);
     await baseArea.addMembers(user);

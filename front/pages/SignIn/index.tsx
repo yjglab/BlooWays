@@ -1,7 +1,7 @@
 import ApiFetcher from '@functions/ApiFetcher';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -26,7 +26,7 @@ const SignIn = () => {
       setSignInError(false);
       axios
         .post(
-          '/api/users/login',
+          '/api/users/signin',
           { email, password },
           {
             withCredentials: true,
@@ -43,10 +43,10 @@ const SignIn = () => {
     [mutate],
   );
 
-  console.log(apiError, userData);
+  console.log('apiError, userData', apiError, userData);
   if (!apiError && userData) {
     // signIn ok
-    return <Navigate to={`/blooway/${userData.username}/area/전체`} />;
+    return <Redirect to={`/blooway/${userData.username}/area/전체`} />;
   }
 
   return (

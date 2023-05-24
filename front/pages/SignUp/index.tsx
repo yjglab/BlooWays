@@ -1,9 +1,9 @@
 import ApiFetcher from '@functions/ApiFetcher';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
-import { ArrowPathIcon, LockClosedIcon, UserPlusIcon } from '@heroicons/react/20/solid';
+import { UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
 
@@ -65,7 +65,7 @@ const SignUp = () => {
   }, [toggleTerm]);
 
   if (userData) {
-    return <Navigate to={`/blooway/${userData.username}`} />;
+    return <Redirect to={`/blooway/${userData.username}`} />;
   }
 
   return (
