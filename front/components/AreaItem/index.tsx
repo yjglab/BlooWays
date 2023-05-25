@@ -27,14 +27,14 @@ const AreaItem: FC<AreaItemProps> = ({ area }) => {
   }, [mutate, location.pathname, blooway, area]);
 
   return (
-    <NavLink
-      key={area.name}
-      // className={({ isActive, isPending }) => (isPending ? '' : isActive ? 'text-white' : '')}
-      to={`/blooway/${blooway}/area/${area.name}`}
-    >
-      <span className={unreadCount !== undefined && unreadCount > 0 ? 'font-bold' : undefined}>
-        # {area.name}
-      </span>
+    <NavLink key={area.name} activeClassName='text-amber-500' to={`/blooway/${blooway}/area/${area.name}`}>
+      <div
+        className={`${
+          unreadCount !== undefined && unreadCount > 0 ? 'font-bold' : undefined
+        } flex items-center`}
+      >
+        {area.name}
+      </div>
       {unreadCount !== undefined && unreadCount > 0 && <span>{unreadCount}</span>}
     </NavLink>
   );

@@ -1,6 +1,4 @@
-import AreaList from '@components/AreaList';
 import AddAreaModal from '@components/AddAreaModal';
-import PrivateList from '@components/PrivateList';
 import InviteBloowayModal from '@components/InviteBloowayModal';
 import DropMenu from '@components/DropMenu';
 import Modal from '@components/Modal';
@@ -19,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import useSWR from 'swr';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Menu } from '@headlessui/react';
+import SideBar from '@components/SideBar';
 
 const Blooway = () => {
   const params = useParams<{ blooway?: string }>();
@@ -179,12 +178,7 @@ const Blooway = () => {
         </DropMenu>
       </div>
       <div className='flex w-full'>
-        <div className='w-80 rounded-md  flex flex-col '>
-          <div className='overflow-y-auto h-screen'>
-            <AreaList />
-            <PrivateList />
-          </div>
-        </div>
+        <SideBar />
         <div className='flex w-full'>
           <Switch>
             <Route path='/blooway/:blooway/area/:area' component={AreaPage} />

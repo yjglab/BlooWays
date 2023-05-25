@@ -2,9 +2,10 @@ import PrivateItem from '@components/PrivateItem';
 import useSocket from '@hooks/useSocket';
 import { User, UserWithOnline } from '@typings/types';
 import ApiFetcher from '@functions/ApiFetcher';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
+import { Disclosure } from '@headlessui/react';
 
 const PrivateList: FC = () => {
   const { blooway } = useParams<{ blooway?: string }>();
@@ -16,12 +17,7 @@ const PrivateList: FC = () => {
     ApiFetcher,
   );
   const [socket] = useSocket(blooway);
-  const [hideArea, setHideArea] = useState(false);
   const [onlineList, setOnlineList] = useState<number[]>([]);
-
-  const toggleHideArea = useCallback(() => {
-    setHideArea((prev) => !prev);
-  }, []);
 
   useEffect(() => {
     setOnlineList([]);
@@ -29,6 +25,7 @@ const PrivateList: FC = () => {
 
   useEffect(() => {
     socket?.on('onlineList', (data: number[]) => {
+      console.log('온라인리스트', data);
       setOnlineList(data);
     });
     console.log('socket on private', socket?.hasListeners('private'), socket);
@@ -40,22 +37,15 @@ const PrivateList: FC = () => {
 
   return (
     <>
-      <h2>
-        <button onClick={toggleHideArea}>
-          <i
-            className={`${hideArea && 'transform-none'}`}
-            data-qa='area-section-collapse'
-            aria-hidden='true'
-          />
-        </button>
-        <span>프라이빗 메시지</span>
-      </h2>
       <div>
-        {!hideArea &&
-          memberData?.map((member) => {
-            const isOnline = onlineList.includes(member.id);
-            return <PrivateItem key={member.id} member={member} isOnline={isOnline} />;
-          })}
+        {memberData?.map((member) => {
+          const isOnline = onlineList.includes(member.id);
+          return (
+            <Disclosure.Panel key={member.id} className='px-4 py-2 text-sm'>
+              <PrivateItem member={member} isOnline={isOnline} />
+            </Disclosure.Panel>
+          );
+        })}
       </div>
     </>
   );
