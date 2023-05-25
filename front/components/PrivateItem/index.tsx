@@ -32,7 +32,7 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
     <NavLink
       key={member.id}
       className='flex items-center'
-      activeClassName='text-amber-500'
+      activeClassName='text-amber-500 font-semibold'
       to={`/blooway/${blooway}/private/${member.id}`}
     >
       {/* <span>인디케이터 {isOnline ? 'on' : 'off'}</span> */}
@@ -44,7 +44,7 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
           } absolute right-0 bottom-0 border border-white w-[9px] h-[9px] rounded-full`}
         ></div>
       </div>
-      <span className={`hover:text-amber-500 ${unreadCount && unreadCount > 0 ? 'bold' : undefined} ml-1.5`}>
+      <span className={`hover:text-amber-500 ${unreadCount && unreadCount > 0 && 'font-semibold'} ml-1.5`}>
         {member.username}
       </span>
       {member.id === userData?.id && <span className='ml-0.5'>(나)</span>}

@@ -27,10 +27,14 @@ const AreaItem: FC<AreaItemProps> = ({ area }) => {
   }, [mutate, location.pathname, blooway, area]);
 
   return (
-    <NavLink key={area.name} activeClassName='text-amber-500' to={`/blooway/${blooway}/area/${area.name}`}>
+    <NavLink
+      key={area.name}
+      activeClassName='text-amber-500 font-semibold'
+      to={`/blooway/${blooway}/area/${area.name}`}
+    >
       <div
         className={`hover:text-amber-500 ${
-          unreadCount !== undefined && unreadCount > 0 ? 'font-bold' : undefined
+          unreadCount !== undefined && unreadCount > 0 && 'font-semibold'
         } flex items-center`}
       >
         {area.name}
