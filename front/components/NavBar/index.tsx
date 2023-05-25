@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 // import { useParams } from 'react-router';
 // import { NavLink, useLocation } from 'react-router-dom';
 import { Fragment, useState } from 'react';
-import { Dialog, Popover, Transition } from '@headlessui/react';
+import { Dialog, Menu, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { logoUrl } from '@functions/global';
 import useSWR from 'swr';
@@ -10,6 +10,9 @@ import ApiFetcher from '@functions/ApiFetcher';
 import { User } from '@typings/types';
 import Avvvatars from 'avvvatars-react';
 import { Link } from 'react-router-dom';
+import DropMenu from '@components/DropMenu';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const navigation = {
   categories: [],
@@ -20,8 +23,20 @@ const navigation = {
 };
 
 const NavBar: FC = () => {
-  const { data: userData } = useSWR<User | false>('/api/users', ApiFetcher);
+  const { data: userData, mutate: revalidateUser } = useSWR<User | false>('/api/users', ApiFetcher);
   const [open, setOpen] = useState(false);
+  const onSignOut = useCallback(() => {
+    axios
+      .post('/api/users/signout')
+      .then(() => {
+        revalidateUser();
+      })
+      .catch((error) => {
+        console.dir(error);
+        toast.error(error.response?.data, { position: 'bottom-center' });
+      });
+  }, [revalidateUser]);
+
   return (
     <div id='navbar' className='bg-white'>
       {/* Mobile menu */}
@@ -39,18 +54,18 @@ const NavBar: FC = () => {
             <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className='fixed inset-0 z-40 flex'>
+          <div className='fixed inset-0 z-40 flex justify-end'>
             <Transition.Child
               as={Fragment}
               enter='transition ease-in-out duration-300 transform'
-              enterFrom='-translate-x-full'
+              enterFrom='translate-x-full'
               enterTo='translate-x-0'
               leave='transition ease-in-out duration-300 transform'
               leaveFrom='translate-x-0'
-              leaveTo='-translate-x-full'
+              leaveTo='translate-x-full'
             >
               <Dialog.Panel className='relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl'>
-                <div className='flex px-4 pb-2 pt-5'>
+                <div className='flex px-6 py-3  item-center justify-end'>
                   <button
                     type='button'
                     className='-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400'
@@ -105,19 +120,10 @@ const NavBar: FC = () => {
 
       <header className='relative bg-white'>
         <nav aria-label='Top' className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='border-b border-gray-200'>
-            <div className='flex h-12 items-center'>
-              <button
-                type='button'
-                className='rounded-md bg-white p-2 text-gray-400 lg:hidden'
-                onClick={() => setOpen(true)}
-              >
-                <span className='sr-only'>Open menu</span>
-                <Bars3Icon className='h-6 w-6' aria-hidden='true' />
-              </button>
-
+          <div className='border-b border-gray-200 relative'>
+            <div className='flex w-full h-12 items-center relative'>
               {/* Logo */}
-              <div className='ml-4 flex lg:ml-0'>
+              <div className='flex ml-2'>
                 <Link className='flex items-center' to='/'>
                   <span className='sr-only'>BlooWays</span>
                   <img className='h-8 w-auto' src={logoUrl} alt='' />
@@ -139,7 +145,14 @@ const NavBar: FC = () => {
                   ))}
                 </div>
               </Popover.Group>
-
+              <button
+                type='button'
+                className='rounded-md bg-white p-2 text-gray-400 lg:hidden absolute right-0'
+                onClick={() => setOpen(true)}
+              >
+                <span className='sr-only'>Open menu</span>
+                <Bars3Icon className='h-6 w-6' aria-hidden='true' />
+              </button>
               <div className='ml-auto flex items-center'>
                 {!userData && (
                   <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
@@ -155,11 +168,35 @@ const NavBar: FC = () => {
 
                 <div className='hidden lg:ml-8 lg:flex'>
                   {userData && (
-                    <a href='#' className='flex items-center text-gray-700 hover:text-gray-800'>
+                    <button type='button' className='flex items-center text-gray-700 hover:text-gray-800'>
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
-                      <span className='ml-3 block text-sm font-medium'>{userData.username}</span>
-                      <span className='sr-only'>, change currency</span>
-                    </a>
+                      <DropMenu menuTitle={userData.username}>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={onSignOut}
+                              className={`${
+                                active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              로그아웃
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={onSignOut}
+                              className={`${
+                                active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              로그아웃
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </DropMenu>
+                    </button>
                   )}
                 </div>
               </div>

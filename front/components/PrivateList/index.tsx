@@ -48,7 +48,7 @@ const PrivateList: FC = () => {
             aria-hidden='true'
           />
         </button>
-        <span>Direct Messages</span>
+        <span>프라이빗 메시지</span>
       </h2>
       <div>
         {!hideArea &&

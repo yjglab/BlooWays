@@ -2,7 +2,7 @@ import AreaList from '@components/AreaList';
 import AddAreaModal from '@components/AddAreaModal';
 import PrivateList from '@components/PrivateList';
 import InviteBloowayModal from '@components/InviteBloowayModal';
-import Menu from '@components/Menu';
+import DropMenu from '@components/DropMenu';
 import Modal from '@components/Modal';
 import ApiFetcher from '@functions/ApiFetcher';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
@@ -18,7 +18,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useSWR from 'swr';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Avvvatars from 'avvvatars-react';
+import { Menu } from '@headlessui/react';
 
 const Blooway = () => {
   const params = useParams<{ blooway?: string }>();
@@ -29,21 +29,7 @@ const Blooway = () => {
   const [showCreateBloowayModal, setShowCreateBloowayModal] = useState(false);
   const [showInviteBloowayModal, setShowInviteBloowayModal] = useState(false);
   const [showAddAreaModal, setShowAddAreaModal] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const [showBloowayModal, setShowBloowayModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  const onSignOut = useCallback(() => {
-    axios
-      .post('/api/users/signout')
-      .then(() => {
-        revalidateUser();
-      })
-      .catch((error) => {
-        console.dir(error);
-        toast.error(error.response?.data, { position: 'bottom-center' });
-      });
-  }, [revalidateUser]);
 
   interface CreateBloowayValues {
     bloowayName: string;
@@ -81,7 +67,7 @@ const Blooway = () => {
           setErrorMessage(error.response?.data);
         });
     },
-    [revalidateUser],
+    [revalidateUser, setValue],
   );
 
   const onClickCreateBlooway = useCallback(() => {
@@ -100,14 +86,6 @@ const Blooway = () => {
     setShowCreateBloowayModal(false);
     setShowAddAreaModal(false);
     setShowInviteBloowayModal(false);
-  }, []);
-
-  const onClickUserProfile = useCallback(() => {
-    setShowUserMenu((prev) => !prev);
-  }, []);
-
-  const toggleBloowayModal = useCallback(() => {
-    setShowBloowayModal((prev) => !prev);
   }, []);
 
   useEffect(() => {
@@ -129,29 +107,7 @@ const Blooway = () => {
 
   return (
     <div>
-      <div className='h-5 bg-amber-500 text-white p-2 text-center'>
-        {userData && (
-          <div className='float-right'>
-            <span onClick={onClickUserProfile}>
-              <Avvvatars size={32} style='shape' value={userData.email} />
-            </span>
-            {showUserMenu && (
-              <Menu show={showUserMenu} onCloseModal={onClickUserProfile}>
-                <div className='flex p-2'>
-                  <Avvvatars size={32} style='shape' value={userData.email} />
-                  <div>
-                    <span>{userData.username}</span>
-                    <span>Active</span>
-                  </div>
-                </div>
-                <button className='w-full' onClick={onSignOut}>
-                  로그아웃
-                </button>
-              </Menu>
-            )}
-          </div>
-        )}
-      </div>
+      <div className='h-5 bg-amber-500 text-white p-2 text-center'></div>
       <div className='flex w-full'>
         <div className='w-8 inline-flex flex-col items-center bg-amber-600 text-center'>
           {userData?.Blooways.map((blooway) => {
@@ -166,21 +122,35 @@ const Blooway = () => {
           </button>
         </div>
         <div className='w-[260px] inline-flex flex-col bg-red-200 align-top'>
-          <button
-            className='text-ellipsis overflow-hidden whitespace-nowrap pl-2 '
-            onClick={toggleBloowayModal}
-          >
-            {userData?.Blooways.find((v) => v.link === blooway)?.name}
-          </button>
+          {userData?.Blooways.find((v) => v.link === blooway)?.name}
+
           <div className='overflow-y-auto h-screen'>
-            <Menu show={showBloowayModal} onCloseModal={toggleBloowayModal}>
-              <div className=''>
-                <h2>{userData?.Blooways.find((v) => v.link === blooway)?.name}</h2>
-                <button onClick={onClickInviteBlooway}>블루웨이에 멤버 초대</button>
-                <button onClick={onClickAddArea}>새 에리어 생성</button>
-                <button onClick={onSignOut}>로그아웃</button>
-              </div>
-            </Menu>
+            <DropMenu menuTitle='드롭'>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={onClickInviteBlooway}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    블루웨이에 멤버 초대
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={onClickAddArea}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    새 에리어 생성
+                  </button>
+                )}
+              </Menu.Item>
+            </DropMenu>
             <AreaList />
             <PrivateList />
           </div>
