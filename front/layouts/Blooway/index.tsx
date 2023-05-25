@@ -106,51 +106,81 @@ const Blooway = () => {
   }
 
   return (
-    <div>
-      <div className='h-5 bg-amber-500 text-white p-2 text-center'></div>
-      <div className='flex w-full'>
-        <div className='w-8 inline-flex flex-col items-center bg-amber-600 text-center'>
-          {userData?.Blooways.map((blooway) => {
-            return (
-              <Link key={blooway.id} to={`/blooway/${blooway.link}/area/전체`}>
-                <button className='inline-block w-10 h-10'>{blooway.name.slice(0, 1).toUpperCase()}</button>
-              </Link>
-            );
-          })}
-          <button className='inline-block w-10 h-10' onClick={onClickCreateBlooway}>
-            +
-          </button>
+    <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'>
+      <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
+        <div className='flex items-center'>
+          <DropMenu
+            menuTitle={userData?.Blooways.find((v) => v.link === blooway)?.name}
+            chevron={true}
+            direction='left'
+          >
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  type='button'
+                  onClick={onClickCreateBlooway}
+                  className={`${
+                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  새 블루웨이 생성
+                </button>
+              )}
+            </Menu.Item>
+            <div className='h-[1.5px] w-full px-4 my-1.5 bg-slate-200'></div>
+            {userData?.Blooways.map((blooway) => {
+              return (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to={`/blooway/${blooway.link}/area/전체`}
+                      className={`${
+                        active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      {blooway.name}
+                    </Link>
+                  )}
+                </Menu.Item>
+              );
+            })}
+          </DropMenu>
+          {userData?.username === blooway && (
+            <span className='ml-2 inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'>
+              Default
+            </span>
+          )}
         </div>
-        <div className='w-[260px] inline-flex flex-col bg-red-200 align-top'>
-          {userData?.Blooways.find((v) => v.link === blooway)?.name}
-
+        <DropMenu menuTitle='블루웨이 옵션' chevron={true} direction='right'>
+          <Menu.Item>
+            {({ active }) => (
+              <button
+                onClick={onClickInviteBlooway}
+                className={`${
+                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+              >
+                새 멤버 초대
+              </button>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <button
+                onClick={onClickAddArea}
+                className={`${
+                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+              >
+                새 에리어 생성
+              </button>
+            )}
+          </Menu.Item>
+        </DropMenu>
+      </div>
+      <div className='flex w-full'>
+        <div className='w-80 rounded-md  flex flex-col '>
           <div className='overflow-y-auto h-screen'>
-            <DropMenu menuTitle='드롭'>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={onClickInviteBlooway}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    블루웨이에 멤버 초대
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={onClickAddArea}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    새 에리어 생성
-                  </button>
-                )}
-              </Menu.Item>
-            </DropMenu>
             <AreaList />
             <PrivateList />
           </div>

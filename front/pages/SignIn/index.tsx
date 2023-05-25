@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { logoUrl } from '@functions/global';
 
 const SignIn = () => {
   const { data: userData, error: apiError, mutate } = useSWR('/api/users', ApiFetcher);
@@ -55,9 +56,8 @@ const SignIn = () => {
         <div className='w-full max-w-md space-y-8'>
           <div>
             <div className='mx-auto h-20 w-20  relative'>
-              <img className=' cursor-pointer w-full h-full' src={''} alt='logo-image' />
+              <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
             </div>
-
             <h2 className='mt-6 text-center text-3xl font-bold tracking-tight '>
               보유한 계정으로 로그인하세요
             </h2>

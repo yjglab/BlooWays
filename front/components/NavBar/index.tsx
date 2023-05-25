@@ -38,10 +38,10 @@ const NavBar: FC = () => {
   }, [revalidateUser]);
 
   return (
-    <div id='navbar' className='bg-white'>
+    <div id='navbar' className='bg-white shadow-lg shadow-slate-300/30'>
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as='div' className='relative z-40 lg:hidden' onClose={setOpen}>
+        <Dialog as='div' className='relative lg:hidden' onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter='transition-opacity ease-linear duration-300'
@@ -77,8 +77,7 @@ const NavBar: FC = () => {
                 </div>
 
                 {/* Links */}
-
-                <div className='space-y-6 border-t border-gray-200 px-4 py-6'>
+                <div className='space-y-6  px-4 py-6'>
                   {navigation.pages.map((page) => (
                     <div key={page.name} className='flow-root'>
                       <a href={page.href} className='-m-2 block p-2 font-medium text-gray-900'>
@@ -88,7 +87,7 @@ const NavBar: FC = () => {
                   ))}
                 </div>
 
-                <div className='space-y-6 border-t border-gray-200 px-4 py-6'>
+                <div className='space-y-6  px-4 py-6'>
                   <div className='flow-root'>
                     <Link to='/signin' className='-m-2 block p-2 font-medium text-gray-900'>
                       로그인
@@ -101,7 +100,7 @@ const NavBar: FC = () => {
                   </div>
                 </div>
 
-                <div className='border-t border-gray-200 px-4 py-6'>
+                <div className=' px-4 py-6'>
                   <a href='#' className='-m-2 flex items-center p-2'>
                     <img
                       src='https://tailwindui.com/img/flags/flag-canada.svg'
@@ -120,14 +119,14 @@ const NavBar: FC = () => {
 
       <header className='relative bg-white'>
         <nav aria-label='Top' className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='border-b border-gray-200 relative'>
-            <div className='flex w-full h-12 items-center relative'>
+          <div className=' relative'>
+            <div className='flex w-full h-14 items-center relative'>
               {/* Logo */}
               <div className='flex ml-2'>
                 <Link className='flex items-center' to='/'>
                   <span className='sr-only'>BlooWays</span>
                   <img className='h-8 w-auto' src={logoUrl} alt='' />
-                  <span className='ml-2 text-amber-500 font-bold text-lg'>BlooWays</span>
+                  <span className='ml-0.5 text-amber-500 font-bold text-lg'>BlooWays</span>
                 </Link>
               </div>
 
@@ -166,17 +165,21 @@ const NavBar: FC = () => {
                   </div>
                 )}
 
-                <div className='hidden lg:ml-8 lg:flex'>
+                <div className='hidden lg:ml-8 lg:flex '>
                   {userData && (
-                    <button type='button' className='flex items-center text-gray-700 hover:text-gray-800'>
+                    <button
+                      type='button'
+                      className=' z-40 flex items-center text-gray-700 hover:text-gray-800'
+                    >
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
-                      <DropMenu menuTitle={userData.username}>
+                      <div className='w-2'></div>
+                      <DropMenu menuTitle={userData.username} chevron={false} direction='right'>
                         <Menu.Item>
                           {({ active }) => (
                             <button
                               onClick={onSignOut}
                               className={`${
-                                active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                active ? 'bg-amber-500 text-white' : 'text-gray-900'
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
                               로그아웃
@@ -188,7 +191,7 @@ const NavBar: FC = () => {
                             <button
                               onClick={onSignOut}
                               className={`${
-                                active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                active ? 'bg-amber-500 text-white' : 'text-gray-900'
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
                               로그아웃
