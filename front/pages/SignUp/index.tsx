@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
+import { logoUrl } from '@functions/global';
 
 const SignUp = () => {
   const { data: userData } = useSWR('/api/users', ApiFetcher);
@@ -69,24 +70,22 @@ const SignUp = () => {
   }
 
   return (
-    <div className='min-h-screen '>
-      <div className='flex h-full mt-[7%] justify-center py-12 px-4 sm:px-6 lg:px-8 relative'>
+    <div className='h-full text-slate-700'>
+      <div className='flex h-full justify-center items-center  px-4 sm:px-6 lg:px-8 relative'>
         <div className='w-full max-w-md space-y-8 '>
           <div>
-            <div className='mx-auto h-20 w-20  relative'>
-              <img className=' cursor-pointer w-full h-full' src={''} alt='logo-image' />
+            <div className='mx-auto h-24 w-24  relative'>
+              <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
             </div>
-            <h2 className='mt-6 text-center text-2xl font-bold  text-slate-600'>환영합니다</h2>
-            <p className='mt-2 text-center text-sm text-slate-600'>
-              <span className='font-medium text-slate-500 '>
-                BlooWays에서 전세계 어디든지 Live Talk를 체험하세요.
-              </span>
+            <h2 className='mt-6 text-center text-2xl font-bold  '>환영합니다</h2>
+            <p className='mt-2 text-center text-sm '>
+              <span className='font-medium  '>BlooWays에서 전세계 어디든지 Live Talk를 체험하세요.</span>
             </p>
           </div>
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
-            <div className='text-slate-400 text-xs w-full text-center'>일반 계정 회원가입</div>
+            <div className=' text-xs w-full text-center'>일반 계정 회원가입</div>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
           <form className='mt-8 space-y-2' onSubmit={handleSubmit(onSignUp)}>
@@ -98,7 +97,7 @@ const SignUp = () => {
                   id='email'
                   type='text'
                   placeholder='이메일 주소'
-                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('email', {
                     required: '이메일은 필수 입력입니다',
                     maxLength: 100,
@@ -115,7 +114,7 @@ const SignUp = () => {
                 <input
                   id='username'
                   type='text'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   placeholder='사용자명 (4~10자)'
                   {...register('username', {
                     required: '사용자명은 필수 입력입니다',
@@ -136,7 +135,7 @@ const SignUp = () => {
                   id='password'
                   type='password'
                   placeholder='비밀번호 (영문/숫자/특수기호 조합 8자 이상)'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
                     // pattern: {
@@ -152,7 +151,7 @@ const SignUp = () => {
                   id='passwordCheck'
                   type='password'
                   placeholder='비밀번호 확인'
-                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('passwordCheck', {
                     required: '',
                   })}
@@ -170,11 +169,11 @@ const SignUp = () => {
                     required: '서비스 약관에 동의해주세요',
                   })}
                 />
-                <label htmlFor='term' className='ml-2 block text-sm text-slate-600'>
+                <label htmlFor='term' className='ml-2 block text-sm '>
                   <button
                     type='button'
                     onClick={onToggleTerms}
-                    className='cursor-pointer underline text-slate-500 hover:text-amber-600'
+                    className='cursor-pointer underline  hover:text-amber-500'
                   >
                     BlooWays 서비스 이용 약관
                   </button>
@@ -217,7 +216,7 @@ const SignUp = () => {
                   : signUpError
                   ? '이미 존재하는 이메일입니다'
                   : signUpDone
-                  ? '회원가입.'
+                  ? '회원가입 성공.'
                   : null}
               </div>
 

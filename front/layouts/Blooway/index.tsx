@@ -18,6 +18,7 @@ import useSWR from 'swr';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Menu } from '@headlessui/react';
 import SideBar from '@components/SideBar';
+import { toastConfig } from '@functions/global';
 
 const Blooway = () => {
   const params = useParams<{ blooway?: string }>();
@@ -28,7 +29,6 @@ const Blooway = () => {
   const [showCreateBloowayModal, setShowCreateBloowayModal] = useState(false);
   const [showInviteBloowayModal, setShowInviteBloowayModal] = useState(false);
   const [showAddAreaModal, setShowAddAreaModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   interface CreateBloowayValues {
     bloowayName: string;
@@ -45,10 +45,10 @@ const Blooway = () => {
     (formData) => {
       const { bloowayName, bloowayLink } = formData;
       if (!bloowayName || !bloowayName.trim()) {
-        return toast.error('블루웨이 이름을 입력해주세요', { position: 'bottom-center' });
+        return toast.error('블루웨이 이름을 입력해주세요', toastConfig);
       }
       if (!bloowayLink || !bloowayLink.trim()) {
-        return toast.error('키워드 링크를 입력해주세요', { position: 'bottom-center' });
+        return toast.error('키워드 링크를 입력해주세요', toastConfig);
       }
       axios
         .post('/api/blooways', {
@@ -63,7 +63,7 @@ const Blooway = () => {
         })
         .catch((error) => {
           console.dir(error);
-          setErrorMessage(error.response?.data);
+          toast.error(error.response?.data, toastConfig);
         });
     },
     [revalidateUser, setValue],
@@ -105,7 +105,7 @@ const Blooway = () => {
   }
 
   return (
-    <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'>
+    <div id='blooway-layout' className=' mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'>
       <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
         <div className='flex items-center'>
           <DropMenu
@@ -194,12 +194,12 @@ const Blooway = () => {
       >
         <form id='create-blooway-modal' className='w-full' onSubmit={handleSubmit(onCreateBlooway)}>
           <div className='w-full my-4'>
-            <div className='mb-4'>
-              <span className='mb-2'>블루웨이 이름</span>
+            <div>
+              <span>블루웨이 이름</span>
               <input
                 id='bloowayName'
                 type='text'
-                className='relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='30자 이내로 설정해주세요'
                 {...register('bloowayName', {
                   required: '사용자명은 필수 입력입니다',
@@ -214,12 +214,12 @@ const Blooway = () => {
                 })}
               />
             </div>
-            <div>
-              <span className='mb-2'>키워드 링크</span>
+            <div className='mt-2'>
+              <span>키워드 링크</span>
               <input
                 id='bloowayLink'
                 type='text'
-                className='relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='30자 이내로 설정해주세요'
                 {...register('bloowayLink', {
                   required: '사용자명은 필수 입력입니다',
@@ -235,8 +235,7 @@ const Blooway = () => {
               />
             </div>
           </div>
-          <p className='mt-6 h-8 text-sm text-center text-amber-400'>{errorMessage}</p>
-          <div className=' flex justify-center gap-2 '>
+          <div className='flex justify-center'>
             <button
               disabled={isSubmitting}
               type='submit'

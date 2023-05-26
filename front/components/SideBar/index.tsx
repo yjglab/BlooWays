@@ -74,7 +74,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
             <p className='mb-3 text-sm text-indigo-900'>BlooWays Beta에 오신것을 환영합니다!</p>
             <Link
               to='/version-log'
-              className='text-sm text-indigo-900 underline font-medium hover:text-indigo-900'
+              className='text-sm text-indigo-900/60 underline font-medium hover:text-indigo-900/80'
             >
               버전 로그 확인
             </Link>

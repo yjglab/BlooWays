@@ -51,14 +51,14 @@ const SignIn = () => {
   }
 
   return (
-    <div className='h-screen '>
+    <div className='h-screen text-slate-700'>
       <div className='flex h-full  items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
         <div className='w-full max-w-md space-y-8'>
           <div>
-            <div className='mx-auto h-20 w-20  relative'>
+            <div className='mx-auto h-24 w-24  relative'>
               <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
             </div>
-            <h2 className='mt-6 text-center text-3xl font-bold tracking-tight '>
+            <h2 className='mt-5 text-center text-2xl font-bold tracking-tight '>
               보유한 계정으로 로그인하세요
             </h2>
             <p className='mt-2 text-center text-sm '>

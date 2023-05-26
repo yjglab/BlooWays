@@ -8,7 +8,7 @@ const SignUp = loadable(() => import('@pages/SignUp'));
 const SignIn = loadable(() => import('@pages/SignIn'));
 
 const App = () => (
-  <>
+  <div className='h-screen'>
     <NavBar />
     <Switch>
       <Route exact path='/'>
@@ -18,7 +18,7 @@ const App = () => (
       <Route path='/signin' component={SignIn} />
       <Route path='/blooway/:blooway' component={Blooway} />
     </Switch>
-  </>
+  </div>
 );
 
 export default App;
