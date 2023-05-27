@@ -15,7 +15,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
   }, []);
   return (
     <div className='w-80 rounded-md'>
-      <div className='overflow-y-auto h-screen w-full rounded-2xl bg-white p-2'>
+      <div className='overflow-y-auto w-full rounded-2xl bg-white p-2'>
         <Disclosure defaultOpen={true} as='div'>
           {({ open }) => (
             <>

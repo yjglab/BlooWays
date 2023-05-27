@@ -183,7 +183,7 @@ const AreaPage = () => {
   const talkSections = makeSection(talkData ? ([] as Talk[]).concat(...talkData).reverse() : []);
 
   return (
-    <div className='flex flex-col w-full relative ' onDrop={onDrop} onDragOver={onDragOver}>
+    <div className='flex flex-col w-full h-full relative ' onDrop={onDrop} onDragOver={onDragOver}>
       {/* <button
         onClick={onClickInviteArea}
         type='button'
@@ -207,12 +207,12 @@ const AreaPage = () => {
         onCloseModal={onCloseModal}
         setShowInviteAreaModal={setShowInviteAreaModal}
       />
-      <ToastContainer position='bottom-center' />
+      {/* <ToastContainer position='bottom-center' />
       {dragOver && (
         <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>
           Upload
         </div>
-      )}
+      )} */}
     </div>
   );
 };

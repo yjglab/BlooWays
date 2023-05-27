@@ -104,7 +104,10 @@ const Blooway = () => {
   }
 
   return (
-    <div id='blooway-layout' className=' mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'>
+    <div
+      id='blooway-layout'
+      className='pt-14 pb-2 h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'
+    >
       <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
         <div className='flex items-center'>
           <DropMenu
@@ -177,9 +180,9 @@ const Blooway = () => {
           </Menu.Item>
         </DropMenu>
       </div>
-      <div className='flex w-full'>
+      <div id='blooway-side-splitter' className='flex w-full h-[90vh]'>
         <SideBar />
-        <div className='flex w-full'>
+        <div className='flex w-full pb-14'>
           <Switch>
             <Route path='/blooway/:blooway/area/:area' component={AreaPage} />
             <Route path='/blooway/:blooway/private/:id' component={PrivatePage} />

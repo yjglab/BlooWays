@@ -53,7 +53,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
   );
 
   return (
-    <div id='talk-form' className='flex w-full p-2 pt-0'>
+    <div id='talk-form' className='fixed h-[10vh] bottom-0 flex w-full bg-red-200'>
       <form className='w-full rounded-md border border-black' onSubmit={onSubmitForm}>
         <MentionsInput
           id='talk'

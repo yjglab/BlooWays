@@ -8,7 +8,7 @@ const SignUp = loadable(() => import('@pages/SignUp'));
 const SignIn = loadable(() => import('@pages/SignIn'));
 
 const App = () => (
-  <div className='h-screen'>
+  <div>
     <NavBar />
     <Switch>
       <Route exact path='/'>

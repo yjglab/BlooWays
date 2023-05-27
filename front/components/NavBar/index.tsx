@@ -38,7 +38,7 @@ const NavBar: FC = () => {
   }, [revalidateUser]);
 
   return (
-    <div id='navbar' className='bg-white shadow-lg shadow-slate-300/30'>
+    <div id='navbar' className='fixed top-0 w-full z-40 bg-white shadow-lg shadow-slate-300/30'>
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as='div' className='relative lg:hidden' onClose={setOpen}>
