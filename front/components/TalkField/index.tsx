@@ -10,7 +10,6 @@ import regexifyString from 'regexify-string';
 interface TalkFieldProps {
   data: Private | Talk;
 }
-
 const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   const { blooway } = useParams<{ blooway: string; area: string }>();
   const user: User = 'Sender' in data ? data.Sender : data.User;
@@ -39,17 +38,18 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   );
 
   return (
-    <div className='flex p-4 hover:bg-slate-200'>
-      <div className='flex w-5 mr-2'>
-        <Avvvatars size={32} style='shape' value={user.email} />
-      </div>
-      <div className='flex flex-wrap w-full'>
-        <div className='flex flex-[0,0,100%] items-center'>
-          <b className='mr-2'>{user.username}</b>
-          <span>{dayjs(data.createdAt).format('h:mm A')}</span>
+    <div className='my-1 pt-1.5 pb-3.5 px-2 duration-200 rounded-lg hover:bg-slate-100 flex w-full flex-col'>
+      <div className='flex w-full justify-between items-center'>
+        <div className='flex items-center'>
+          <Avvvatars size={32} style='shape' value={user.email} />
+          <div className='ml-2 text-md font-semibold text-gray-900'>{user.username}</div>
         </div>
-        <p className='m-0 flex-[0,0,100%]'>{result}</p>
+        <div className='flex items-center mt-1 text-xs leading-5 text-slate-500'>
+          <span>{dayjs(data.createdAt).format('A h:mm')}</span>
+        </div>
       </div>
+
+      <p className='ml-10 text-sm'>{result}</p>
     </div>
   );
 });

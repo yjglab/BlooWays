@@ -1,4 +1,3 @@
-import InviteAreaModal from '@components/InviteAreaModal';
 import useInput from '@hooks/useInput';
 import useSocket from '@hooks/useSocket';
 import { Area, Talk, User } from '@typings/types';
@@ -14,6 +13,7 @@ import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import TalkForm from '@components/TalkForm';
 import TalkList from '@components/TalkList';
+import InviteAreaModal from '@components/InviteAreaModal';
 
 const PAGE_SIZE = 20;
 const AreaPage = () => {
@@ -22,6 +22,8 @@ const AreaPage = () => {
   const { data: userData } = useSWR<User>('/api/users', ApiFetcher);
   const { data: areasData } = useSWR<Area[]>(`/api/blooways/${blooway}/areas`, ApiFetcher);
   const areaData = areasData?.find((v) => v.name === area);
+  const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
+
   const {
     data: talkData,
     mutate: mutateTalk,
@@ -44,16 +46,12 @@ const AreaPage = () => {
     ApiFetcher,
   );
   const [talk, onChangeTalk, setTalk] = useInput('');
-  const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
+
   const scrollbarRef = useRef<Scrollbars>(null);
   const [dragOver, setDragOver] = useState(false);
 
   const isEmpty = talkData?.[0]?.length === 0;
   const isDataEnd = isEmpty || (talkData && talkData[talkData.length - 1]?.length < PAGE_SIZE);
-
-  const onCloseModal = useCallback(() => {
-    setShowInviteAreaModal(false);
-  }, []);
 
   const onSubmitForm = useCallback(
     (e: any) => {
@@ -88,6 +86,12 @@ const AreaPage = () => {
     },
     [talk, blooway, area, areaData, userData, talkData, mutateTalk, setTalk],
   );
+  const onClickInviteArea = useCallback(() => {
+    setShowInviteAreaModal(true);
+  }, []);
+  const onCloseModal = useCallback(() => {
+    setShowInviteAreaModal(false);
+  }, []);
 
   const onMessage = useCallback(
     (data: Talk) => {
@@ -106,7 +110,6 @@ const AreaPage = () => {
               scrollbarRef.current.getScrollHeight() <
               scrollbarRef.current.getClientHeight() + scrollbarRef.current.getScrollTop() + 150
             ) {
-              console.log('scrollToBottom...', scrollbarRef.current?.getValues());
               setTimeout(() => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
@@ -135,10 +138,6 @@ const AreaPage = () => {
   useEffect(() => {
     localStorage.setItem(`${blooway}-${area}`, new Date().getTime().toString());
   }, [blooway, area]);
-
-  const onClickInviteArea = useCallback(() => {
-    setShowInviteAreaModal(true);
-  }, []);
 
   const onDrop = useCallback(
     (e: any) => {
@@ -184,16 +183,11 @@ const AreaPage = () => {
   const talkSections = makeSection(talkData ? ([] as Talk[]).concat(...talkData).reverse() : []);
 
   return (
-    <div className='flex flex-wrap w-full relative ' onDrop={onDrop} onDragOver={onDragOver}>
-      <div className='h-5 flex w-full p-5 font-bold items-center'>
-        <span>#{area}</span>
-        <div className='flex flex[1] justify-end items-center '>
-          <span>{areaMembersData?.length}</span>
-          <button onClick={onClickInviteArea} className='' type='button'>
-            <i className='' aria-hidden='true' />
-          </button>
-        </div>
-      </div>
+    <div className='flex flex-col w-full relative ' onDrop={onDrop} onDragOver={onDragOver}>
+      {/* <button
+        onClick={onClickInviteArea}
+        type='button'
+      ></button> */}
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}

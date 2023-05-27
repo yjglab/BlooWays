@@ -6,7 +6,8 @@ import useSWR from 'swr';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
-import { logoUrl } from '@functions/global';
+import { logoUrl, toastConfig } from '@functions/global';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const { data: userData } = useSWR('/api/users', ApiFetcher);
@@ -53,6 +54,7 @@ const SignUp = () => {
         .post('/api/users', { email, username, password })
         .then(() => {
           setSignUpDone(true);
+          toast.success(`멤버에 가입되셨습니다! 로그인 페이지로 이동해주세요.`, toastConfig);
         })
         .catch((error) => {
           console.log(error.response?.data);

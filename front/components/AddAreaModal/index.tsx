@@ -44,6 +44,7 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
         .then(() => {
           revalidateArea();
           setShowAddAreaModal(false);
+          toast.success(`에리어 ${areaName}를 생성했습니다.`, toastConfig);
         })
         .catch((error) => {
           console.dir(error);

@@ -11,7 +11,6 @@ import { Area, User } from '@typings/types';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-// import { Link, Redirect, Route } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useSWR from 'swr';
@@ -126,6 +125,19 @@ const Blooway = () => {
                 </button>
               )}
             </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={onClickInviteBlooway}
+                  className={`${
+                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  새 멤버 초대
+                </button>
+              )}
+            </Menu.Item>
+
             <div className='h-[1.5px] w-full px-4 my-1.5 bg-slate-200'></div>
             {userData?.Blooways.map((blooway) => {
               return (
@@ -150,19 +162,7 @@ const Blooway = () => {
             </span>
           )}
         </div>
-        <DropMenu menuTitle='블루웨이 옵션' chevron={true} direction='right'>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                onClick={onClickInviteBlooway}
-                className={`${
-                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              >
-                새 멤버 초대
-              </button>
-            )}
-          </Menu.Item>
+        <DropMenu menuTitle='에리어 설정' chevron={true} direction='right'>
           <Menu.Item>
             {({ active }) => (
               <button
@@ -256,6 +256,7 @@ const Blooway = () => {
         onCloseModal={onCloseModal}
         setShowInviteBloowayModal={setShowInviteBloowayModal}
       />
+
       <ToastContainer position='bottom-center' />
     </div>
   );

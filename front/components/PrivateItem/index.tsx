@@ -35,7 +35,6 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
       activeClassName='text-amber-500 font-semibold'
       to={`/blooway/${blooway}/private/${member.id}`}
     >
-      {/* <span>인디케이터 {isOnline ? 'on' : 'off'}</span> */}
       <div className='relative'>
         <Avvvatars size={24} shadow={true} style='shape' value={member.email} />
         <div
