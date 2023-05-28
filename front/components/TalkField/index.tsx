@@ -49,7 +49,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
         </div>
       </div>
 
-      <p className='whitespace-pre-wrap ml-10 text-sm'>{result}</p>
+      <p className='break-words whitespace-pre-line ml-10 text-sm'>{result}</p>
     </div>
   );
 });

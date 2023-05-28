@@ -75,9 +75,9 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           onChange={onChangeTalk}
           onKeyPress={onKeydownTalk}
           placeholder={placeholder}
-          // inputRef={textareaRef}
           wrap='hard'
           forceSuggestionsAboveCursor
+          // inputRef={textareaRef}
         >
           <Mention
             appendSpaceOnAdd
