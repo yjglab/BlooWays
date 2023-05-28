@@ -180,9 +180,9 @@ const Blooway = () => {
           </Menu.Item>
         </DropMenu>
       </div>
-      <div id='blooway-side-splitter' className='flex w-full h-[90vh]'>
+      <div id='blooway-side-splitter' className='flex w-full h-full'>
         <SideBar />
-        <div className='flex w-full pb-14'>
+        <div className='flex w-4/5'>
           <Switch>
             <Route path='/blooway/:blooway/area/:area' component={AreaPage} />
             <Route path='/blooway/:blooway/private/:id' component={PrivatePage} />

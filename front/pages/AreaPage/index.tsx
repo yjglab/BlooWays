@@ -183,7 +183,11 @@ const AreaPage = () => {
   const talkSections = makeSection(talkData ? ([] as Talk[]).concat(...talkData).reverse() : []);
 
   return (
-    <div className='flex flex-col w-full h-full relative ' onDrop={onDrop} onDragOver={onDragOver}>
+    <div
+      className='flex flex-col overflow-x-hidden w-full h-full relative '
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+    >
       {/* <button
         onClick={onClickInviteArea}
         type='button'

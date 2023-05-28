@@ -38,7 +38,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   );
 
   return (
-    <div className='my-1 pt-1.5 pb-3.5 px-2 duration-200 rounded-lg hover:bg-slate-100 flex w-full flex-col'>
+    <div className='my-1 pt-1.5 pb-3.5 px-2 pr-6 duration-200 rounded-lg hover:bg-slate-100 flex w-full flex-col'>
       <div className='flex w-full justify-between items-center'>
         <div className='flex items-center'>
           <Avvvatars size={32} style='shape' value={user.email} />
@@ -49,7 +49,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
         </div>
       </div>
 
-      <p className='ml-10 text-sm'>{result}</p>
+      <p className='whitespace-pre-wrap ml-10 text-sm'>{result}</p>
     </div>
   );
 });

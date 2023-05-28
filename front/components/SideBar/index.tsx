@@ -14,7 +14,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
     setShowCta(false);
   }, []);
   return (
-    <div className='w-80 rounded-md'>
+    <div className='w-1/5 rounded-md'>
       <div className='overflow-y-auto w-full rounded-2xl bg-white p-2'>
         <Disclosure defaultOpen={true} as='div'>
           {({ open }) => (
@@ -85,12 +85,4 @@ const SideBar: FC<SideBarProps> = memo(() => {
   );
 });
 
-{
-  /* <div className='w-80 rounded-md  flex flex-col '>
-      <div className='overflow-y-auto h-screen'>
-        <AreaList />
-        <PrivateList />
-      </div>
-    </div> */
-}
 export default SideBar;

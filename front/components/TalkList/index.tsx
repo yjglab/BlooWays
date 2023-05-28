@@ -23,7 +23,7 @@ const TalkList: FC<TalkListProps> = ({ scrollbarRef, isDataEnd, isEmpty, talkSec
   );
 
   return (
-    <div id='talk-list' className='w-full h-[90%] flex'>
+    <div id='talk-list' className='w-full h-full flex'>
       <Scrollbars autoHide ref={scrollbarRef} onScrollFrame={onScroll}>
         {Object.entries(talkSections).map(([date, talks]) => {
           return (

@@ -1,8 +1,22 @@
 import { User } from '@typings/types';
-import autosize from 'autosize';
 import Avvvatars from 'avvvatars-react';
-import React, { FC, useCallback, useEffect, useRef } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
+import styled from 'styled-components';
+
+export const MentionsInputText = styled(MentionsInput)`
+  padding: 10px;
+
+  & textarea {
+    height: 80px;
+    padding: 9px 10px !important;
+    outline: none !important;
+    border-radius: 4px !important;
+    resize: none !important;
+    line-height: 22px;
+    border: none;
+  }
+`;
 
 interface TalkFormProps {
   onSubmitForm: (e: any) => void;
@@ -12,12 +26,12 @@ interface TalkFormProps {
   data?: User[];
 }
 const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeholder, data }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  useEffect(() => {
-    if (textareaRef.current) {
-      autosize(textareaRef.current);
-    }
-  }, []);
+  // const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // useEffect(() => {
+  //   if (textareaRef.current) {
+  //     autosize(textareaRef.current);
+  //   }
+  // }, []);
 
   const onKeydownTalk = useCallback(
     (e: any) => {
@@ -53,15 +67,16 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
   );
 
   return (
-    <div id='talk-form' className='fixed h-[10vh] bottom-0 flex w-full bg-red-200'>
-      <form className='w-full rounded-md border border-black' onSubmit={onSubmitForm}>
-        <MentionsInput
+    <div id='talk-form' className='w-full flex p-2 pt-0'>
+      <form onSubmit={onSubmitForm} className='w-full border rounded-md'>
+        <MentionsInputText
           id='talk'
           value={talk}
           onChange={onChangeTalk}
           onKeyPress={onKeydownTalk}
           placeholder={placeholder}
-          inputRef={textareaRef}
+          // inputRef={textareaRef}
+          wrap='hard'
           forceSuggestionsAboveCursor
         >
           <Mention
@@ -70,14 +85,10 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
             data={data?.map((v) => ({ id: v.id, display: v.username })) || []}
             renderSuggestion={renderUserSuggestion}
           />
-        </MentionsInput>
-        <div className='relative h-6 flex items-center rounded-b-md'>
-          <button
-            className={`absolute ${talk?.trim() ? '' : 'bg-emerald-400'}`}
-            type='submit'
-            disabled={!talk?.trim()}
-          >
-            <i className='c-icon c-icon--paperplane-filled' aria-hidden='true' />
+        </MentionsInputText>
+        <div className='flex relative items-center h-14'>
+          <button type='submit' className={`${talk?.trim() ? '' : 'bg-emerald-400'} absolute right-2 top-2`}>
+            Post comment
           </button>
         </div>
       </form>
