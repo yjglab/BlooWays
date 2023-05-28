@@ -203,7 +203,7 @@ const AreaPage = () => {
         onSubmitForm={onSubmitForm}
         talk={talk}
         onChangeTalk={onChangeTalk}
-        placeholder={`Message #${area}`}
+        placeholder={`#${area} 에리어에 토크하기..`}
         data={areaMembersData}
       />
       <InviteAreaModal

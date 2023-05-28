@@ -1,3 +1,4 @@
+import { RocketLaunchIcon } from '@heroicons/react/20/solid';
 import { User } from '@typings/types';
 import Avvvatars from 'avvvatars-react';
 import React, { FC, useCallback } from 'react';
@@ -11,10 +12,19 @@ export const MentionsInputText = styled(MentionsInput)`
     height: 80px;
     padding: 9px 10px !important;
     outline: none !important;
-    border-radius: 4px !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
     resize: none !important;
     line-height: 22px;
     border: none;
+    ::placeholder {
+      color: #b4b4b4;
+    }
+    &:focus {
+      border-color: #cccccc;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
   }
 `;
 
@@ -67,8 +77,8 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
   );
 
   return (
-    <div id='talk-form' className='w-full flex p-2 pt-0'>
-      <form onSubmit={onSubmitForm} className='w-full border rounded-md'>
+    <div id='talk-form' className='pb-5 w-full flex p-2 pt-0'>
+      <form onSubmit={onSubmitForm} className='w-full border rounded-lg'>
         <MentionsInputText
           id='talk'
           value={talk}
@@ -77,6 +87,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           placeholder={placeholder}
           wrap='hard'
           forceSuggestionsAboveCursor
+          className='h-20 text-sm md:text-base'
           // inputRef={textareaRef}
         >
           <Mention
@@ -86,9 +97,16 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
             renderSuggestion={renderUserSuggestion}
           />
         </MentionsInputText>
-        <div className='flex relative items-center h-14'>
-          <button type='submit' className={`${talk?.trim() ? '' : 'bg-emerald-400'} absolute right-2 top-2`}>
-            Post comment
+        <div className='flex relative items-center h-10 bg-slate-100'>
+          <button
+            type='submit'
+            className={`${
+              talk?.trim() && 'bg-amber-500 shadow '
+            } flex justify-center items-center p-1 rounded-md absolute right-2 top-2 duration-200`}
+          >
+            <RocketLaunchIcon
+              className={`${talk?.trim() ? 'hover:scale-105 text-white' : 'text-slate-300'}  w-5 `}
+            />
           </button>
         </div>
       </form>

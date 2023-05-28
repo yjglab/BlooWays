@@ -36,7 +36,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
               <Disclosure.Button className='flex w-full justify-between rounded-lg bg-slate-100 px-4 py-2 text-left text-sm font-medium  hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-amber-500 focus-visible:ring-opacity-75'>
                 <div className='flex items-center'>
                   <EyeSlashIcon className='w-5' />
-                  <span className='ml-1'>프라이빗 메시지</span>
+                  <span className='ml-1'>프라이빗 토크</span>
                 </div>
                 <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
               </Disclosure.Button>
