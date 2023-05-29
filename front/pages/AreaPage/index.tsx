@@ -8,12 +8,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useParams } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import TalkForm from '@components/TalkForm';
 import TalkList from '@components/TalkList';
-import InviteAreaModal from '@components/InviteAreaModal';
 
 const PAGE_SIZE = 20;
 const AreaPage = () => {
@@ -22,7 +21,6 @@ const AreaPage = () => {
   const { data: userData } = useSWR<User>('/api/users', ApiFetcher);
   const { data: areasData } = useSWR<Area[]>(`/api/blooways/${blooway}/areas`, ApiFetcher);
   const areaData = areasData?.find((v) => v.name === area);
-  const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
 
   const {
     data: talkData,
@@ -86,12 +84,6 @@ const AreaPage = () => {
     },
     [talk, blooway, area, areaData, userData, talkData, mutateTalk, setTalk],
   );
-  const onClickInviteArea = useCallback(() => {
-    setShowInviteAreaModal(true);
-  }, []);
-  const onCloseModal = useCallback(() => {
-    setShowInviteAreaModal(false);
-  }, []);
 
   const onMessage = useCallback(
     (data: Talk) => {
@@ -203,14 +195,10 @@ const AreaPage = () => {
         onSubmitForm={onSubmitForm}
         talk={talk}
         onChangeTalk={onChangeTalk}
-        placeholder={`#${area} 에리어에 토크하기..`}
+        placeholder={`#${area} 에리어에 토크하기`}
         data={areaMembersData}
       />
-      <InviteAreaModal
-        show={showInviteAreaModal}
-        onCloseModal={onCloseModal}
-        setShowInviteAreaModal={setShowInviteAreaModal}
-      />
+
       {/* <ToastContainer position='bottom-center' />
       {dragOver && (
         <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>

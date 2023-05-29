@@ -186,18 +186,6 @@ const NavBar: FC = () => {
                             </button>
                           )}
                         </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              onClick={onSignOut}
-                              className={`${
-                                active ? 'bg-amber-500 text-white' : 'text-gray-900'
-                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                            >
-                              로그아웃
-                            </button>
-                          )}
-                        </Menu.Item>
                       </DropMenu>
                     </button>
                   )}

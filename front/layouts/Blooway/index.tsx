@@ -165,7 +165,7 @@ const Blooway = () => {
             </span>
           )}
         </div>
-        <DropMenu menuTitle='에리어 설정' chevron={true} direction='right'>
+        {/* <DropMenu menuTitle='에리어 설정' chevron={true} direction='right'>
           <Menu.Item>
             {({ active }) => (
               <button
@@ -178,11 +178,11 @@ const Blooway = () => {
               </button>
             )}
           </Menu.Item>
-        </DropMenu>
+        </DropMenu> */}
       </div>
       <div id='blooway-side-splitter' className='flex w-full h-full'>
         <SideBar />
-        <div className='flex w-4/5'>
+        <div className='flex w-[75%]'>
           <Switch>
             <Route path='/blooway/:blooway/area/:area' component={AreaPage} />
             <Route path='/blooway/:blooway/private/:id' component={PrivatePage} />

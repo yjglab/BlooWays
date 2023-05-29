@@ -1,20 +1,30 @@
 import React, { FC, memo, useCallback, useState } from 'react';
 import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import { ChevronUpIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import PrivateList from '@components/PrivateList';
 import AreaList from '@components/AreaList';
 import { EyeSlashIcon, GlobeAsiaAustraliaIcon, MegaphoneIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
+import AddAreaModal from '@components/AddAreaModal';
 
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = memo(() => {
   const [showCta, setShowCta] = useState(true);
+  const [showAddAreaModal, setShowAddAreaModal] = useState(false);
+
   const onRemoveCta = useCallback(() => {
     setShowCta(false);
   }, []);
+  const onClickAddArea = useCallback(() => {
+    setShowAddAreaModal(true);
+  }, []);
+
+  const onCloseModal = useCallback(() => {
+    setShowAddAreaModal(false);
+  }, []);
   return (
-    <div className='w-1/5 rounded-md'>
+    <div className='w-[25%] rounded-md'>
       <div className='overflow-y-auto w-full rounded-2xl bg-white p-2'>
         <Disclosure defaultOpen={true} as='div'>
           {({ open }) => (
@@ -27,6 +37,12 @@ const SideBar: FC<SideBarProps> = memo(() => {
                 <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
               </Disclosure.Button>
               <AreaList />
+              <button type='button' onClick={onClickAddArea} className='px-4 py-1.5 text-sm'>
+                <div className={`hover:text-amber-500 flex items-center`}>
+                  <PlusCircleIcon className='stroke-2 w-5 mr-0.5' />
+                  에리어 추가
+                </div>
+              </button>
             </>
           )}
         </Disclosure>
@@ -81,6 +97,11 @@ const SideBar: FC<SideBarProps> = memo(() => {
           </div>
         )}
       </div>
+      <AddAreaModal
+        show={showAddAreaModal}
+        onCloseModal={onCloseModal}
+        setShowAddAreaModal={setShowAddAreaModal}
+      />
     </div>
   );
 });

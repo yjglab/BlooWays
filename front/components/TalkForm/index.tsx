@@ -1,7 +1,8 @@
-import { RocketLaunchIcon } from '@heroicons/react/20/solid';
+import InviteAreaModal from '@components/InviteAreaModal';
+import { RocketLaunchIcon, UserPlusIcon } from '@heroicons/react/20/solid';
 import { User } from '@typings/types';
 import Avvvatars from 'avvvatars-react';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
 import styled from 'styled-components';
 
@@ -42,6 +43,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
   //     autosize(textareaRef.current);
   //   }
   // }, []);
+  const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
 
   const onKeydownTalk = useCallback(
     (e: any) => {
@@ -67,14 +69,25 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
         return null;
       }
       return (
-        <button className={`${focus && 'bg-red-400 text-white'} p-2 flex border-none items-center w-full`}>
-          <Avvvatars size={32} style='shape' value={data[index].email} />
+        <button
+          className={`${
+            focus && 'bg-amber-500 text-white'
+          } gap-1 text-xs rounded-md px-1 relative bottom-1 py-1 flex border-none items-center w-full`}
+        >
+          <Avvvatars size={18} style='shape' value={data[index].email} />
           <span>{highlightedDisplay}</span>
         </button>
       );
     },
     [data],
   );
+
+  const onClickInviteArea = useCallback(() => {
+    setShowInviteAreaModal(true);
+  }, []);
+  const onCloseModal = useCallback(() => {
+    setShowInviteAreaModal(false);
+  }, []);
 
   return (
     <div id='talk-form' className='pb-5 w-full flex p-2 pt-0'>
@@ -97,12 +110,19 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
             renderSuggestion={renderUserSuggestion}
           />
         </MentionsInputText>
-        <div className='flex relative items-center h-10 bg-slate-100'>
+        <div className='flex justify-between relative items-center px-2 h-9 bg-slate-100'>
+          <button
+            type='button'
+            onClick={onClickInviteArea}
+            className='flex justify-center items-center p-1 rounded-md duration-200'
+          >
+            <UserPlusIcon className='text-slate-700 w-5' />
+          </button>
           <button
             type='submit'
             className={`${
               talk?.trim() && 'bg-amber-500 shadow '
-            } flex justify-center items-center p-1 rounded-md absolute right-2 top-2 duration-200`}
+            } flex justify-center items-center p-1 rounded-md  duration-200`}
           >
             <RocketLaunchIcon
               className={`${talk?.trim() ? 'hover:scale-105 text-white' : 'text-slate-300'}  w-5 `}
@@ -110,6 +130,11 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           </button>
         </div>
       </form>
+      <InviteAreaModal
+        show={showInviteAreaModal}
+        onCloseModal={onCloseModal}
+        setShowInviteAreaModal={setShowInviteAreaModal}
+      />
     </div>
   );
 };
