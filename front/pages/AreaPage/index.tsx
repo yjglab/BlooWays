@@ -176,10 +176,14 @@ const AreaPage = () => {
 
   return (
     <div
+      id='area-page'
       className='flex flex-col overflow-x-hidden w-full h-full relative '
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
+      <div className='md:hidden absolute top-2 overflow-hidden text-ellipsis max-w-[80px] left-1 text-sm z-10 rounded-md px-1.5 py-0.5 bg-amber-500 text-white'>
+        {area}
+      </div>
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}
@@ -191,7 +195,7 @@ const AreaPage = () => {
         onSubmitForm={onSubmitForm}
         talk={talk}
         onChangeTalk={onChangeTalk}
-        placeholder={`#${area} 에리어에 토크하기`}
+        placeholder={`${area} 에리어에 토크`}
         data={areaMembersData}
         inPage='area'
       />

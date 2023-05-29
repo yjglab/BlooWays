@@ -183,7 +183,7 @@ const PrivatePage: FC = () => {
         onSubmitForm={onSubmitForm}
         talk={talk}
         onChangeTalk={onChangeTalk}
-        placeholder={`Message ${userData.username}`}
+        placeholder={`${userData.username}에게 프라이빗 토크`}
         data={[]}
         inPage='private'
       />

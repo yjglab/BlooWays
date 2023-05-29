@@ -20,6 +20,7 @@ export const MentionsInputText = styled(MentionsInput)`
     border: none;
     ::placeholder {
       color: #b4b4b4;
+      font-size: 14px;
     }
     &:focus {
       border-color: #cccccc;

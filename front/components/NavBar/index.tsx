@@ -120,7 +120,8 @@ const NavBar: FC = () => {
       <header className='relative bg-white'>
         <nav aria-label='Top' className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className=' relative'>
-            <div className='flex w-full h-14 items-center relative'>
+            {/* height */}
+            <div className='flex w-full h-12 md:h-14 items-center relative'>
               {/* Logo */}
               <div className='flex ml-2'>
                 <Link className='flex items-center' to='/'>
