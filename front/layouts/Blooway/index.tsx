@@ -140,7 +140,7 @@ const Blooway = () => {
                 <button
                   onClick={onClickInviteBlooway}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                    active ? 'bg-amber-500 text-white' : 'text-slate-700'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   <span className='text-ellipsis overflow-hidden max-w-[70px]'>
@@ -157,7 +157,7 @@ const Blooway = () => {
                   type='button'
                   onClick={onClickAddArea}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                    active ? 'bg-amber-500 text-white' : 'text-slate-700'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   <span className='text-ellipsis overflow-hidden max-w-[70px]'>
@@ -173,7 +173,7 @@ const Blooway = () => {
                   type='button'
                   onClick={onClickCreateBlooway}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                    active ? 'bg-amber-500 text-white' : 'text-slate-700'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   새 블루웨이 생성
@@ -188,7 +188,7 @@ const Blooway = () => {
                     <Link
                       to={`/blooway/${blooway.link}/area/전체`}
                       className={`${
-                        active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                        active ? 'bg-amber-500 text-white' : 'text-slate-700'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       {blooway.name}
@@ -199,12 +199,12 @@ const Blooway = () => {
             })}
           </DropMenu>
           {userData?.username === blooway && (
-            <span className='ml-2 inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'>
+            <span className='ml-2 inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-500/10'>
               Base
             </span>
           )}
         </div>
-        <div className='flex md:hidden items-center gap-2.5'>
+        <div className='flex z-20 md:hidden items-center gap-2.5'>
           <DropMenu menuTitle='에리어' chevron={true} direction='right'>
             {areaData?.map((area) => {
               return (
@@ -252,7 +252,7 @@ const Blooway = () => {
               <input
                 id='bloowayName'
                 type='text'
-                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='30자 이내로 설정해주세요'
                 {...register('bloowayName', {
                   required: '사용자명은 필수 입력입니다',
@@ -272,7 +272,7 @@ const Blooway = () => {
               <input
                 id='bloowayLink'
                 type='text'
-                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-600 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-700 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='30자 이내로 설정해주세요'
                 {...register('bloowayLink', {
                   required: '사용자명은 필수 입력입니다',

@@ -73,7 +73,7 @@ const NavBar: FC = () => {
                 <div className='flex px-6 py-3  item-center justify-end'>
                   <button
                     type='button'
-                    className='-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400'
+                    className='-m-2 inline-flex items-center justify-center rounded-md p-2 text-slate-400'
                     onClick={() => setOpen(false)}
                   >
                     <span className='sr-only'>Close menu</span>
@@ -85,7 +85,7 @@ const NavBar: FC = () => {
                 <div className='space-y-6  px-4 py-6'>
                   {navigation.pages.map((page) => (
                     <div key={page.name} className='flow-root'>
-                      <Link to={page.href} className='-m-2 block p-2 font-medium text-gray-900'>
+                      <Link to={page.href} className='-m-2 block p-2 font-medium text-slate-700'>
                         {page.name}
                       </Link>
                     </div>
@@ -97,7 +97,7 @@ const NavBar: FC = () => {
                     <button onClick={onClose} type='button' className='text-left space-y-6 mt-3 px-4 py-3'>
                       <Link
                         to={`/blooway/${userData.username}/area/전체`}
-                        className='-m-2 block p-2 font-medium text-gray-900'
+                        className='-m-2 block p-2 font-medium text-slate-700'
                       >
                         나의 블루웨이
                       </Link>
@@ -109,12 +109,12 @@ const NavBar: FC = () => {
                 ) : (
                   <div className='space-y-6  px-4 py-6'>
                     <button onClick={onClose} className='flow-root text-left w-full'>
-                      <Link to='/signin' className='-m-2 block p-2 font-medium text-gray-900'>
+                      <Link to='/signin' className='-m-2 block p-2 font-medium text-slate-700'>
                         로그인
                       </Link>
                     </button>
                     <button onClick={onClose} className='flow-root text-left w-full'>
-                      <Link to='signup' className='-m-2 block p-2 font-medium text-gray-900'>
+                      <Link to='signup' className='-m-2 block p-2 font-medium text-slate-700'>
                         멤버가입
                       </Link>
                     </button>
@@ -166,7 +166,7 @@ const NavBar: FC = () => {
                     <Link
                       key={page.name}
                       to={page.href}
-                      className='flex items-center text-sm font-medium text-gray-700 hover:text-gray-800'
+                      className='flex items-center text-sm font-medium text-slate-700 hover:text-slate-700'
                     >
                       {page.name}
                     </Link>
@@ -175,7 +175,7 @@ const NavBar: FC = () => {
               </Popover.Group>
               <button
                 type='button'
-                className='rounded-md bg-white p-2 text-gray-400 md:hidden absolute right-0'
+                className='rounded-md bg-white p-2 text-slate-400 md:hidden absolute right-0'
                 onClick={() => setOpen(true)}
               >
                 <span className='sr-only'>Open menu</span>
@@ -184,11 +184,11 @@ const NavBar: FC = () => {
               <div className='ml-auto flex items-center'>
                 {!userData && (
                   <div className='hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-6'>
-                    <Link to='/signin' className='text-sm font-medium text-gray-700 hover:text-gray-800'>
+                    <Link to='/signin' className='text-sm font-medium text-slate-700 hover:text-slate-700'>
                       로그인
                     </Link>
-                    <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
-                    <Link to='/signup' className='text-sm font-medium text-gray-700 hover:text-gray-800'>
+                    <span className='h-6 w-px bg-slate-200' aria-hidden='true' />
+                    <Link to='/signup' className='text-sm font-medium text-slate-700 hover:text-slate-700'>
                       멤버가입
                     </Link>
                   </div>
@@ -196,7 +196,7 @@ const NavBar: FC = () => {
 
                 <div className='hidden md:ml-8 md:flex '>
                   {userData && (
-                    <div className=' z-40 flex items-center text-gray-700 hover:text-gray-800'>
+                    <div className=' z-40 flex items-center text-slate-700 hover:text-slate-700'>
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
                       <div className='w-2'></div>
                       <DropMenu menuTitle={userData.username} chevron={false} direction='right'>
@@ -206,7 +206,7 @@ const NavBar: FC = () => {
                               <button
                                 type='button'
                                 className={`${
-                                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                                  active ? 'bg-amber-500 text-white' : 'text-slate-700'
                                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                               >
                                 나의 블루웨이
@@ -219,7 +219,7 @@ const NavBar: FC = () => {
                             <button
                               onClick={onSignOut}
                               className={`${
-                                active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                                active ? 'bg-amber-500 text-white' : 'text-slate-700'
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
                               로그아웃

@@ -13,6 +13,7 @@ import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import TalkForm from '@components/TalkForm';
 import TalkList from '@components/TalkList';
+import { GlobeAsiaAustraliaIcon } from '@heroicons/react/20/solid';
 
 const PAGE_SIZE = 20;
 const AreaPage = () => {
@@ -181,8 +182,12 @@ const AreaPage = () => {
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      <div className='md:hidden absolute top-2 overflow-hidden text-ellipsis max-w-[80px] left-1 text-sm z-10 rounded-md px-1.5 py-0.5 bg-amber-500 text-white'>
-        {area}
+      <div
+        id='mobile-area-pointer'
+        className='flex items-center  absolute top-2 md:top-3 left-1 text-sm z-10 rounded-md px-1.5 py-0.5 bg-amber-500 text-white'
+      >
+        <GlobeAsiaAustraliaIcon className='w-4 mr-0.5' />
+        <span className='max-w-[65px] md:max-w-[150px] text-ellipsis overflow-hidden'>{area}</span>
       </div>
       <TalkList
         scrollbarRef={scrollbarRef}

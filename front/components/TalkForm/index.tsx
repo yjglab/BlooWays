@@ -119,7 +119,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
               onClick={onClickInviteArea}
               className='flex justify-center items-center p-1 rounded-md duration-200'
             >
-              <UserPlusIcon className='text-slate-700 w-5' />
+              <UserPlusIcon className='text-slate-700 hover:text-amber-500 w-5' />
             </button>
           )}
           {inPage === 'private' && (

@@ -46,9 +46,9 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
           to={`/blooway/${blooway}/private/${user.id}`}
         >
           <Avvvatars size={32} style='shape' value={user.email} />
-          <div className='ml-2 text-md font-semibold text-gray-900'>{user.username}</div>
+          <div className='ml-2 text-md font-semibold text-slate-700'>{user.username}</div>
         </NavLink>
-        <div className='flex items-center mt-1 text-xs leading-5 text-slate-500'>
+        <div className='flex items-center mt-1 text-xs leading-5 text-slate-400'>
           <span>{dayjs(data.createdAt).format('A h:mm')}</span>
         </div>
       </div>

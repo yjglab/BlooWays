@@ -12,6 +12,7 @@ import makeSection from '@functions/makeSection';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
+import { EyeSlashIcon } from '@heroicons/react/20/solid';
 
 const PAGE_SIZE = 20;
 const PrivatePage: FC = () => {
@@ -167,10 +168,15 @@ const PrivatePage: FC = () => {
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      {/* <div className='h-8 flex w-full p-4 items-center'>
-        <Avvvatars size={32} style='shape' value={userData.email} />
-        <span>{userData.username}</span>
-      </div> */}
+      <div
+        id='mobile-private-pointer'
+        className='flex items-center absolute top-2 md:top-3 left-1 text-sm z-10 rounded-md px-1.5 py-0.5 bg-amber-500 text-white'
+      >
+        <EyeSlashIcon className='w-4 mr-0.5' />
+        <span className='max-w-[65px] md:max-w-[150px] text-ellipsis overflow-hidden'>
+          {userData.username}
+        </span>
+      </div>
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}

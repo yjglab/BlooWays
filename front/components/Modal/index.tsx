@@ -41,7 +41,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-slate-900 bg-opacity-25 ' />
+          <div className='fixed inset-0 bg-slate-700 bg-opacity-25 ' />
         </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
