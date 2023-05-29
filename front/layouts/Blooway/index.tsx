@@ -183,7 +183,7 @@ const Blooway = () => {
             <div className='h-[1.5px] w-full px-4 my-1.5 bg-slate-200'></div>
             {userData?.Blooways.map((blooway) => {
               return (
-                <Menu.Item>
+                <Menu.Item key={blooway.link}>
                   {({ active }) => (
                     <Link
                       to={`/blooway/${blooway.link}/area/전체`}
@@ -208,7 +208,7 @@ const Blooway = () => {
           <DropMenu menuTitle='에리어' chevron={true} direction='right'>
             {areaData?.map((area) => {
               return (
-                <Menu.Item>
+                <Menu.Item key={area.id}>
                   <button className=' group flex w-full items-center rounded-md px-2 py-2 text-sm'>
                     <AreaItem area={area} />
                   </button>
@@ -220,7 +220,7 @@ const Blooway = () => {
             {memberData?.map((member) => {
               const isOnline = onlineList.includes(member.id);
               return (
-                <Menu.Item>
+                <Menu.Item key={member.id}>
                   <button className=' group flex w-full items-center rounded-md px-2 py-2 text-sm'>
                     <PrivateItem member={member} isOnline={isOnline} />
                   </button>
