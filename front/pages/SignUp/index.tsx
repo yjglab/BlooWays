@@ -3,14 +3,13 @@ import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
-import { UserPlusIcon } from '@heroicons/react/20/solid';
+import { ArrowPathIcon, UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
-import { logoUrl, toastConfig } from '@functions/global';
-import { toast } from 'react-toastify';
+import { logoUrl } from '@functions/global';
 
 const SignUp = () => {
-  const { data: userData } = useSWR('/api/users', ApiFetcher);
+  const { data: userData, error } = useSWR('/api/users', ApiFetcher);
   const [signUpError, setSignUpError] = useState(false);
   const [signUpDone, setSignUpDone] = useState(false);
   const [toggleTerm, setToggleTerm] = useState(false);
@@ -26,6 +25,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<SignUpValues>();
 
@@ -54,14 +54,16 @@ const SignUp = () => {
         .post('/api/users', { email, username, password })
         .then(() => {
           setSignUpDone(true);
-          toast.success(`멤버에 가입되셨습니다! 로그인 페이지로 이동해주세요.`, toastConfig);
+          setValue('email', '');
+          setValue('username', '');
+          setValue('password', '');
+          setValue('passwordCheck', '');
         })
         .catch((error) => {
-          console.log(error.response?.data);
-          setSignUpError(error.response?.data?.code === 403);
+          setError('email', { message: error.response?.data });
         });
     },
-    [setError],
+    [setError, setValue],
   );
   const onToggleTerms = useCallback(() => {
     setToggleTerm(!toggleTerm);
@@ -80,9 +82,11 @@ const SignUp = () => {
               <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
             </div>
             <h2 className='mt-6 text-center text-2xl font-bold  '>환영합니다</h2>
-            <p className='mt-2 text-center text-sm '>
-              <span className='font-medium  '>BlooWays에서 전세계 어디든지 Live Talk를 체험하세요.</span>
-            </p>
+            <div className='mt-2 text-center text-sm '>
+              <div className='text-center mx-auto w-[80%] font-medium  '>
+                BlooWays에서 전세계 어디서든 생생한 라이브 토크를 경험하세요.
+              </div>
+            </div>
           </div>
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
@@ -204,7 +208,12 @@ const SignUp = () => {
             )}
 
             <div>
-              <div className='h-6 flex justify-center text-orange-400 text-xs ' role='alert'>
+              <div
+                className={`${
+                  signUpDone ? 'text-emerald-500 font-medium' : 'text-orange-400'
+                } h-6 flex justify-center  text-xs`}
+                role='alert'
+              >
                 {errors.email
                   ? errors.email.message
                   : errors.username
@@ -218,7 +227,7 @@ const SignUp = () => {
                   : signUpError
                   ? '이미 존재하는 이메일입니다'
                   : signUpDone
-                  ? '회원가입 성공.'
+                  ? '멤버로 가입되었습니다. 로그인이 필요합니다.'
                   : null}
               </div>
 
@@ -233,12 +242,8 @@ const SignUp = () => {
                     aria-hidden='true'
                   />
                 </span>
-                {/* {signUpLoading ? (
-                  <ArrowPathIcon className='w-5 left-0 right-0 mx-auto animate-spin' />
-                ) : (
-                  '회원가입'
-                )} */}
-                회원가입
+                {!error && !userData && isSubmitting && <ArrowPathIcon className='w-5 mr-1 animate-spin' />}{' '}
+                가입하기
               </button>
             </div>
           </form>

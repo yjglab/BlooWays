@@ -1,5 +1,5 @@
 .env
 uploads/
 .vscode
-private
+blooways-private
 node_modules

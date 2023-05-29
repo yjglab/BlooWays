@@ -80,9 +80,9 @@ const Blooway = () => {
     setShowCreateBloowayModal(true);
   }, []);
 
-  // const onClickAddArea = useCallback(() => {
-  //   setShowAddAreaModal(true);
-  // }, []);
+  const onClickAddArea = useCallback(() => {
+    setShowAddAreaModal(true);
+  }, []);
 
   const onClickInviteBlooway = useCallback(() => {
     setShowInviteBloowayModal(true);
@@ -129,12 +129,44 @@ const Blooway = () => {
       className='pt-14 pb-2 h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'
     >
       <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
-        <div className='flex items-center'>
+        <div className='flex z-20 items-center'>
           <DropMenu
             menuTitle={userData?.Blooways.find((v) => v.link === blooway)?.name}
             chevron={true}
             direction='left'
           >
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={onClickInviteBlooway}
+                  className={`${
+                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  <span className='text-ellipsis overflow-hidden max-w-[70px]'>
+                    {userData?.Blooways.find((v) => v.link === blooway)?.name}
+                  </span>
+                  에 멤버 초대
+                </button>
+              )}
+            </Menu.Item>
+
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  type='button'
+                  onClick={onClickAddArea}
+                  className={`${
+                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  <span className='text-ellipsis overflow-hidden max-w-[70px]'>
+                    {userData?.Blooways.find((v) => v.link === blooway)?.name}
+                  </span>
+                  에 에리어 추가
+                </button>
+              )}
+            </Menu.Item>
             <Menu.Item>
               {({ active }) => (
                 <button
@@ -148,19 +180,6 @@ const Blooway = () => {
                 </button>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={onClickInviteBlooway}
-                  className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-gray-900'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  새 멤버 초대
-                </button>
-              )}
-            </Menu.Item>
-
             <div className='h-[1.5px] w-full px-4 my-1.5 bg-slate-200'></div>
             {userData?.Blooways.map((blooway) => {
               return (
@@ -197,7 +216,7 @@ const Blooway = () => {
               );
             })}
           </DropMenu>
-          <DropMenu menuTitle='프라이빗' chevron={true} direction='right'>
+          <DropMenu menuTitle='프라이빗 토크' chevron={true} direction='right'>
             {memberData?.map((member) => {
               const isOnline = onlineList.includes(member.id);
               return (

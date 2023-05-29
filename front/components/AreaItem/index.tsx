@@ -36,11 +36,11 @@ const AreaItem: FC<AreaItemProps> = ({ area }) => {
       <div
         className={`hover:text-amber-500 ${
           unreadCount !== undefined && unreadCount > 0 && 'font-semibold'
-        } flex items-center`}
+        } flex w-full items-center overflow-hidden text-ellipsis max-w-[120px]`}
       >
         {area.name}
       </div>
-      {unreadCount !== undefined && unreadCount > 0 && <span>{unreadCount}</span>}
+      {unreadCount !== undefined && unreadCount > 0 && <span id='unread-count'>{unreadCount}</span>}
     </NavLink>
   );
 };

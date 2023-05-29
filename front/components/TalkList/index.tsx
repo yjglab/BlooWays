@@ -1,7 +1,4 @@
-import DropMenu from '@components/DropMenu';
 import TalkField from '@components/TalkField';
-import { Menu } from '@headlessui/react';
-import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { Talk, Private } from '@typings/types';
 import React, { FC, RefObject, useCallback } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';

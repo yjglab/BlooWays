@@ -106,7 +106,7 @@ const AreaPage = () => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
             } else {
-              toast.success('새 메시지가 도착했습니다.', {
+              toast.success('새로운 내용이 있습니다.', {
                 onClick() {
                   scrollbarRef.current?.scrollToBottom();
                 },
@@ -200,12 +200,11 @@ const AreaPage = () => {
         inPage='area'
       />
 
-      {/* <ToastContainer position='bottom-center' />
       {dragOver && (
         <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>
           Upload
         </div>
-      )} */}
+      )}
     </div>
   );
 };

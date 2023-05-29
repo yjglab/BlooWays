@@ -12,7 +12,6 @@ import makeSection from '@functions/makeSection';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
-import Avvvatars from 'avvvatars-react';
 
 const PAGE_SIZE = 20;
 const PrivatePage: FC = () => {
@@ -97,7 +96,7 @@ const PrivatePage: FC = () => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
             } else {
-              toast.success('새 토크 확인', {
+              toast.success('새로운 내용이 있습니다.', {
                 onClick() {
                   scrollbarRef.current?.scrollToBottom();
                 },

@@ -4,7 +4,7 @@ import React, { FC, useCallback } from 'react';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { logoUrl } from '@functions/global';
+import { blooboltFullLogoUrl, logoUrl, yjglabLogoUrl } from '@functions/global';
 import useSWR from 'swr';
 import ApiFetcher from '@functions/ApiFetcher';
 import { User } from '@typings/types';
@@ -17,8 +17,8 @@ import { toast } from 'react-toastify';
 const navigation = {
   categories: [],
   pages: [
-    { name: '홈', href: '#' },
-    { name: '스토어', href: '#' },
+    { name: '홈', href: '/' },
+    { name: '버전 로그', href: '/version-log' },
   ],
 };
 
@@ -30,6 +30,7 @@ const NavBar: FC = () => {
       .post('/api/users/signout')
       .then(() => {
         revalidateUser();
+        setOpen(false);
       })
       .catch((error) => {
         console.dir(error);
@@ -37,11 +38,15 @@ const NavBar: FC = () => {
       });
   }, [revalidateUser]);
 
+  const onClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
-    <div id='navbar' className='fixed top-0 w-full z-40 bg-white shadow-lg shadow-slate-300/30'>
+    <div id='navbar' className='fixed top-0 w-full z-50 bg-white shadow-lg shadow-slate-300/30'>
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as='div' className='relative lg:hidden' onClose={setOpen}>
+        <Dialog as='div' className='relative md:hidden' onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter='transition-opacity ease-linear duration-300'
@@ -86,30 +91,53 @@ const NavBar: FC = () => {
                     </div>
                   ))}
                 </div>
-
-                <div className='space-y-6  px-4 py-6'>
-                  <div className='flow-root'>
-                    <Link to='/signin' className='-m-2 block p-2 font-medium text-gray-900'>
-                      로그인
-                    </Link>
+                <div className='h-[2px] w-full px-3 bg-slate-100'></div>
+                {userData ? (
+                  <>
+                    <button onClick={onClose} type='button' className='text-left space-y-6 mt-3 px-4 py-3'>
+                      <Link
+                        to={`/blooway/${userData.username}/area/전체`}
+                        className='-m-2 block p-2 font-medium text-gray-900'
+                      >
+                        나의 블루웨이
+                      </Link>
+                    </button>
+                    <button onClick={onSignOut} className='text-left space-y-6  px-4 py-3'>
+                      로그아웃
+                    </button>
+                  </>
+                ) : (
+                  <div className='space-y-6  px-4 py-6'>
+                    <button onClick={onClose} className='flow-root text-left w-full'>
+                      <Link to='/signin' className='-m-2 block p-2 font-medium text-gray-900'>
+                        로그인
+                      </Link>
+                    </button>
+                    <button onClick={onClose} className='flow-root text-left w-full'>
+                      <Link to='signup' className='-m-2 block p-2 font-medium text-gray-900'>
+                        멤버가입
+                      </Link>
+                    </button>
                   </div>
-                  <div className='flow-root'>
-                    <Link to='signup' className='-m-2 block p-2 font-medium text-gray-900'>
-                      멤버가입
-                    </Link>
+                )}
+                <div className='absolute bottom-5 mt-2 px-4 py-6 w-full'>
+                  <div className='flex w-36 items-center left-0 right-0 mx-auto'>
+                    <div className='w-7 h-7'>
+                      <img className='h-7 w-auto' src={logoUrl} />
+                    </div>
+                    <span className='text-[20px] font-bold ml-0.5 text-amber-500'>BlooWays</span>
                   </div>
-                </div>
-
-                <div className=' px-4 py-6'>
-                  <a href='#' className='-m-2 flex items-center p-2'>
-                    <img
-                      src='https://tailwindui.com/img/flags/flag-canada.svg'
-                      alt=''
-                      className='block h-auto w-5 flex-shrink-0'
-                    />
-                    <span className='ml-3 block text-base font-medium text-gray-900'>CAD</span>
-                    <span className='sr-only'>, change currency</span>
-                  </a>
+                  <p className='mt-4 text-center text-sm leading-6 text-slate-500'>
+                    © 2023 yjglab. All rights reserved.
+                  </p>
+                  <div className='gap-4 flex w-full mt-2 opacity-80 justify-center items-center left-0 right-0 mx-auto'>
+                    <a href='https://github.com/yjglab'>
+                      <img className='h-4 w-auto' src={yjglabLogoUrl} />{' '}
+                    </a>
+                    <a href='https://bloobolt.com'>
+                      <img className='h-5 w-auto' src={blooboltFullLogoUrl} />
+                    </a>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -118,21 +146,21 @@ const NavBar: FC = () => {
       </Transition.Root>
 
       <header className='relative bg-white'>
-        <nav aria-label='Top' className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className=' relative'>
+        <nav aria-label='Top' className='mx-auto max-w-7xl px-4 sm:px-6 md:px-8'>
+          <div className='relative'>
             {/* height */}
             <div className='flex w-full h-12 md:h-14 items-center relative'>
               {/* Logo */}
               <div className='flex ml-2'>
                 <Link className='flex items-center' to='/'>
                   <span className='sr-only'>BlooWays</span>
-                  <img className='h-8 w-auto' src={logoUrl} alt='' />
+                  <img className='h-7 w-auto' src={logoUrl} alt='' />
                   <span className='ml-0.5 text-amber-500 font-bold text-lg'>BlooWays</span>
                 </Link>
               </div>
 
               {/* Flyout menus */}
-              <Popover.Group className='hidden lg:ml-8 lg:block lg:self-stretch'>
+              <Popover.Group className='hidden md:ml-8 md:block md:self-stretch'>
                 <div className='flex h-full space-x-8'>
                   {navigation.pages.map((page) => (
                     <a
@@ -147,7 +175,7 @@ const NavBar: FC = () => {
               </Popover.Group>
               <button
                 type='button'
-                className='rounded-md bg-white p-2 text-gray-400 lg:hidden absolute right-0'
+                className='rounded-md bg-white p-2 text-gray-400 md:hidden absolute right-0'
                 onClick={() => setOpen(true)}
               >
                 <span className='sr-only'>Open menu</span>
@@ -155,7 +183,7 @@ const NavBar: FC = () => {
               </button>
               <div className='ml-auto flex items-center'>
                 {!userData && (
-                  <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
+                  <div className='hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-6'>
                     <Link to='/signin' className='text-sm font-medium text-gray-700 hover:text-gray-800'>
                       로그인
                     </Link>
@@ -166,7 +194,7 @@ const NavBar: FC = () => {
                   </div>
                 )}
 
-                <div className='hidden lg:ml-8 lg:flex '>
+                <div className='hidden md:ml-8 md:flex '>
                   {userData && (
                     <button
                       type='button'
@@ -175,6 +203,20 @@ const NavBar: FC = () => {
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
                       <div className='w-2'></div>
                       <DropMenu menuTitle={userData.username} chevron={false} direction='right'>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link to={`/blooway/${userData.username}/area/전체`}>
+                              <button
+                                type='button'
+                                className={`${
+                                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
+                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                              >
+                                나의 블루웨이
+                              </button>{' '}
+                            </Link>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button
