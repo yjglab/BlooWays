@@ -97,7 +97,7 @@ const PrivatePage: FC = () => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
             } else {
-              toast.success('새 메시지가 도착했습니다.', {
+              toast.success('새 토크 확인', {
                 onClick() {
                   scrollbarRef.current?.scrollToBottom();
                 },
@@ -163,11 +163,15 @@ const PrivatePage: FC = () => {
   const talkSections = makeSection(talkData ? ([] as Private[]).concat(...talkData).reverse() : []);
 
   return (
-    <div className='flex flex-wrap w-full h-screen flex-col relative' onDrop={onDrop} onDragOver={onDragOver}>
-      <div className='h-8 flex w-full p-4 items-center'>
+    <div
+      className='flex flex-col overflow-x-hidden w-full h-full relative '
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+    >
+      {/* <div className='h-8 flex w-full p-4 items-center'>
         <Avvvatars size={32} style='shape' value={userData.email} />
         <span>{userData.username}</span>
-      </div>
+      </div> */}
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}
@@ -181,6 +185,7 @@ const PrivatePage: FC = () => {
         onChangeTalk={onChangeTalk}
         placeholder={`Message ${userData.username}`}
         data={[]}
+        inPage='private'
       />
       {dragOver && (
         <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>

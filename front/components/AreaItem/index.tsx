@@ -29,6 +29,7 @@ const AreaItem: FC<AreaItemProps> = ({ area }) => {
   return (
     <NavLink
       key={area.name}
+      className='w-full'
       activeClassName='text-amber-500 font-semibold'
       to={`/blooway/${blooway}/area/${area.name}`}
     >

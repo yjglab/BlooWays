@@ -180,10 +180,6 @@ const AreaPage = () => {
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      {/* <button
-        onClick={onClickInviteArea}
-        type='button'
-      ></button> */}
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}
@@ -197,6 +193,7 @@ const AreaPage = () => {
         onChangeTalk={onChangeTalk}
         placeholder={`#${area} 에리어에 토크하기`}
         data={areaMembersData}
+        inPage='area'
       />
 
       {/* <ToastContainer position='bottom-center' />

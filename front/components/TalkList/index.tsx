@@ -33,7 +33,7 @@ const TalkList: FC<TalkListProps> = ({ scrollbarRef, isDataEnd, isEmpty, talkSec
             <section className={`section-${date}`} key={date}>
               <div
                 id='area-bar'
-                className='flex items-center justify-center flex-[1] w-full sticky top-[14px]'
+                className='flex items-center overflow-x-hidden justify-center flex-[1] w-full sticky top-[14px]'
               >
                 <div className='rounded-md bg-white border-slate-500/80 text-slate-500 border-[2px] text-xs font-medium px-2.5 py-0.5 '>
                   {date}

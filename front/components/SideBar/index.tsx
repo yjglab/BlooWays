@@ -24,7 +24,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
     setShowAddAreaModal(false);
   }, []);
   return (
-    <div className='w-[25%] rounded-md'>
+    <div className='hidden md:block w-[25%] rounded-md'>
       <div className='overflow-y-auto w-full rounded-2xl bg-white p-2'>
         <Disclosure defaultOpen={true} as='div'>
           {({ open }) => (

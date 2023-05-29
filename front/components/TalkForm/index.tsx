@@ -35,8 +35,9 @@ interface TalkFormProps {
   onChangeTalk: (e: any) => void;
   placeholder: string;
   data?: User[];
+  inPage: string;
 }
-const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeholder, data }) => {
+const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeholder, data, inPage }) => {
   // const textareaRef = useRef<HTMLTextAreaElement>(null);
   // useEffect(() => {
   //   if (textareaRef.current) {
@@ -90,7 +91,7 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
   }, []);
 
   return (
-    <div id='talk-form' className='pb-5 w-full flex p-2 pt-0'>
+    <div id='talk-form' className='pb-5 w-full flex pt-0'>
       <form onSubmit={onSubmitForm} className='w-full border rounded-lg'>
         <MentionsInputText
           id='talk'
@@ -111,13 +112,18 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           />
         </MentionsInputText>
         <div className='flex justify-between relative items-center px-2 h-9 bg-slate-100'>
-          <button
-            type='button'
-            onClick={onClickInviteArea}
-            className='flex justify-center items-center p-1 rounded-md duration-200'
-          >
-            <UserPlusIcon className='text-slate-700 w-5' />
-          </button>
+          {inPage === 'area' && (
+            <button
+              type='button'
+              onClick={onClickInviteArea}
+              className='flex justify-center items-center p-1 rounded-md duration-200'
+            >
+              <UserPlusIcon className='text-slate-700 w-5' />
+            </button>
+          )}
+          {inPage === 'private' && (
+            <div className='flex justify-center items-center p-1 text-slate-700 rounded-md duration-200'></div>
+          )}
           <button
             type='submit'
             className={`${
@@ -130,11 +136,13 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           </button>
         </div>
       </form>
-      <InviteAreaModal
-        show={showInviteAreaModal}
-        onCloseModal={onCloseModal}
-        setShowInviteAreaModal={setShowInviteAreaModal}
-      />
+      {inPage === 'area' && (
+        <InviteAreaModal
+          show={showInviteAreaModal}
+          onCloseModal={onCloseModal}
+          setShowInviteAreaModal={setShowInviteAreaModal}
+        />
+      )}
     </div>
   );
 };

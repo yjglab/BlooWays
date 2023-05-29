@@ -41,7 +41,7 @@ const PrivateList: FC = () => {
         {memberData?.map((member) => {
           const isOnline = onlineList.includes(member.id);
           return (
-            <Disclosure.Panel key={member.id} className='px-4 py-2 text-sm'>
+            <Disclosure.Panel key={member.id} className='px-4 py-1.5 text-sm'>
               <PrivateItem member={member} isOnline={isOnline} />
             </Disclosure.Panel>
           );

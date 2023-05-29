@@ -31,7 +31,7 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
   return (
     <NavLink
       key={member.id}
-      className='flex items-center'
+      className='flex items-center w-full'
       activeClassName='text-amber-500 font-semibold'
       to={`/blooway/${blooway}/private/${member.id}`}
     >

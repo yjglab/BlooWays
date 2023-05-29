@@ -7,7 +7,7 @@ import { Link, Redirect, Route, Switch } from 'react-router-dom';
 import useSocket from '@hooks/useSocket';
 import AreaPage from '@pages/AreaPage';
 import PrivatePage from '@pages/PrivatePage';
-import { Area, User } from '@typings/types';
+import { Area, User, UserWithOnline } from '@typings/types';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -18,6 +18,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Menu } from '@headlessui/react';
 import SideBar from '@components/SideBar';
 import { toastConfig } from '@functions/global';
+import AreaItem from '@components/AreaItem';
+import PrivateItem from '@components/PrivateItem';
 
 const Blooway = () => {
   const params = useParams<{ blooway?: string }>();
@@ -25,6 +27,12 @@ const Blooway = () => {
   const [socket, disconnectSocket] = useSocket(blooway);
   const { data: userData, mutate: revalidateUser } = useSWR<User | false>('/api/users', ApiFetcher);
   const { data: areaData } = useSWR<Area[]>(userData ? `/api/blooways/${blooway}/areas` : null, ApiFetcher);
+  const { data: memberData } = useSWR<UserWithOnline[]>(
+    userData ? `/api/blooways/${blooway}/members` : null,
+    ApiFetcher,
+  );
+  const [onlineList, setOnlineList] = useState<number[]>([]);
+
   const [showCreateBloowayModal, setShowCreateBloowayModal] = useState(false);
   const [showInviteBloowayModal, setShowInviteBloowayModal] = useState(false);
   const [showAddAreaModal, setShowAddAreaModal] = useState(false);
@@ -72,9 +80,9 @@ const Blooway = () => {
     setShowCreateBloowayModal(true);
   }, []);
 
-  const onClickAddArea = useCallback(() => {
-    setShowAddAreaModal(true);
-  }, []);
+  // const onClickAddArea = useCallback(() => {
+  //   setShowAddAreaModal(true);
+  // }, []);
 
   const onClickInviteBlooway = useCallback(() => {
     setShowInviteBloowayModal(true);
@@ -85,6 +93,18 @@ const Blooway = () => {
     setShowAddAreaModal(false);
     setShowInviteBloowayModal(false);
   }, []);
+
+  useEffect(() => {
+    socket?.on('onlineList', (data: number[]) => {
+      console.log('온라인리스트', data);
+      setOnlineList(data);
+    });
+    console.log('socket on private', socket?.hasListeners('private'), socket);
+    return () => {
+      console.log('socket off private', socket?.hasListeners('private'));
+      socket?.off('onlineList');
+    };
+  }, [socket]);
 
   useEffect(() => {
     return () => {
@@ -161,28 +181,39 @@ const Blooway = () => {
           </DropMenu>
           {userData?.username === blooway && (
             <span className='ml-2 inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'>
-              Default
+              Base
             </span>
           )}
         </div>
-        {/* <DropMenu menuTitle='에리어 설정' chevron={true} direction='right'>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                onClick={onClickAddArea}
-                className={`${
-                  active ? 'bg-amber-500 text-white' : 'text-gray-900'
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              >
-                새 에리어 생성
-              </button>
-            )}
-          </Menu.Item>
-        </DropMenu> */}
+        <div className='flex md:hidden items-center gap-2.5'>
+          <DropMenu menuTitle='에리어' chevron={true} direction='right'>
+            {areaData?.map((area) => {
+              return (
+                <Menu.Item>
+                  <button className=' group flex w-full items-center rounded-md px-2 py-2 text-sm'>
+                    <AreaItem area={area} />
+                  </button>
+                </Menu.Item>
+              );
+            })}
+          </DropMenu>
+          <DropMenu menuTitle='프라이빗' chevron={true} direction='right'>
+            {memberData?.map((member) => {
+              const isOnline = onlineList.includes(member.id);
+              return (
+                <Menu.Item>
+                  <button className=' group flex w-full items-center rounded-md px-2 py-2 text-sm'>
+                    <PrivateItem member={member} isOnline={isOnline} />
+                  </button>
+                </Menu.Item>
+              );
+            })}
+          </DropMenu>
+        </div>
       </div>
       <div id='blooway-side-splitter' className='flex w-full h-full'>
         <SideBar />
-        <div className='flex w-[75%]'>
+        <div className='flex w-full md:w-[75%]'>
           <Switch>
             <Route path='/blooway/:blooway/area/:area' component={AreaPage} />
             <Route path='/blooway/:blooway/private/:id' component={PrivatePage} />
