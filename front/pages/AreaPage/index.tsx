@@ -8,12 +8,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useParams } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import TalkForm from '@components/TalkForm';
 import TalkList from '@components/TalkList';
-import { GlobeAsiaAustraliaIcon } from '@heroicons/react/20/solid';
+import { ChatBubbleOvalLeftEllipsisIcon, GlobeAsiaAustraliaIcon } from '@heroicons/react/20/solid';
 
 const PAGE_SIZE = 20;
 const AreaPage = () => {
@@ -45,7 +44,7 @@ const AreaPage = () => {
     ApiFetcher,
   );
   const [talk, onChangeTalk, setTalk] = useInput('');
-
+  const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
   const [dragOver, setDragOver] = useState(false);
 
@@ -71,8 +70,8 @@ const AreaPage = () => {
         }, false).then(() => {
           localStorage.setItem(`${blooway}-${area}`, new Date().getTime().toString());
           setTalk('');
+          setTalkArrived(false);
           if (scrollbarRef.current) {
-            console.log('scrollToBottom!', scrollbarRef.current?.getValues());
             scrollbarRef.current.scrollToBottom();
           }
         });
@@ -103,16 +102,12 @@ const AreaPage = () => {
               scrollbarRef.current.getScrollHeight() <
               scrollbarRef.current.getClientHeight() + scrollbarRef.current.getScrollTop() + 150
             ) {
+              setTalkArrived(false);
               setTimeout(() => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
             } else {
-              toast.success('새로운 내용이 있습니다.', {
-                onClick() {
-                  scrollbarRef.current?.scrollToBottom();
-                },
-                closeOnClick: true,
-              });
+              setTalkArrived(true);
             }
           }
         });
@@ -138,9 +133,7 @@ const AreaPage = () => {
       console.log(e);
       const formData = new FormData();
       if (e.dataTransfer.items) {
-        // Use DataTransferItemList interface to access the file(s)
         for (let i = 0; i < e.dataTransfer.items.length; i++) {
-          // If dropped items aren't files, reject them
           console.log(e.dataTransfer.items[i]);
           if (e.dataTransfer.items[i].kind === 'file') {
             const file = e.dataTransfer.items[i].getAsFile();
@@ -149,7 +142,6 @@ const AreaPage = () => {
           }
         }
       } else {
-        // Use DataTransfer interface to access the file(s)
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
           console.log(e, '... file[' + i + '].name = ' + e.dataTransfer.files[i].name);
           formData.append('image', e.dataTransfer.files[i]);
@@ -163,6 +155,10 @@ const AreaPage = () => {
     [blooway, area],
   );
 
+  const onTalkArrivedConfirmed = useCallback(() => {
+    setTalkArrived(false);
+    scrollbarRef.current?.scrollToBottom();
+  }, []);
   const onDragOver = useCallback((e: any) => {
     e.preventDefault();
     console.log(e);
@@ -189,6 +185,23 @@ const AreaPage = () => {
         <GlobeAsiaAustraliaIcon className='w-4 mr-0.5' />
         <span className='max-w-[65px] md:max-w-[150px] text-ellipsis overflow-hidden'>{area}</span>
       </div>
+      {isEmpty && (
+        <div className='relative text-sm text-center w-full h-full flex items-center justify-center'>
+          내용이 없습니다
+          <br />
+          토크를 보내서 멤버들과 대화를 시작해보세요!
+        </div>
+      )}
+      {talkArrived && (
+        <button
+          type='button'
+          onClick={onTalkArrivedConfirmed}
+          className=' hover:bg-amber-600 absolute bottom-40 animate-bounce mx-auto z-10 left-0 right-0 px-2 py-0.5 w-[85px] flex items-center justify-center text-sm font-medium bg-amber-500 text-white rounded-md'
+        >
+          <ChatBubbleOvalLeftEllipsisIcon className=' w-4 mr-0.5' />새 토크
+        </button>
+      )}
+
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}

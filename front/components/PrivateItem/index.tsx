@@ -43,15 +43,18 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
           } absolute right-0 bottom-0 border border-white w-[9px] h-[9px] rounded-full`}
         ></div>
       </div>
-      <span
-        className={`hover:text-amber-500 ${
-          unreadCount && unreadCount > 0 && 'font-semibold'
-        } ml-1.5 overflow-hidden text-ellipsis max-w-[120px]`}
-      >
+      <span className='hover:text-amber-500 ml-1.5 overflow-hidden text-ellipsis max-w-[120px]'>
         {member.username}
       </span>
       {member.id === userData?.id && <span className='ml-0.5'>(나)</span>}
-      {(unreadCount && unreadCount > 0 && <span className='unreadCount'>{unreadCount}</span>) || null}
+      {unreadCount !== undefined && unreadCount > 0 && (
+        <div
+          id='unread-count'
+          className='bg-amber-500 text-white ml-1.5 rounded-full w-4 h-4 text-[6px] p-1 flex justify-center items-center'
+        >
+          {unreadCount}
+        </div>
+      )}
     </NavLink>
   );
 };

@@ -693,6 +693,7 @@ router.post(
       if (!area) {
         return res.status(404).send("존재하지 않는 에리어입니다.");
       }
+      console.log(req.body);
       const user = await User.findOne({
         where: { email: req.body.email },
         include: [

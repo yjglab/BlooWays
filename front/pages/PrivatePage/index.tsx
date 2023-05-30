@@ -9,10 +9,9 @@ import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useParams } from 'react-router';
 import makeSection from '@functions/makeSection';
-import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
-import { EyeSlashIcon } from '@heroicons/react/20/solid';
+import { ChatBubbleOvalLeftEllipsisIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 
 const PAGE_SIZE = 20;
 const PrivatePage: FC = () => {
@@ -38,6 +37,7 @@ const PrivatePage: FC = () => {
     },
   );
   const [talk, onChangeTalk, setTalk] = useInput('');
+  const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
   const [dragOver, setDragOver] = useState(false);
 
@@ -64,6 +64,7 @@ const PrivatePage: FC = () => {
         }, false).then(() => {
           localStorage.setItem(`${blooway}-${id}`, new Date().getTime().toString());
           setTalk('');
+          setTalkArrived(false);
           if (scrollbarRef.current) {
             console.log('scrollToBottom...', scrollbarRef.current?.getValues());
             scrollbarRef.current.scrollToBottom();
@@ -92,17 +93,12 @@ const PrivatePage: FC = () => {
               scrollbarRef.current.getScrollHeight() <
               scrollbarRef.current.getClientHeight() + scrollbarRef.current.getScrollTop() + 150
             ) {
-              console.log('scrollToBottom...', scrollbarRef.current?.getValues());
+              setTalkArrived(false);
               setTimeout(() => {
                 scrollbarRef.current?.scrollToBottom();
               }, 100);
             } else {
-              toast.success('새로운 내용이 있습니다.', {
-                onClick() {
-                  scrollbarRef.current?.scrollToBottom();
-                },
-                closeOnClick: true,
-              });
+              setTalkArrived(true);
             }
           }
         });
@@ -150,6 +146,10 @@ const PrivatePage: FC = () => {
     [blooway, id, mutateTalk],
   );
 
+  const onTalkArrivedConfirmed = useCallback(() => {
+    setTalkArrived(false);
+    scrollbarRef.current?.scrollToBottom();
+  }, []);
   const onDragOver = useCallback((e: any) => {
     e.preventDefault();
     console.log(e);
@@ -177,6 +177,22 @@ const PrivatePage: FC = () => {
           {userData.username}
         </span>
       </div>
+      {isEmpty && (
+        <div className='relative text-sm text-center w-full h-full flex items-center justify-center'>
+          내용이 없습니다
+          <br />
+          토크를 보내서 멤버와 대화를 시작해보세요!
+        </div>
+      )}
+      {talkArrived && (
+        <button
+          type='button'
+          onClick={onTalkArrivedConfirmed}
+          className=' hover:bg-amber-600 absolute bottom-40 animate-bounce mx-auto z-10 left-0 right-0 px-2 py-0.5 w-[85px] flex items-center justify-center text-sm font-medium bg-amber-500 text-white rounded-md'
+        >
+          <ChatBubbleOvalLeftEllipsisIcon className=' w-4 mr-0.5' />새 토크
+        </button>
+      )}
       <TalkList
         scrollbarRef={scrollbarRef}
         isDataEnd={isDataEnd}

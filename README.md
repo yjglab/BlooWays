@@ -10,9 +10,9 @@ BlooWays는 소켓을 이용한 실시간 라이브 토크 기능을 제공하�
 <div> 
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
-<img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=SWR&logoColor=white">
+<img src="https://img.shields.io/badge/SWR-000000?style=for-the-badge&logo=vercel&logoColor=white">
 <img src="https://img.shields.io/badge/Tailwindcss-06B6D4?style=for-the-badge&logo=Tailwindcss&logoColor=black">
-<img src="https://img.shields.io/badge/Styled-components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
+<img src="https://img.shields.io/badge/Styled--components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 </div>
 
 <div > 

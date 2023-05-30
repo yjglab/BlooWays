@@ -29,18 +29,21 @@ const AreaItem: FC<AreaItemProps> = ({ area }) => {
   return (
     <NavLink
       key={area.name}
-      className='w-full'
+      className='w-full flex items-center'
       activeClassName='text-amber-500 font-semibold'
       to={`/blooway/${blooway}/area/${area.name}`}
     >
-      <div
-        className={`hover:text-amber-500 ${
-          unreadCount !== undefined && unreadCount > 0 && 'font-semibold'
-        } flex w-full items-center overflow-hidden text-ellipsis max-w-[120px]`}
-      >
+      <div className='hover:text-amber-500  flex items-center overflow-hidden text-ellipsis max-w-[120px]'>
         {area.name}
       </div>
-      {unreadCount !== undefined && unreadCount > 0 && <span id='unread-count'>{unreadCount}</span>}
+      {unreadCount !== undefined && unreadCount > 0 && (
+        <div
+          id='unread-count'
+          className='bg-amber-500 text-white ml-1.5 rounded-full w-4 h-4 text-[6px] p-1 flex justify-center items-center'
+        >
+          {unreadCount}
+        </div>
+      )}
     </NavLink>
   );
 };
