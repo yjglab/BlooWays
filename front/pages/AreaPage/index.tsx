@@ -12,7 +12,8 @@ import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import TalkForm from '@components/TalkForm';
 import TalkList from '@components/TalkList';
-import { ChatBubbleOvalLeftEllipsisIcon, GlobeAsiaAustraliaIcon } from '@heroicons/react/20/solid';
+import { ChatBubbleOvalLeftEllipsisIcon, CubeIcon, UserPlusIcon } from '@heroicons/react/20/solid';
+import InviteAreaModal from '@components/InviteAreaModal';
 
 const PAGE_SIZE = 20;
 const AreaPage = () => {
@@ -47,7 +48,7 @@ const AreaPage = () => {
   const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
   const [dragOver, setDragOver] = useState(false);
-
+  const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
   const isEmpty = talkData?.[0]?.length === 0;
   const isDataEnd = isEmpty || (talkData && talkData[talkData.length - 1]?.length < PAGE_SIZE);
 
@@ -154,7 +155,9 @@ const AreaPage = () => {
     },
     [blooway, area],
   );
-
+  const onClickInviteArea = useCallback(() => {
+    setShowInviteAreaModal(true);
+  }, []);
   const onTalkArrivedConfirmed = useCallback(() => {
     setTalkArrived(false);
     scrollbarRef.current?.scrollToBottom();
@@ -164,7 +167,9 @@ const AreaPage = () => {
     console.log(e);
     setDragOver(true);
   }, []);
-
+  const onCloseModal = useCallback(() => {
+    setShowInviteAreaModal(false);
+  }, []);
   if (areasData && !areaData) {
     return <Redirect to={`/blooway/${blooway}/area/전체`} />;
   }
@@ -180,10 +185,20 @@ const AreaPage = () => {
     >
       <div
         id='mobile-area-pointer'
-        className='flex items-center  absolute top-2 md:top-3 left-1 text-sm z-10 rounded-md px-1.5 py-0.5 bg-amber-500 text-white'
+        className='flex items-center w-full justify-between absolute top-2 md:top-3 left-1 text-sm z-10'
       >
-        <GlobeAsiaAustraliaIcon className='w-4 mr-0.5' />
-        <span className='max-w-[65px] md:max-w-[150px] text-ellipsis overflow-hidden'>{area}</span>
+        <div className='flex items-center bg-amber-500 text-white px-1.5 py-0.5 rounded-md '>
+          <CubeIcon className='w-4 mr-0.5' />
+          <span className='max-w-[65px] md:max-w-[150px] text-ellipsis overflow-hidden'>{area}</span>
+        </div>
+        <button
+          onClick={onClickInviteArea}
+          type='button'
+          className='hover:bg-slate-900 flex items-center bg-slate-700 text-white px-1.5 relative right-2 py-0.5 rounded-md '
+        >
+          <UserPlusIcon className='w-4' />
+          <span className='max-w-[65px] md:max-w-[150px] ml-0.5 text-ellipsis overflow-hidden'>멤버</span>
+        </button>
       </div>
       {isEmpty && (
         <div className='relative text-sm text-center w-full h-full flex items-center justify-center'>
@@ -223,6 +238,11 @@ const AreaPage = () => {
           Upload
         </div>
       )}
+      <InviteAreaModal
+        show={showInviteAreaModal}
+        onCloseModal={onCloseModal}
+        setShowInviteAreaModal={setShowInviteAreaModal}
+      />
     </div>
   );
 };

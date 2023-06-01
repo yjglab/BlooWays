@@ -166,7 +166,7 @@ const NavBar: FC = () => {
                     <Link
                       key={page.name}
                       to={page.href}
-                      className='flex items-center text-sm font-medium text-slate-700 hover:text-slate-700'
+                      className='flex items-center text-sm font-medium text-slate-700 hover:text-slate-900'
                     >
                       {page.name}
                     </Link>
@@ -184,11 +184,11 @@ const NavBar: FC = () => {
               <div className='ml-auto flex items-center'>
                 {!userData && (
                   <div className='hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-6'>
-                    <Link to='/signin' className='text-sm font-medium text-slate-700 hover:text-slate-700'>
+                    <Link to='/signin' className='text-sm font-medium text-slate-700 hover:text-slate-900'>
                       로그인
                     </Link>
                     <span className='h-6 w-px bg-slate-200' aria-hidden='true' />
-                    <Link to='/signup' className='text-sm font-medium text-slate-700 hover:text-slate-700'>
+                    <Link to='/signup' className='text-sm font-medium text-slate-700 hover:text-slate-900'>
                       멤버가입
                     </Link>
                   </div>
@@ -196,7 +196,7 @@ const NavBar: FC = () => {
 
                 <div className='hidden md:ml-8 md:flex '>
                   {userData && (
-                    <div className=' z-40 flex items-center text-slate-700 hover:text-slate-700'>
+                    <div className=' z-40 flex items-center text-slate-700 hover:text-slate-900'>
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
                       <div className='w-2'></div>
                       <DropMenu menuTitle={userData.username} chevron={false} direction='right'>

@@ -3,7 +3,7 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import PrivateList from '@components/PrivateList';
 import AreaList from '@components/AreaList';
-import { EyeSlashIcon, GlobeAsiaAustraliaIcon, MegaphoneIcon } from '@heroicons/react/20/solid';
+import { CubeIcon, EyeSlashIcon, MegaphoneIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import AddAreaModal from '@components/AddAreaModal';
 
@@ -31,7 +31,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
             <>
               <Disclosure.Button className='flex w-full justify-between rounded-lg bg-slate-100 px-4 py-2 text-left text-sm font-medium  hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-amber-500 focus-visible:ring-opacity-75'>
                 <div className='flex items-center'>
-                  <GlobeAsiaAustraliaIcon className='w-5' />
+                  <CubeIcon className='w-5' />
                   <span className='ml-1'>에리어</span>
                 </div>
                 <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />

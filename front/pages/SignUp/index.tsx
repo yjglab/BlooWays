@@ -7,6 +7,7 @@ import { ArrowPathIcon, UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
 import { logoUrl } from '@functions/global';
+import Modal from '@components/Modal';
 
 const SignUp = () => {
   const { data: userData, error } = useSWR('/api/users', ApiFetcher);
@@ -194,17 +195,29 @@ const SignUp = () => {
             </div>
 
             {toggleTerm && (
-              <div className='group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
-                <div className='mx-auto max-w-2xl text-center relative top-14'>
-                  <h2 className='text-sm font-semibold leading-6 text-amber-500'>BlooWays</h2>
-                  <p className=' text-2xl font-bold tracking-tight  sm:text-2xl '>서비스 이용 약관</p>
-                  <p className='mt-1 text-sm leading-8 '>
-                    공정거래위원회 표준약관 제10023호 (2015. 6. 26. 개정)
-                  </p>
-                </div>
+              <Modal modalType={0} modalTitle='' show={true} onCloseModal={() => {}}>
+                <div className='bottom-6 group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
+                  <div className='mx-auto max-w-2xl text-center relative top-14'>
+                    <h2 className='text-sm font-semibold leading-6 text-amber-500'>BlooWays</h2>
+                    <p className=' text-2xl font-bold tracking-tight  sm:text-2xl '>서비스 이용 약관</p>
+                    <p className='mt-1 text-sm leading-6 '>
+                      공정거래위원회 표준약관 제10023호 <br />
+                      (2015. 6. 26. 개정)
+                    </p>
+                  </div>
 
-                <TermsContent />
-              </div>
+                  <TermsContent />
+                </div>
+                <div className='w-full h-8'>
+                  <button
+                    onClick={onToggleTerms}
+                    type='button'
+                    className='group mt-1.5 relative flex w-1/5 mx-auto justify-center rounded-md border border-transparent bg-amber-500 py-2 px-4 text-sm font-medium text-white hover:bg-amber-600'
+                  >
+                    확인
+                  </button>
+                </div>
+              </Modal>
             )}
 
             <div>

@@ -39,12 +39,6 @@ interface TalkFormProps {
   inPage: string;
 }
 const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeholder, data, inPage }) => {
-  // const textareaRef = useRef<HTMLTextAreaElement>(null);
-  // useEffect(() => {
-  //   if (textareaRef.current) {
-  //     autosize(textareaRef.current);
-  //   }
-  // }, []);
   const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
 
   const onKeydownTalk = useCallback(

@@ -96,25 +96,20 @@ const Blooway = () => {
 
   useEffect(() => {
     socket?.on('onlineList', (data: number[]) => {
-      console.log('온라인리스트', data);
       setOnlineList(data);
     });
-    console.log('socket on private', socket?.hasListeners('private'), socket);
     return () => {
-      console.log('socket off private', socket?.hasListeners('private'));
       socket?.off('onlineList');
     };
   }, [socket]);
 
   useEffect(() => {
     return () => {
-      console.info('disconnect socket', blooway);
       disconnectSocket();
     };
   }, [disconnectSocket, blooway]);
   useEffect(() => {
     if (areaData && userData) {
-      console.info('로그인시도', socket);
       socket?.emit('signin', { id: userData?.id, areas: areaData.map((v) => v.id) });
     }
   }, [socket, userData, areaData]);
