@@ -33,7 +33,7 @@ const Home = () => {
               </div>
               <div className='bg-white text-xs mt-12 sm:text-sm relative rounded-full py-1 px-3 leading-6  ring-1 ring-slate-700/10 hover:ring-slate-700/20'>
                 현재 버전은 0.0.0 Beta 입니다.{' '}
-                <Link to='/version-log'>
+                <Link to='/version-release'>
                   <span className='cursor-pointer font-semibold text-amber-500 hover:text-amber-600'>
                     <span className='absolute inset-0' aria-hidden='true' />
                     변경된 내용 알아보기 <span aria-hidden='true'>&rarr;</span>

@@ -18,7 +18,7 @@ const navigation = {
   categories: [],
   pages: [
     { name: '홈', href: '/' },
-    { name: '버전 로그', href: '/version-log' },
+    { name: '버전 릴리즈', href: '/version-release' },
   ],
 };
 

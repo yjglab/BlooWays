@@ -121,7 +121,7 @@ const Blooway = () => {
   return (
     <div
       id='blooway-layout'
-      className='pt-14 pb-2 h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'
+      className='overflow-hidden pt-14 pb-2 h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-700'
     >
       <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
         <div className='flex z-20 items-center'>
