@@ -65,7 +65,7 @@ const SideBar: FC<SideBarProps> = memo(() => {
             <div className='flex items-center mb-3'>
               <div className='bg-indigo-200 flex items-center text-sm font-semibold mr-2 px-2.5 py-0.5 rounded'>
                 <MegaphoneIcon className='w-4' />
-                <span className='ml-1'>Blooways Beta</span>
+                <span className='ml-1'>Blooways</span>
               </div>
               <button
                 type='button'

@@ -15,7 +15,7 @@ const getNoticeModalColor = (type: number | null) => {
     case 2:
       return 'text-red-600';
     default:
-      return 'text-slate-700';
+      return 'text-slate-800';
   }
 };
 
@@ -41,7 +41,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-slate-700 bg-opacity-25 ' />
+          <div className='fixed inset-0 bg-slate-800 bg-opacity-25 ' />
         </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>

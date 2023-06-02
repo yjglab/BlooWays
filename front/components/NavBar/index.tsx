@@ -85,7 +85,7 @@ const NavBar: FC = () => {
                 <div className='space-y-6  px-4 py-6'>
                   {navigation.pages.map((page) => (
                     <div key={page.name} className='flow-root'>
-                      <Link to={page.href} className='-m-2 block p-2 font-medium text-slate-700'>
+                      <Link to={page.href} className='-m-2 block p-2 font-medium text-slate-800'>
                         {page.name}
                       </Link>
                     </div>
@@ -97,7 +97,7 @@ const NavBar: FC = () => {
                     <button onClick={onClose} type='button' className='text-left space-y-6 mt-3 px-4 py-3'>
                       <Link
                         to={`/blooway/${userData.username}/area/전체`}
-                        className='-m-2 block p-2 font-medium text-slate-700'
+                        className='-m-2 block p-2 font-medium text-slate-800'
                       >
                         나의 블루웨이
                       </Link>
@@ -109,12 +109,12 @@ const NavBar: FC = () => {
                 ) : (
                   <div className='space-y-6  px-4 py-6'>
                     <button onClick={onClose} className='flow-root text-left w-full'>
-                      <Link to='/signin' className='-m-2 block p-2 font-medium text-slate-700'>
+                      <Link to='/signin' className='-m-2 block p-2 font-medium text-slate-800'>
                         로그인
                       </Link>
                     </button>
                     <button onClick={onClose} className='flow-root text-left w-full'>
-                      <Link to='signup' className='-m-2 block p-2 font-medium text-slate-700'>
+                      <Link to='signup' className='-m-2 block p-2 font-medium text-slate-800'>
                         멤버가입
                       </Link>
                     </button>
@@ -166,7 +166,7 @@ const NavBar: FC = () => {
                     <Link
                       key={page.name}
                       to={page.href}
-                      className='flex items-center text-sm font-medium text-slate-700 hover:text-slate-900'
+                      className='flex items-center text-sm font-medium text-slate-800 hover:text-slate-900'
                     >
                       {page.name}
                     </Link>
@@ -184,11 +184,11 @@ const NavBar: FC = () => {
               <div className='ml-auto flex items-center'>
                 {!userData && (
                   <div className='hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-6'>
-                    <Link to='/signin' className='text-sm font-medium text-slate-700 hover:text-slate-900'>
+                    <Link to='/signin' className='text-sm font-medium text-slate-800 hover:text-slate-900'>
                       로그인
                     </Link>
                     <span className='h-6 w-px bg-slate-200' aria-hidden='true' />
-                    <Link to='/signup' className='text-sm font-medium text-slate-700 hover:text-slate-900'>
+                    <Link to='/signup' className='text-sm font-medium text-slate-800 hover:text-slate-900'>
                       멤버가입
                     </Link>
                   </div>
@@ -196,7 +196,7 @@ const NavBar: FC = () => {
 
                 <div className='hidden md:ml-8 md:flex '>
                   {userData && (
-                    <div className=' z-40 flex items-center text-slate-700 hover:text-slate-900'>
+                    <div className=' z-40 flex items-center text-slate-800 hover:text-slate-900'>
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
                       <div className='w-2'></div>
                       <DropMenu menuTitle={userData.username} chevron={false} direction='right'>
@@ -206,7 +206,7 @@ const NavBar: FC = () => {
                               <button
                                 type='button'
                                 className={`${
-                                  active ? 'bg-amber-500 text-white' : 'text-slate-700'
+                                  active ? 'bg-amber-500 text-white' : 'text-slate-800'
                                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                               >
                                 나의 블루웨이
@@ -219,7 +219,7 @@ const NavBar: FC = () => {
                             <button
                               onClick={onSignOut}
                               className={`${
-                                active ? 'bg-amber-500 text-white' : 'text-slate-700'
+                                active ? 'bg-amber-500 text-white' : 'text-slate-800'
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
                               로그아웃

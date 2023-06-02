@@ -75,7 +75,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className='h-full text-slate-700'>
+    <div className='h-full text-slate-800'>
       <div className='flex h-full justify-center items-center  px-4 sm:px-6 lg:px-8 relative'>
         <div className='w-full max-w-md space-y-8 '>
           <div>

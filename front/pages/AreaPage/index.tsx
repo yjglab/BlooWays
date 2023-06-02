@@ -194,7 +194,7 @@ const AreaPage = () => {
         <button
           onClick={onClickInviteArea}
           type='button'
-          className='hover:bg-slate-900 flex items-center bg-slate-700 text-white px-1.5 relative right-2 py-0.5 rounded-md '
+          className='hover:bg-slate-900 flex items-center bg-slate-800 text-white px-1.5 relative right-2 py-0.5 rounded-md '
         >
           <UserPlusIcon className='w-4' />
           <span className='max-w-[65px] md:max-w-[150px] ml-0.5 text-ellipsis overflow-hidden'>멤버</span>

@@ -13,7 +13,7 @@ const DropMenu: FC<PropsWithChildren<DropMenuProps>> = ({ children, menuTitle, c
       <Menu as='div' className='relative inline-block text-left'>
         <div>
           <Menu.Button className='inline-flex w-full justify-center rounded-md  py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
-            <span className='text-slate-700 overflow-hidden text-ellipsis max-w-[100px]'>{menuTitle}</span>
+            <span className='text-slate-800 overflow-hidden text-ellipsis max-w-[100px]'>{menuTitle}</span>
             {chevron && (
               <ChevronDownIcon
                 className='ml-0.5 -mr-1 h-5 w-5 text-amber-500 hover:text-amber-600'
