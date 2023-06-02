@@ -3,3 +3,4 @@ uploads/
 .vscode
 blooways-private
 node_modules
+dist

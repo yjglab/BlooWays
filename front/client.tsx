@@ -3,7 +3,6 @@ import 'core-js/stable';
 import './styles/globals.css';
 import React from 'react';
 import App from './layouts/App';
-// import CreateDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 
