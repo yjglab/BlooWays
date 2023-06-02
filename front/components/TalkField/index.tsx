@@ -17,11 +17,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   const result = useMemo<(string | JSX.Element)[] | JSX.Element>(
     () =>
       data.content.startsWith('uploads\\') || data.content.startsWith('uploads/') ? (
-        <img
-          id='image'
-          src={`${backUrl}/${data.content}`}
-          className={`${showCarousel ? 'w-full h-auto shadow-lg shadow-slate-800/30' : 'max-h-52'}`}
-        />
+        <img id='image' src={`${backUrl}/${data.content}`} className='max-h-52' />
       ) : (
         regexifyString({
           pattern: /@\[(.+?)]\((\d+?)\)|\n/g,
@@ -39,7 +35,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
           input: data.content,
         })
       ),
-    [blooway, data.content, showCarousel],
+    [blooway, data.content],
   );
   const onShowCarousel = useCallback((e: any) => {
     if (e.target.id === 'image') {
@@ -71,7 +67,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
       {showCarousel && (
         <div
           onClick={onCloseCarousel}
-          className='p-3 z-40 bg-slate-800/70  fixed w-full h-full top-0 left-0 flex items-center'
+          className='p-3 z-40 bg-slate-800/70  fixed w-full h-full top-0 left-0 flex items-center [&>img]:w-full [&>img]:h-auto [&>img]:shadow-lg [&>img]:shadow-slate-800/80 [&>img]:max-h-full'
         >
           {result}
         </div>
