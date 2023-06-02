@@ -25,11 +25,12 @@ const Home = () => {
                     멤버 가입하기
                   </span>
                 </Link>
-                <Link to='/guide'>
+                <a href='https://github.com/yjglab/BlooWays' target='_blank' rel='noreferrer'>
                   <span className='cursor-pointer text-sm font-semibold leading-6 '>
-                    사용자 가이드<span aria-hidden='true'>→</span>
+                    GitHub 가이드
+                    <span aria-hidden='true'>→</span>
                   </span>
-                </Link>
+                </a>
               </div>
               <div className='bg-white text-xs mt-12 sm:text-sm relative rounded-full py-1 px-3 leading-6  ring-1 ring-slate-800/10 hover:ring-slate-800/20'>
                 현재 버전은 0.0.0 Beta 입니다.{' '}

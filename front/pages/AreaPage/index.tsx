@@ -47,7 +47,8 @@ const AreaPage = () => {
   const [talk, onChangeTalk, setTalk] = useInput('');
   const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
-  const [dragOver, setDragOver] = useState(false);
+  const [, setDragOver] = useState(false);
+  const [, setImageUploaded] = useState(false);
   const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
   const isEmpty = talkData?.[0]?.length === 0;
   const isDataEnd = isEmpty || (talkData && talkData[talkData.length - 1]?.length < PAGE_SIZE);
@@ -131,26 +132,37 @@ const AreaPage = () => {
   const onDrop = useCallback(
     (e: any) => {
       e.preventDefault();
-      console.log(e);
       const formData = new FormData();
       if (e.dataTransfer.items) {
         for (let i = 0; i < e.dataTransfer.items.length; i++) {
-          console.log(e.dataTransfer.items[i]);
           if (e.dataTransfer.items[i].kind === 'file') {
             const file = e.dataTransfer.items[i].getAsFile();
-            console.log(e, '.... file[' + i + '].name = ' + file.name);
             formData.append('image', file);
           }
         }
       } else {
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-          console.log(e, '... file[' + i + '].name = ' + e.dataTransfer.files[i].name);
           formData.append('image', e.dataTransfer.files[i]);
         }
       }
       axios.post(`/api/blooways/${blooway}/areas/${area}/images`, formData).then(() => {
         setDragOver(false);
         localStorage.setItem(`${blooway}-${area}`, new Date().getTime().toString());
+      });
+    },
+    [blooway, area],
+  );
+  const onImageUpload = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      const formData = new FormData();
+      for (let i = 0; i < e.target.files.length; i++) {
+        formData.append('image', e.target.files[i]);
+      }
+      axios.post(`/api/blooways/${blooway}/areas/${area}/images`, formData).then(() => {
+        setImageUploaded(true);
+        localStorage.setItem(`${blooway}-${area}`, new Date().getTime().toString());
+        setImageUploaded(false);
       });
     },
     [blooway, area],
@@ -164,7 +176,6 @@ const AreaPage = () => {
   }, []);
   const onDragOver = useCallback((e: any) => {
     e.preventDefault();
-    console.log(e);
     setDragOver(true);
   }, []);
   const onCloseModal = useCallback(() => {
@@ -231,13 +242,9 @@ const AreaPage = () => {
         placeholder={`${area} 에리어에 토크`}
         data={areaMembersData}
         inPage='area'
+        onImageUpload={onImageUpload}
       />
 
-      {dragOver && (
-        <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>
-          Upload
-        </div>
-      )}
       <InviteAreaModal
         show={showInviteAreaModal}
         onCloseModal={onCloseModal}

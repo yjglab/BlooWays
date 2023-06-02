@@ -25,12 +25,11 @@ const PrivateList: FC = () => {
 
   useEffect(() => {
     socket?.on('onlineList', (data: number[]) => {
-      console.log('온라인리스트', data);
       setOnlineList(data);
     });
-    console.log('socket on private', socket?.hasListeners('private'), socket);
+    // console.log('socket on private', socket?.hasListeners('private'), socket);
     return () => {
-      console.log('socket off private', socket?.hasListeners('private'));
+      // console.log('socket off private', socket?.hasListeners('private'));
       socket?.off('onlineList');
     };
   }, [socket]);

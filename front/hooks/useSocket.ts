@@ -6,7 +6,7 @@ const sockets: { [key: string]: Socket } = {};
 const useSocket = (blooway?: string): [Socket | undefined, () => void] => {
   const disconnect = useCallback(() => {
     if (blooway && sockets[blooway]) {
-      console.log('💠 Socket Disconnected');
+      // console.log('💠 Socket Disconnected');
       sockets[blooway].disconnect();
       delete sockets[blooway];
     }
@@ -19,7 +19,7 @@ const useSocket = (blooway?: string): [Socket | undefined, () => void] => {
     sockets[blooway] = io(`${backUrl}/bw-${blooway}`, {
       transports: ['websocket'],
     });
-    console.info('새 소켓 생성', blooway, sockets[blooway]);
+    // console.info('새 소켓 생성', blooway, sockets[blooway]);
     sockets[blooway].on('connect_error', (error) => {
       console.error(error);
       console.log(`connect_error due to ${error.message}`);

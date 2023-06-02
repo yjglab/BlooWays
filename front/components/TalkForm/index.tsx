@@ -1,5 +1,5 @@
 import InviteAreaModal from '@components/InviteAreaModal';
-import { RocketLaunchIcon, UserPlusIcon } from '@heroicons/react/20/solid';
+import { PhotoIcon, RocketLaunchIcon, UserPlusIcon } from '@heroicons/react/20/solid';
 import { User } from '@typings/types';
 import Avvvatars from 'avvvatars-react';
 import React, { FC, useCallback, useState } from 'react';
@@ -37,8 +37,17 @@ interface TalkFormProps {
   placeholder: string;
   data?: User[];
   inPage: string;
+  onImageUpload: (e: any) => void;
 }
-const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeholder, data, inPage }) => {
+const TalkForm: FC<TalkFormProps> = ({
+  onSubmitForm,
+  talk,
+  onChangeTalk,
+  placeholder,
+  data,
+  inPage,
+  onImageUpload,
+}) => {
   const [showInviteAreaModal, setShowInviteAreaModal] = useState(false);
 
   const onKeydownTalk = useCallback(
@@ -97,7 +106,6 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           wrap='hard'
           forceSuggestionsAboveCursor
           className='h-20 text-sm md:text-base'
-          // inputRef={textareaRef}
         >
           <Mention
             appendSpaceOnAdd
@@ -107,18 +115,35 @@ const TalkForm: FC<TalkFormProps> = ({ onSubmitForm, talk, onChangeTalk, placeho
           />
         </MentionsInputText>
         <div className='flex justify-between relative items-center px-2 h-9 bg-slate-100'>
-          {inPage === 'area' && (
-            <button
-              type='button'
-              onClick={onClickInviteArea}
-              className='flex justify-center items-center p-1 rounded-md duration-200'
+          <div className='flex items-center'>
+            <label
+              htmlFor='image'
+              className='cursor-pointer hover:text-amber-500 flex h-9 w-9 items-center justify-center rounded-lg'
             >
-              <UserPlusIcon className='text-slate-800 hover:text-amber-500 w-5' />
-            </button>
-          )}
-          {inPage === 'private' && (
-            <div className='flex justify-center items-center p-1 text-slate-800 rounded-md duration-200'></div>
-          )}
+              <PhotoIcon className='h-6 w-6' aria-hidden='true' />
+            </label>
+            <input
+              id='image'
+              type='file'
+              multiple
+              accept='image/*'
+              className='sr-only'
+              onChange={onImageUpload}
+            />
+            {inPage === 'area' && (
+              <button
+                type='button'
+                onClick={onClickInviteArea}
+                className='flex justify-center items-center p-1 rounded-md duration-200'
+              >
+                <UserPlusIcon className='text-slate-800 hover:text-amber-500 w-5' />
+              </button>
+            )}
+            {inPage === 'private' && (
+              <div className='flex justify-center items-center p-1 text-slate-800 rounded-md duration-200'></div>
+            )}
+          </div>
+
           <button
             type='submit'
             className={`${

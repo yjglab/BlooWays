@@ -39,7 +39,7 @@ const PrivatePage: FC = () => {
   const [talk, onChangeTalk, setTalk] = useInput('');
   const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
-  const [dragOver, setDragOver] = useState(false);
+  const [, setDragOver] = useState(false);
 
   const isEmpty = talkData?.[0]?.length === 0;
   const isDataEnd = isEmpty || (talkData && talkData[talkData.length - 1]?.length < PAGE_SIZE);
@@ -66,7 +66,6 @@ const PrivatePage: FC = () => {
           setTalk('');
           setTalkArrived(false);
           if (scrollbarRef.current) {
-            console.log('scrollToBottom...', scrollbarRef.current?.getValues());
             scrollbarRef.current.scrollToBottom();
           }
         });
@@ -121,19 +120,18 @@ const PrivatePage: FC = () => {
   const onDrop = useCallback(
     (e: any) => {
       e.preventDefault();
-      console.log(e);
       const formData = new FormData();
       if (e.dataTransfer.items) {
         for (let i = 0; i < e.dataTransfer.items.length; i++) {
           if (e.dataTransfer.items[i].kind === 'file') {
             const file = e.dataTransfer.items[i].getAsFile();
-            console.log('... file[' + i + '].name = ' + file.name);
+            // console.log('... file[' + i + '].name = ' + file.name);
             formData.append('image', file);
           }
         }
       } else {
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-          console.log('... file[' + i + '].name = ' + e.dataTransfer.files[i].name);
+          // console.log('... file[' + i + '].name = ' + e.dataTransfer.files[i].name);
           formData.append('image', e.dataTransfer.files[i]);
         }
       }
@@ -145,14 +143,26 @@ const PrivatePage: FC = () => {
     },
     [blooway, id, mutateTalk],
   );
-
+  const onImageUpload = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      const formData = new FormData();
+      for (let i = 0; i < e.target.files.length; i++) {
+        formData.append('image', e.target.files[i]);
+      }
+      axios.post(`/api/blooways/${blooway}/privates/${id}/images`, formData).then(() => {
+        localStorage.setItem(`${blooway}-${id}`, new Date().getTime().toString());
+        mutateTalk();
+      });
+    },
+    [blooway, id, mutateTalk],
+  );
   const onTalkArrivedConfirmed = useCallback(() => {
     setTalkArrived(false);
     scrollbarRef.current?.scrollToBottom();
   }, []);
   const onDragOver = useCallback((e: any) => {
     e.preventDefault();
-    console.log(e);
     setDragOver(true);
   }, []);
 
@@ -207,12 +217,8 @@ const PrivatePage: FC = () => {
         placeholder={`${userData.username}에게 프라이빗 토크`}
         data={[]}
         inPage='private'
+        onImageUpload={onImageUpload}
       />
-      {dragOver && (
-        <div className='absolute top-5 left-0 w-full h-full bg-white opacity-60 flex items-center justify-center '>
-          Upload
-        </div>
-      )}
     </div>
   );
 };

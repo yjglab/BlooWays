@@ -44,7 +44,6 @@ const SignIn = () => {
     [mutate],
   );
 
-  console.log('apiError, userData', apiError, userData);
   if (!apiError && userData) {
     // signIn ok
     return <Redirect to={`/blooway/${userData.username}/area/전체`} />;
