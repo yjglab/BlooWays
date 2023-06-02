@@ -2,7 +2,7 @@ import { backUrl } from '@functions/global';
 import { Talk, Private, User } from '@typings/types';
 import Avvvatars from 'avvvatars-react';
 import dayjs from 'dayjs';
-import React, { FC, useMemo, memo } from 'react';
+import React, { FC, useMemo, memo, useCallback, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import regexifyString from 'regexify-string';
@@ -11,12 +11,17 @@ interface TalkFieldProps {
   data: Private | Talk;
 }
 const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
+  const [showCarousel, setShowCarousel] = useState(false);
   const { blooway } = useParams<{ blooway: string; area: string }>();
   const user: User = 'Sender' in data ? data.Sender : data.User;
   const result = useMemo<(string | JSX.Element)[] | JSX.Element>(
     () =>
       data.content.startsWith('uploads\\') || data.content.startsWith('uploads/') ? (
-        <img src={`${backUrl}/${data.content}`} style={{ maxHeight: 200 }} />
+        <img
+          id='image'
+          src={`${backUrl}/${data.content}`}
+          className={`${showCarousel ? 'w-full h-auto shadow-lg shadow-slate-800/30' : 'max-h-52'}`}
+        />
       ) : (
         regexifyString({
           pattern: /@\[(.+?)]\((\d+?)\)|\n/g,
@@ -34,9 +39,16 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
           input: data.content,
         })
       ),
-    [blooway, data.content],
+    [blooway, data.content, showCarousel],
   );
-
+  const onShowCarousel = useCallback((e: any) => {
+    if (e.target.id === 'image') {
+      setShowCarousel(true);
+    }
+  }, []);
+  const onCloseCarousel = useCallback(() => {
+    setShowCarousel(false);
+  }, []);
   return (
     <div className='my-1 pt-1.5 pb-3.5 px-2 pr-6 duration-200 rounded-lg hover:bg-slate-100 flex w-full flex-col'>
       <div className='flex w-full justify-between items-center'>
@@ -53,7 +65,17 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
         </div>
       </div>
 
-      <p className='break-words whitespace-pre-line ml-10 text-sm'>{result}</p>
+      <p onClick={onShowCarousel} className='break-words whitespace-pre-line ml-10 text-sm'>
+        {result}
+      </p>
+      {showCarousel && (
+        <div
+          onClick={onCloseCarousel}
+          className='p-3 z-40 bg-slate-800/70  fixed w-full h-full top-0 left-0 flex items-center'
+        >
+          {result}
+        </div>
+      )}
     </div>
   );
 });
