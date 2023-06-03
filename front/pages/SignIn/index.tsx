@@ -79,7 +79,7 @@ const SignIn = () => {
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
-            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 회원가입</div>
+            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 로그인</div>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
           <div>
@@ -125,9 +125,6 @@ const SignIn = () => {
             <input type='hidden' name='remember' defaultValue='true' />
             <div className='-space-y-px rounded-md '>
               <div>
-                <label htmlFor='email' className='sr-only'>
-                  Email address
-                </label>
                 <input
                   id='email'
                   type='text'
@@ -144,9 +141,6 @@ const SignIn = () => {
                 />
               </div>
               <div>
-                <label htmlFor='password' className='sr-only'>
-                  Password
-                </label>
                 <input
                   id='password'
                   type='password'

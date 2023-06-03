@@ -99,7 +99,7 @@ const SignUp = () => {
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
-            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 회원가입</div>
+            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 가입</div>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
           <div>
@@ -135,16 +135,15 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
+          <div className='w-full text-slate-400 flex relative top-3 justify-between h-0.5 items-center'>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
-            <div className=' text-xs w-full text-center'>일반 계정 회원가입</div>
+            <div className=' text-xs w-full text-center'>일반 계정 가입</div>
             <div className='w-full  bg-slate-200 h-[1.5px]' />
           </div>
           <form className='mt-8 space-y-2' onSubmit={handleSubmit(onSignUp)}>
             <input type='hidden' name='remember' defaultValue='true' />
             <div className='-space-y-px rounded-md '>
               <div>
-                <label htmlFor='email' className='sr-only' />
                 <input
                   id='email'
                   type='text'
@@ -152,7 +151,7 @@ const SignUp = () => {
                   className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('email', {
                     required: '이메일은 필수 입력입니다',
-                    maxLength: 100,
+                    maxLength: 30,
                     pattern: {
                       value:
                         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
@@ -162,12 +161,11 @@ const SignUp = () => {
                 />
               </div>
               <div>
-                <label htmlFor='username' className='sr-only' />
                 <input
                   id='username'
                   type='text'
                   className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
-                  placeholder='사용자명 (4~10자)'
+                  placeholder='사용자명 (4-16자)'
                   {...register('username', {
                     required: '사용자명은 필수 입력입니다',
                     minLength: {
@@ -175,30 +173,36 @@ const SignUp = () => {
                       message: '4자리 이상의 사용자명을 입력해주세요',
                     },
                     maxLength: {
-                      value: 10,
-                      message: '10자리 이하의 사용자명을 입력해주세요',
+                      value: 16,
+                      message: '16자리 이하의 사용자명을 입력해주세요',
                     },
                   })}
                 />
               </div>
               <div>
-                <label htmlFor='password' className='sr-only' />
                 <input
                   id='password'
                   type='password'
-                  placeholder='비밀번호 (영문/숫자/특수기호 조합 8자 이상)'
+                  placeholder='비밀번호 (영문/숫자/특수기호 조합 8-14자)'
                   className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
-                    // pattern: {
-                    //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                    //   message: '비밀번호는 영문, 숫자, 특수기호를 조합한 8자 이상이어야 합니다.',
-                    // },
+                    pattern: {
+                      value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                    },
+                    minLength: {
+                      value: 8,
+                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                    },
+                    maxLength: {
+                      value: 14,
+                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                    },
                   })}
                 />
               </div>
               <div className='relative flex items-center'>
-                <label htmlFor='passwordCheck' className='sr-only' />
                 <input
                   id='passwordCheck'
                   type='password'

@@ -6,7 +6,7 @@ module.exports = class Area extends Model {
     return super.init(
       {
         name: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.STRING(14),
           allowNull: false,
         },
         secret: {

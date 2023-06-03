@@ -669,7 +669,7 @@ router.get(
   }
 );
 
-// 특정 에리어에 새 멤버 생성
+// 특정 에리어에 새 멤버 초대
 router.post(
   "/blooways/:blooway/areas/:area/members",
   isSignIn,
@@ -711,7 +711,9 @@ router.post(
         ],
       });
       if (!user) {
-        return res.status(404).send("존재하지 않는 사용자입니다.");
+        return res
+          .status(404)
+          .send("해당 블루웨이에 속하지 않은 사용자입니다.");
       }
       await area.addMembers(user);
       return res.send("ok");

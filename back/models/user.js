@@ -11,11 +11,11 @@ module.exports = class User extends Model {
           unique: true,
         },
         username: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.STRING(16),
           allowNull: false,
         },
         password: {
-          type: DataTypes.STRING(100),
+          type: DataTypes.STRING(14),
           allowNull: false,
         },
         social: {

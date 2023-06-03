@@ -6,12 +6,12 @@ module.exports = class Blooway extends Model {
     return super.init(
       {
         name: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.STRING(14),
           allowNull: false,
           unique: true,
         },
         link: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.STRING(14),
           allowNull: false,
           unique: true,
         },

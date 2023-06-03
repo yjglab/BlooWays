@@ -17,7 +17,7 @@ module.exports = () => {
       async (accessToken, refreshToken, profile, done) => {
         try {
           const existedUser = await User.findOne({
-            where: { social: "social" || "google", socialId: profile.id },
+            where: { social: "google", socialId: profile.id },
           });
           if (existedUser) {
             done(null, existedUser);
@@ -26,7 +26,7 @@ module.exports = () => {
               email: profile.emails[0].value,
               username: `google_${Math.random().toString(36).slice(7)}`,
               password: "social",
-              social: "social",
+              social: "google",
               socialId: profile.id,
             });
             const baseBlooway = await Blooway.create({

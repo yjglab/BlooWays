@@ -14,7 +14,7 @@ module.exports = (passport) => {
         try {
           const existedUser = await User.findOne({
             where: {
-              social: "social" || "kakao",
+              social: "kakao",
               socialId: profile.id,
             },
           });
@@ -25,7 +25,7 @@ module.exports = (passport) => {
               email: profile._json.kakao_account.email,
               username: `kakao_${Math.random().toString(36).slice(7)}`,
               password: "social",
-              social: "social",
+              social: "kakao",
               socialId: profile.id,
             });
             const baseBlooway = await Blooway.create({

@@ -37,6 +37,9 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
       if (!areaName || !areaName.trim()) {
         return toast.error('에리어 이름을 입력해주세요.', toastConfig);
       }
+      if (areaName.length > 14) {
+        return toast.error('14자 이내의 에리어 이름을 입력해주세요.', toastConfig);
+      }
       axios
         .post(`/api/blooways/${blooway}/areas`, {
           name: areaName,
@@ -63,8 +66,10 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
             id='areaName'
             type='text'
             className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
-            placeholder='10자 이내로 설정해주세요'
-            {...register('areaName', {})}
+            placeholder='2-14자 이내로 설정해주세요'
+            {...register('areaName', {
+              minLength: 2,
+            })}
           />
         </div>
         <div className='flex justify-center'>

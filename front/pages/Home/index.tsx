@@ -1,8 +1,11 @@
+import ApiFetcher from '@functions/ApiFetcher';
 import { logoUrl } from '@functions/global';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useSWR from 'swr';
 
 const Home = () => {
+  const { data: userData } = useSWR('/api/users', ApiFetcher);
   return (
     <div className='text-slate-800 isolate bg-white min-h-screen'>
       <div className='min-h-screen relative flex items-center justify-center'>
@@ -17,11 +20,20 @@ const Home = () => {
                 BlooWays에서 전세계 어디서든 생생한 라이브 토크를 경험하세요.
               </p>
               <div className='mt-5 flex items-center justify-center gap-x-6'>
-                <Link to='/signup'>
-                  <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
-                    멤버 가입하기
-                  </span>
-                </Link>
+                {userData ? (
+                  <Link to={`/blooway/${userData?.username}/area/전체`}>
+                    <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                      나의 블루웨이
+                    </span>
+                  </Link>
+                ) : (
+                  <Link to='/signup'>
+                    <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                      멤버 가입하기
+                    </span>
+                  </Link>
+                )}
+
                 <a href='https://github.com/yjglab/BlooWays' target='_blank' rel='noreferrer'>
                   <span className='cursor-pointer text-sm font-semibold leading-6 '>
                     GitHub 가이드

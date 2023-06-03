@@ -28,7 +28,7 @@ const InviteBloowayModal: FC<Props> = ({ show, onCloseModal, setShowInviteBloowa
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<InviteMemberValues>();
   const onInviteMember: SubmitHandler<InviteMemberValues> = useCallback(
     (formData) => {
@@ -71,7 +71,10 @@ const InviteBloowayModal: FC<Props> = ({ show, onCloseModal, setShowInviteBloowa
             })}
           />
         </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center flex-col'>
+          <span className='text-xs mx-auto text-amber-500 mb-3'>
+            {errors.memberEmail && errors.memberEmail.message}
+          </span>
           <button
             disabled={isSubmitting}
             type='submit'

@@ -57,6 +57,12 @@ const Blooway = () => {
       if (!bloowayLink || !bloowayLink.trim()) {
         return toast.error('키워드 링크를 입력해주세요', toastConfig);
       }
+      if (bloowayName.length > 14) {
+        return toast.error('14자 이내의 블루웨이 이름을 입력해주세요.', toastConfig);
+      }
+      if (bloowayLink.length > 14) {
+        return toast.error('14자 이내의 블루웨이 링크를 입력해주세요.', toastConfig);
+      }
       axios
         .post('/api/blooways', {
           blooway: bloowayName,
@@ -248,17 +254,10 @@ const Blooway = () => {
                 id='bloowayName'
                 type='text'
                 className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
-                placeholder='30자 이내로 설정해주세요'
+                placeholder='2-14자 이내로 입력해주세요'
                 {...register('bloowayName', {
-                  required: '사용자명은 필수 입력입니다',
-                  minLength: {
-                    value: 4,
-                    message: '2자 이상의 블루웨이 이름을 입력해주세요',
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: '30자 이하의 블루웨이 이름을 입력해주세요',
-                  },
+                  minLength: 2,
+                  onChange: (e) => setValue('bloowayLink', e.target.value),
                 })}
               />
             </div>
@@ -268,17 +267,9 @@ const Blooway = () => {
                 id='bloowayLink'
                 type='text'
                 className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
-                placeholder='30자 이내로 설정해주세요'
+                placeholder='링크에 표시할 키워드입니다'
                 {...register('bloowayLink', {
-                  required: '사용자명은 필수 입력입니다',
-                  minLength: {
-                    value: 2,
-                    message: '2자 이상의 키워드를 입력해주세요',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: '30자 이내의 키워드를 입력해주세요',
-                  },
+                  minLength: 2,
                 })}
               />
             </div>
