@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { ArrowPathIcon, UserPlusIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import TermsContent from '@components/TermsContent';
-import { logoUrl } from '@functions/global';
+import { backUrl, logoUrl } from '@functions/global';
 import Modal from '@components/Modal';
 
 const SignUp = () => {
@@ -29,6 +29,13 @@ const SignUp = () => {
     setValue,
     formState: { isSubmitting, errors },
   } = useForm<SignUpValues>();
+
+  const onSignGoogle = useCallback(() => {
+    window.location.href = `${backUrl}/api/auth/google`;
+  }, []);
+  const onSignKakao = useCallback(() => {
+    window.location.href = `${backUrl}/api/auth/kakao`;
+  }, []);
 
   const onSignUp: SubmitHandler<SignUpValues> = useCallback(
     (formData) => {
@@ -84,9 +91,47 @@ const SignUp = () => {
             </div>
             <h2 className='mt-6 text-center text-2xl font-bold  '>환영합니다</h2>
             <div className='mt-2 text-center text-sm '>
-              <div className='text-center mx-auto w-[80%] font-medium  '>
+              <div className='text-center mx-auto w-[80%] md:w-full font-medium  '>
                 BlooWays에서 전세계 어디서든 생생한 라이브 토크를 경험하세요.
               </div>
+            </div>
+          </div>
+
+          <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
+            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 회원가입</div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
+          </div>
+          <div>
+            <div className='flex gap-2'>
+              <button
+                type='button'
+                onClick={onSignGoogle}
+                className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
+              >
+                <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                  <img
+                    alt=''
+                    className='w-5 grayscale'
+                    src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
+                  />
+                </span>
+                Google
+              </button>
+              <button
+                type='button'
+                onClick={onSignKakao}
+                className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
+              >
+                <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                  <img
+                    alt=''
+                    className='w-8 grayscale'
+                    src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
+                  />
+                </span>
+                Kakao
+              </button>
             </div>
           </div>
 
@@ -227,21 +272,23 @@ const SignUp = () => {
                 } h-6 flex justify-center  text-xs`}
                 role='alert'
               >
-                {errors.email
-                  ? errors.email.message
-                  : errors.username
-                  ? errors.username.message
-                  : errors.password
-                  ? errors.password.message
-                  : errors.passwordCheck
-                  ? errors.passwordCheck.message
-                  : errors.term
-                  ? errors.term.message
-                  : signUpError
-                  ? '이미 존재하는 이메일입니다'
-                  : signUpDone
-                  ? '멤버로 가입되었습니다. 로그인이 필요합니다.'
-                  : null}
+                {errors.email ? (
+                  errors.email.message
+                ) : errors.username ? (
+                  errors.username.message
+                ) : errors.password ? (
+                  errors.password.message
+                ) : errors.passwordCheck ? (
+                  errors.passwordCheck.message
+                ) : errors.term ? (
+                  errors.term.message
+                ) : signUpError ? (
+                  '이미 존재하는 이메일입니다'
+                ) : signUpDone ? (
+                  <Link to='/signin'>
+                    멤버로 가입되었습니다. 로그인 페이지로 이동<span aria-hidden='true'>&rarr;</span>
+                  </Link>
+                ) : null}
               </div>
 
               <button

@@ -793,7 +793,7 @@ router.get("/users", (req, res, next) => {
   return res.json(req.user || false);
 });
 
-// 새로운 계정 생성 (test 제거)
+// 새로운 계정 생성
 router.post("/users", isNotSignIn, async (req, res, next) => {
   try {
     const alreadyExisted = await User.findOne({
@@ -862,5 +862,38 @@ router.post("/users/signout", isSignIn, (req, res) => {
     res.send("ok");
   });
 });
+
+// 소셜 로그인/가입
+router.get("/auth/kakao", passport.authenticate("kakao"));
+router.get(
+  "/auth/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/signin",
+  }),
+  async (req, res) => {
+    if (process.env.NODE_ENV === "production") {
+      res.redirect("");
+    } else {
+      res.redirect("http://localhost:4090");
+    }
+  }
+);
+
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  async (req, res) => {
+    if (process.env.NODE_ENV === "production") {
+      res.redirect("https://bloobolt.com/square");
+    } else {
+      res.redirect("http://localhost:4040/square");
+    }
+  }
+);
 
 module.exports = router;
