@@ -849,7 +849,7 @@ router.post("/users/signin", isNotSignIn, (req, res, next) => {
       return res.status(200).json(
         await User.findOne({
           where: { id: user.id },
-          attributes: ["id", "username", "email"],
+          attributes: ["id", "username", "email", "social"],
         })
       );
     });
@@ -889,9 +889,9 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("https://bloobolt.com/square");
+      res.redirect("");
     } else {
-      res.redirect("http://localhost:4040/square");
+      res.redirect("http://localhost:4090");
     }
   }
 );

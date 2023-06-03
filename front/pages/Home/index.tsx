@@ -6,9 +6,6 @@ const Home = () => {
   return (
     <div className='text-slate-800 isolate bg-white min-h-screen'>
       <div className='min-h-screen relative flex items-center justify-center'>
-        {/* <div className='absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.amber.100),white)] opacity-20' />
-        <div className='absolute inset-y-0 right-[43%] -z-10 w-[200%]  skew-x-[-30deg] bg-white shadow-xl shadow-amber-600/10 ring-1 ring-amber-50 mr-16 origin-center' /> */}
-
         <div className='relative px-6 lg:px-8'>
           <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
             <div className='text-center flex flex-col items-center justify-center'>

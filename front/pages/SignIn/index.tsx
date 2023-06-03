@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { logoUrl } from '@functions/global';
+import { backUrl, logoUrl } from '@functions/global';
 
 const SignIn = () => {
   const { data: userData, error: apiError, mutate } = useSWR('/api/users', ApiFetcher);
@@ -44,6 +44,13 @@ const SignIn = () => {
     [mutate],
   );
 
+  const onSignGoogle = useCallback(() => {
+    window.location.href = `${backUrl}/api/auth/google`;
+  }, []);
+  const onSignKakao = useCallback(() => {
+    window.location.href = `${backUrl}/api/auth/kakao`;
+  }, []);
+
   if (!apiError && userData) {
     // signIn ok
     return <Redirect to={`/blooway/${userData.username}/area/전체`} />;
@@ -68,6 +75,44 @@ const SignIn = () => {
                 </span>
               </Link>
             </p>
+          </div>
+
+          <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
+            <div className='text-slate-400 text-xs w-full text-center'>소셜 계정 회원가입</div>
+            <div className='w-full  bg-slate-200 h-[1.5px]' />
+          </div>
+          <div>
+            <div className='flex gap-2'>
+              <button
+                type='button'
+                onClick={onSignGoogle}
+                className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
+              >
+                <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                  <img
+                    alt=''
+                    className='w-5 grayscale'
+                    src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
+                  />
+                </span>
+                Google
+              </button>
+              <button
+                type='button'
+                onClick={onSignKakao}
+                className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
+              >
+                <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                  <img
+                    alt=''
+                    className='w-8 grayscale'
+                    src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
+                  />
+                </span>
+                Kakao
+              </button>
+            </div>
           </div>
 
           <div className='w-full flex relative top-3 justify-between h-0.5 items-center'>
