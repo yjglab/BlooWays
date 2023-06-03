@@ -126,9 +126,15 @@ router.post("/blooways/:blooway/areas", isSignIn, async (req, res, next) => {
       await transaction.rollback();
       return res.status(404).send("존재하지 않는 블루웨이입니다.");
     }
+    if (blooway.BuilderId !== req.user.id) {
+      await transaction.rollback();
+      return res
+        .status(404)
+        .send("자신이 생성한 블루웨이에만 에리어를 추가할 수 있습니다.");
+    }
     if (blooway.Areas.find((v) => v.name === req.body.name)) {
       await transaction.rollback();
-      return res.status(404).send("이미 존재하는 에리어 네임입니다.");
+      return res.status(404).send("이미 존재하는 에리어 이름입니다.");
     }
     const area = await Area.create(
       {

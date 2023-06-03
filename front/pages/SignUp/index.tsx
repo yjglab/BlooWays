@@ -92,7 +92,7 @@ const SignUp = () => {
             <h2 className='mt-6 text-center text-2xl font-bold  '>환영합니다</h2>
             <div className='mt-2 text-center text-sm '>
               <div className='text-center mx-auto w-[80%] md:w-full font-medium  '>
-                BlooWays에서 전세계 어디서든 생생한 라이브 토크를 경험하세요.
+                BlooWays에서 전세계 어디서든 끊김없는 라이브 토크를 시작하세요.
               </div>
             </div>
           </div>

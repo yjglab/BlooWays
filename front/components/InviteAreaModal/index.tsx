@@ -43,6 +43,7 @@ const InviteAreaModal: FC<InviteAreaModalProps> = ({ show, onCloseModal, setShow
         .then(() => {
           revalidateMembers();
           setShowInviteAreaModal(false);
+          toast.success(`${memberEmail}님을 ${area} 에리어에 초대했습니다.`, toastConfig);
         })
         .catch((error) => {
           console.dir(error);

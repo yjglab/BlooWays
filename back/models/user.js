@@ -15,7 +15,7 @@ module.exports = class User extends Model {
           allowNull: false,
         },
         password: {
-          type: DataTypes.STRING(14),
+          type: DataTypes.STRING(100),
           allowNull: false,
         },
         social: {

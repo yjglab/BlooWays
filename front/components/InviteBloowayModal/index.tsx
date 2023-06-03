@@ -43,6 +43,7 @@ const InviteBloowayModal: FC<Props> = ({ show, onCloseModal, setShowInviteBloowa
         .then(() => {
           revalidateMember();
           setShowInviteBloowayModal(false);
+          toast.success(`${memberEmail}님을 ${blooway} 블루웨이에 초대했습니다.`, toastConfig);
         })
         .catch((error) => {
           console.dir(error);

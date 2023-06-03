@@ -191,7 +191,7 @@ const PrivatePage: FC = () => {
         <div className='relative text-sm text-center w-full h-full flex items-center justify-center'>
           내용이 없습니다
           <br />
-          토크를 보내서 멤버와 대화를 시작해보세요!
+          메시지를 보내서 멤버들과 토크를 시작해보세요!
         </div>
       )}
       {talkArrived && (

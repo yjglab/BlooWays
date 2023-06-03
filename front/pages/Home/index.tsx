@@ -17,7 +17,7 @@ const Home = () => {
                 <span className='text-5xl md:text-8xl text-amber-500 font-bold '>BlooWays</span>
               </div>
               <p className='mt-12 w-[80%] md:w-full text-sm sm:text-base font-medium md:text-lg leading-5 '>
-                BlooWays에서 전세계 어디서든 생생한 라이브 토크를 경험하세요.
+                BlooWays에서 전세계 어디서든 끊김없는 라이브 토크를 시작하세요.
               </p>
               <div className='mt-5 flex items-center justify-center gap-x-6'>
                 {userData ? (

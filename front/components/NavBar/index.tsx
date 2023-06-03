@@ -18,7 +18,7 @@ const navigation = {
   categories: [],
   pages: [
     { name: '홈', href: '/' },
-    { name: '버전 릴리즈', href: '/version-release' },
+    { name: '버전 정보', href: '/version-release' },
   ],
 };
 
@@ -84,7 +84,7 @@ const NavBar: FC = () => {
                 {/* Links */}
                 <div className='space-y-6  px-4 py-6'>
                   {navigation.pages.map((page) => (
-                    <div key={page.name} className='flow-root'>
+                    <div onClick={onClose} key={page.name} className='flow-root'>
                       <Link to={page.href} className='-m-2 block p-2 font-medium text-slate-800'>
                         {page.name}
                       </Link>
@@ -94,6 +94,7 @@ const NavBar: FC = () => {
                 <div className='h-[2px] w-full px-3 bg-slate-100'></div>
                 {userData ? (
                   <>
+                    <div className='text-left space-y-6 text-slate-400/80 px-4 pt-4'>{userData.email}</div>
                     <button onClick={onClose} type='button' className='text-left space-y-6 mt-3 px-4 py-3'>
                       <Link
                         to={`/blooway/${userData.username}/area/전체`}

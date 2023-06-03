@@ -205,6 +205,9 @@ const Blooway = () => {
             </span>
           )}
         </div>
+        <div className='md:flex  hidden items-center text-slate-500 text-sm font- font-normal'>
+          {userData?.email}
+        </div>
         <div className='flex z-20 md:hidden items-center gap-2.5'>
           <DropMenu menuTitle='에리어' chevron={true} direction='right'>
             {areaData?.map((area) => {
