@@ -8,7 +8,7 @@ import { render } from 'react-dom';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production' ? 'https://blooways.com' : 'http://localhost:4090';
+  process.env.NODE_ENV === 'production' ? 'https://blooway.web.app' : 'http://localhost:4090';
 
 render(
   <BrowserRouter>
