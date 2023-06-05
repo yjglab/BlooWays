@@ -117,17 +117,17 @@ const TalkForm: FC<TalkFormProps> = ({
         <div className='flex justify-between relative items-center px-2 h-9 bg-slate-100'>
           <div className='flex items-center'>
             <label
-              htmlFor='image'
+              htmlFor='imageUpload'
               className='cursor-pointer hover:text-amber-500 flex h-9 w-9 items-center justify-center rounded-lg'
             >
               <PhotoIcon className='h-6 w-6' aria-hidden='true' />
             </label>
             <input
-              id='image'
+              id='imageUpload'
               type='file'
               multiple
               accept='image/*'
-              className='sr-only'
+              className='hidden'
               onChange={onImageUpload}
             />
             {inPage === 'area' && (
