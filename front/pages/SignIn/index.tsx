@@ -91,8 +91,8 @@ const SignIn = () => {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
-                    alt=''
                     className='w-5 grayscale'
+                    crossOrigin='anonymous'
                     src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
                   />
                 </span>
@@ -105,8 +105,8 @@ const SignIn = () => {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
-                    alt=''
                     className='w-8 grayscale'
+                    crossOrigin='anonymous'
                     src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                   />
                 </span>

@@ -385,7 +385,10 @@ router.post(
         const talk = await AreaTalk.create({
           UserId: req.user.id,
           AreaId: area.id,
-          content: req.files[i].path,
+          content:
+            process.env.NODE_ENV === "production"
+              ? req.files[i].location
+              : req.files[i].path,
         });
         const talkWithUser = await AreaTalk.findOne({
           where: { id: talk.id },

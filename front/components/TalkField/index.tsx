@@ -16,8 +16,14 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
   const user: User = 'Sender' in data ? data.Sender : data.User;
   const result = useMemo<(string | JSX.Element)[] | JSX.Element>(
     () =>
-      data.content.startsWith('uploads\\') || data.content.startsWith('uploads/') ? (
-        <img id='image' src={`${backUrl}/${data.content}`} className='max-h-52' />
+      data.content.startsWith('uploads\\') ||
+      data.content.startsWith('uploads/') ||
+      data.content.startsWith('https://bloowaysbucket') ? (
+        <img
+          id='image'
+          src={process.env.NODE_ENV === 'production' ? `${data.content}` : `${backUrl + '/' + data.content}`}
+          className='max-h-52'
+        />
       ) : (
         regexifyString({
           pattern: /@\[(.+?)]\((\d+?)\)|\n/g,
