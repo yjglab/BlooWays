@@ -58,6 +58,19 @@ const config: Configuration = {
         test: /\.css?$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
+      // {
+      //   test: /\.(jpg|jpeg|gif|png|svg|ico)?$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 10000,
+      //         fallback: 'file-loader',
+      //         name: 'public/images/[name].[ext]',
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
   plugins: [
@@ -70,6 +83,7 @@ const config: Configuration = {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
     publicPath: '/dist/',
+    clean: true,
   },
   devServer: {
     historyApiFallback: true,

@@ -4,3 +4,6 @@ uploads/
 blooways-private
 node_modules
 dist
+blooways.cer
+tsconfig.tsbuildinfo
+tsconfig-for-webpack-config.json

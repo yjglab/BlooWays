@@ -10,7 +10,8 @@ const AreaTalk = require("../models/areaTalk");
 const Private = require("../models/private");
 const path = require("path");
 const fs = require("fs");
-
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const { isNotSignIn, isSignIn } = require("./middlewares");
@@ -323,16 +324,36 @@ try {
   console.error("mkdir uploads");
   fs.mkdirSync("uploads");
 }
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
+
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, "uploads/");
-    },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    },
-  }),
+  storage:
+    process.env.NODE_ENV === "production"
+      ? multerS3({
+          s3: new AWS.S3(),
+          bucket: "bloowaysbucket",
+          key(req, file, cb) {
+            cb(
+              null,
+              `original/${Date.now()}_${encodeURIComponent(
+                path.basename(file.originalname)
+              )}`
+            );
+          },
+        })
+      : multer.diskStorage({
+          destination(req, file, cb) {
+            cb(null, "uploads/");
+          },
+          filename(req, file, cb) {
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+          },
+        }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
@@ -880,7 +901,7 @@ router.get(
   }),
   async (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways1.web.app");
+      res.redirect("https://blooways.online");
     } else {
       res.redirect("http://localhost:4090");
     }
@@ -897,7 +918,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways1.web.app");
+      res.redirect("https://blooways.online");
     } else {
       res.redirect("http://localhost:4090");
     }
