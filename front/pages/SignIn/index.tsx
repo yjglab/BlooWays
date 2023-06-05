@@ -90,11 +90,7 @@ const SignIn = () => {
                 className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                  <img
-                    className='w-5 grayscale'
-                    crossOrigin='anonymous'
-                    src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
-                  />
+                  <img className='w-5 grayscale' src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg' />
                 </span>
                 Google
               </button>
@@ -106,7 +102,6 @@ const SignIn = () => {
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
                     className='w-8 grayscale'
-                    crossOrigin='anonymous'
                     src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                   />
                 </span>
