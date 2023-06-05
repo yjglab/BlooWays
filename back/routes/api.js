@@ -901,7 +901,7 @@ router.get(
   }),
   async (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways.online");
+      res.redirect("http://blooways.online");
     } else {
       res.redirect("http://localhost:4090");
     }
@@ -918,7 +918,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways.online");
+      res.redirect("http://blooways.online");
     } else {
       res.redirect("http://localhost:4090");
     }

@@ -3,7 +3,7 @@ uploads/
 .vscode
 blooways-private
 node_modules
-dist
+/front/dist
 blooways.cer
 tsconfig.tsbuildinfo
 tsconfig-for-webpack-config.json
