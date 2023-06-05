@@ -49,6 +49,7 @@ const sessionOption = {
   resave: false,
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
+  proxy: process.env.NODE_ENV === "production",
   cookie: {
     httpOnly: true,
   },
