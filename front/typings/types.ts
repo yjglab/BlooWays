@@ -2,6 +2,7 @@ export interface Blooway {
   id: number;
   name: string;
   link: string;
+  description: string;
   BuilderId: number;
 }
 

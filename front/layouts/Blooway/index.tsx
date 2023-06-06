@@ -39,6 +39,7 @@ const Blooway = () => {
     userData ? `/api/blooways/${blooway}/members` : null,
     ApiFetcher,
   );
+  console.log(userData);
   const [onlineList, setOnlineList] = useState<number[]>([]);
 
   const [showCreateBloowayModal, setShowCreateBloowayModal] = useState(false);
@@ -230,6 +231,9 @@ const Blooway = () => {
               Base
             </span>
           )}
+          <span className='hidden md:inline text-xs ml-3 text-slate-500'>
+            {userData?.Blooways.find((v) => v.link === blooway)?.description}
+          </span>
         </div>
         <div className='md:flex  hidden items-center text-slate-500 text-sm font- font-normal'>
           {userData?.email}

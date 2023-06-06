@@ -676,7 +676,7 @@ router.get(
         include: [
           {
             model: Area,
-            attributes: ["id", "name"],
+            attributes: ["id", "name", "description"],
           },
         ],
       });
