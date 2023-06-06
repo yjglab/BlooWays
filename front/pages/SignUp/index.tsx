@@ -152,7 +152,7 @@ const SignUp = () => {
                   id='email'
                   type='text'
                   placeholder='이메일 주소'
-                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('email', {
                     required: '이메일은 필수 입력입니다',
                     maxLength: 30,
@@ -168,7 +168,7 @@ const SignUp = () => {
                 <input
                   id='username'
                   type='text'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   placeholder='사용자명 (4-16자)'
                   {...register('username', {
                     required: '사용자명은 필수 입력입니다',
@@ -188,7 +188,7 @@ const SignUp = () => {
                   id='password'
                   type='password'
                   placeholder='비밀번호 (8-14자)'
-                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
                     // pattern: {
@@ -211,7 +211,7 @@ const SignUp = () => {
                   id='passwordCheck'
                   type='password'
                   placeholder='비밀번호 확인'
-                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full rounded-b-md appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('passwordCheck', {
                     required: '',
                   })}

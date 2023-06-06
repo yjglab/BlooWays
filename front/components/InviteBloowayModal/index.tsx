@@ -61,7 +61,7 @@ const InviteBloowayModal: FC<Props> = ({ show, onCloseModal, setShowInviteBloowa
           <input
             id='memberEmail'
             type='text'
-            className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+            className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
             placeholder='이메일 주소'
             {...register('memberEmail', {
               maxLength: 100,

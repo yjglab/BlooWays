@@ -65,7 +65,7 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
           <input
             id='areaName'
             type='text'
-            className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+            className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
             placeholder='2-14자 이내로 설정해주세요'
             {...register('areaName', {
               minLength: 2,

@@ -20,32 +20,33 @@ const Home = () => {
               <p className='mt-12 w-[80%] md:w-full text-sm sm:text-base font-medium md:text-lg leading-5 '>
                 BlooWays에서 전세계 어디서든 끊김없는 라이브 토크를 시작하세요.
               </p>
-              <div className='mt-5 flex items-center justify-center gap-x-6'>
-                {userData ? (
-                  <>
-                    <Link to={`/blooway/all/area/전체`}>
-                      <span className='flex cursor-pointer rounded-md bg-slate-500/80 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
-                        <Squares2X2Icon className='w-4 mr-1' />
-                        전체 블루웨이
+              <div className='flex-col md:flex-row mt-5 flex items-center justify-center gap-x-6'>
+                <div className='flex gap-4 mb-3 md:mb-0'>
+                  {userData ? (
+                    <>
+                      <Link to={`/blooway/all/area/전체`}>
+                        <span className='flex cursor-pointer rounded-md bg-slate-500/80 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                          <Squares2X2Icon className='w-4 mr-1' />
+                          전체 블루웨이
+                        </span>
+                      </Link>
+                      <Link to={`/blooway/${userData?.username}/area/전체`}>
+                        <span className='flex cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                          <UserIcon className='w-4 mr-1' />
+                          나의 블루웨이
+                        </span>
+                      </Link>
+                    </>
+                  ) : (
+                    <Link to='/signup'>
+                      <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                        멤버 가입하기
                       </span>
                     </Link>
-                    <Link to={`/blooway/${userData?.username}/area/전체`}>
-                      <span className='flex cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
-                        <UserIcon className='w-4 mr-1' />
-                        나의 블루웨이
-                      </span>
-                    </Link>
-                  </>
-                ) : (
-                  <Link to='/signup'>
-                    <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
-                      멤버 가입하기
-                    </span>
-                  </Link>
-                )}
-
+                  )}
+                </div>
                 <a href='https://github.com/yjglab/BlooWays' target='_blank' rel='noreferrer'>
-                  <span className='cursor-pointer text-sm font-semibold leading-6 '>
+                  <span className=' cursor-pointer text-sm font-semibold leading-6 '>
                     GitHub 가이드
                     <span aria-hidden='true'>→</span>
                   </span>

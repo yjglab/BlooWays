@@ -4,7 +4,7 @@ import React, { FC, useCallback } from 'react';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { blooboltFullLogoUrl, logoUrl, yjglabLogoUrl } from '@functions/global';
+import { blooboltFullLogoUrl, logoUrl, toastConfig, yjglabLogoUrl } from '@functions/global';
 import useSWR from 'swr';
 import ApiFetcher from '@functions/ApiFetcher';
 import { User } from '@typings/types';
@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import DropMenu from '@components/DropMenu';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import Modal from '@components/Modal';
 
 const navigation = {
   categories: [],
@@ -25,6 +27,7 @@ const navigation = {
 const NavBar: FC = () => {
   const { data: userData, mutate: revalidateUser } = useSWR<User | false>('/api/users', ApiFetcher);
   const [open, setOpen] = useState(false);
+  const [showUpdateUsernameModal, setShowUpdateUsernameModal] = useState(false);
   const onSignOut = useCallback(() => {
     axios
       .post('/api/users/signout')
@@ -37,7 +40,49 @@ const NavBar: FC = () => {
         toast.error(error.response?.data, { position: 'bottom-center' });
       });
   }, [revalidateUser]);
+  interface UpdateUsernameValues {
+    newUsername: string;
+  }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm<UpdateUsernameValues>();
+  const onUpdateUsername = useCallback(
+    (formData) => {
+      const { newUsername } = formData;
 
+      if (!newUsername || !newUsername.trim()) {
+        return toast.error('사용자명을 입력해주세요', toastConfig);
+      }
+      if (newUsername.length > 16) {
+        return toast.error('16자 이내의 사용자명을 입력해주세요.', toastConfig);
+      }
+      axios
+        .patch('/api/users/username', {
+          email: userData && userData.email,
+          username: newUsername,
+        })
+        .then(() => {
+          revalidateUser();
+          setShowUpdateUsernameModal(false);
+          return toast.success('사용자명을 변경했습니다.', toastConfig);
+        })
+        .catch((error) => {
+          console.dir(error);
+          toast.error(error.response?.data, toastConfig);
+        });
+    },
+    [revalidateUser, userData],
+  );
+  const onClickUpdateUsername = useCallback(() => {
+    setShowUpdateUsernameModal(true);
+    userData && setValue('newUsername', userData.username);
+  }, [setValue, userData]);
+  const onCloseModal = useCallback(() => {
+    setShowUpdateUsernameModal(false);
+  }, []);
   const onClose = useCallback(() => {
     setOpen(false);
   }, []);
@@ -233,6 +278,18 @@ const NavBar: FC = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
+                              onClick={onClickUpdateUsername}
+                              className={`${
+                                active ? 'bg-amber-500 text-white' : 'text-slate-800'
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              사용자명 변경
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
                               onClick={onSignOut}
                               className={`${
                                 active ? 'bg-amber-500 text-white' : 'text-slate-800'
@@ -251,6 +308,38 @@ const NavBar: FC = () => {
           </div>
         </nav>
       </header>
+      <Modal
+        modalType={0}
+        modalTitle='사용자명 변경하기'
+        show={showUpdateUsernameModal}
+        onCloseModal={onCloseModal}
+      >
+        <form id='create-blooway-modal' className='w-full' onSubmit={handleSubmit(onUpdateUsername)}>
+          <div className='w-full my-4'>
+            <div>
+              <span>새로운 사용자명</span>
+              <input
+                id='newUsername'
+                type='text'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                placeholder='사용자명 (4-16자)'
+                {...register('newUsername', {
+                  minLength: 4,
+                })}
+              />
+            </div>
+          </div>
+          <div className='flex justify-center'>
+            <button
+              disabled={isSubmitting}
+              type='submit'
+              className='inline-flex justify-center rounded-md border border-transparent bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2'
+            >
+              변경하기
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };

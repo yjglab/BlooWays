@@ -15,7 +15,10 @@ const AWS = require("aws-sdk");
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const { isNotSignIn, isSignIn } = require("./middlewares");
-
+const clientUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://blooways.online"
+    : "http://localhost:4090";
 // 모든 블루웨이 로드
 router.get("/blooways", isSignIn, async (req, res, next) => {
   try {
@@ -676,7 +679,7 @@ router.get(
         include: [
           {
             model: Area,
-            attributes: ["id", "name", "description"],
+            attributes: ["id", "name"],
           },
         ],
       });
@@ -724,7 +727,6 @@ router.post(
       if (!area) {
         return res.status(404).send("존재하지 않는 에리어입니다.");
       }
-      console.log(req.body);
       const user = await User.findOne({
         where: { email: req.body.email },
         include: [
@@ -905,6 +907,39 @@ router.post("/users/signin", isNotSignIn, (req, res, next) => {
   })(req, res, next);
 });
 
+// 사용자명 변경
+router.patch("/users/username", isSignIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+    const userBlooway = await Blooway.findOne({
+      where: {
+        BuilderId: user.id,
+        link: user.username,
+      },
+    });
+    if (!user) {
+      return res.status(404).send("존재하지 않는 사용자입니다.");
+    }
+    if (!userBlooway) {
+      return res.status(404).send("존재하지 않는 블루웨이입니다.");
+    }
+    await user.update({
+      username: req.body.username,
+    });
+    await userBlooway.update({
+      name: req.body.username,
+      link: req.body.username,
+    });
+    res.status(201).send("ok");
+  } catch (error) {
+    next(error);
+  }
+});
+
 // 로그아웃
 router.post("/users/signout", isSignIn, (req, res) => {
   req.logout(() => {
@@ -920,11 +955,7 @@ router.get(
     failureRedirect: "/signin",
   }),
   async (req, res) => {
-    if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways.online");
-    } else {
-      res.redirect("http://localhost:4090");
-    }
+    res.redirect(clientUrl);
   }
 );
 
@@ -937,11 +968,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
-    if (process.env.NODE_ENV === "production") {
-      res.redirect("https://blooways.online");
-    } else {
-      res.redirect("http://localhost:4090");
-    }
+    res.redirect(clientUrl);
   }
 );
 

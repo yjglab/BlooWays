@@ -43,7 +43,7 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
           } absolute right-0 bottom-0 border border-white w-[9px] h-[9px] rounded-full`}
         ></div>
       </div>
-      <span className='hover:text-amber-500 ml-1.5 overflow-hidden text-ellipsis max-w-[120px]'>
+      <span className='line-clamp-1 hover:text-amber-500 ml-1.5 overflow-hidden text-ellipsis max-w-[120px]'>
         {member.username}
       </span>
       {member.id === userData?.id && <span className='ml-0.5'>(나)</span>}
