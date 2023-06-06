@@ -26,9 +26,17 @@ passportConfig();
 const production = process.env.NODE_ENV === "production";
 
 if (production) {
-  // app.enable("trust proxy");
+  app.enable("trust proxy");
   app.use(morgan("combined"));
-  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: false,
+      crossOriginOpenerPolicy: false,
+      crossOriginResourcePolicy: false,
+    })
+  );
   app.use(hpp());
 } else {
   app.use(morgan("dev"));
@@ -62,11 +70,6 @@ app.use(session(sessionOption));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", apiRouter);
-// app.use((req, res, next) => {
-//   res.header("Cross-Origin-Embedder-Policy", "credentialless");
-//   res.header("Cross-Origin-Opener-Policy", "same-origin");
-//   next();
-// });
 app.get("*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
