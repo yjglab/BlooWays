@@ -97,7 +97,8 @@ const NavBar: FC = () => {
                     <div className='text-left space-y-6 text-slate-400/80 px-4 pt-4'>{userData.email}</div>
                     <button onClick={onClose} type='button' className='text-left space-y-6 mt-3 px-4 py-3'>
                       <Link
-                        to={`/blooway/${userData.username}/area/전체`}
+                        // to={`/blooway/${userData.username}/area/전체`}
+                        to={`/blooway/all/area/전체`}
                         className='-m-2 block p-2 font-medium text-slate-800'
                       >
                         나의 블루웨이
@@ -201,6 +202,20 @@ const NavBar: FC = () => {
                       <Avvvatars size={32} shadow={true} style='shape' value={userData.email} />
                       <div className='w-2'></div>
                       <DropMenu menuTitle={userData.username} chevron={false} direction='right'>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link to={`/blooway/all/area/전체`}>
+                              <button
+                                type='button'
+                                className={`${
+                                  active ? 'bg-amber-500 text-white' : 'text-slate-800'
+                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                              >
+                                전체 블루웨이
+                              </button>{' '}
+                            </Link>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <Link to={`/blooway/${userData.username}/area/전체`}>

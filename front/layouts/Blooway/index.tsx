@@ -20,6 +20,15 @@ import SideBar from '@components/SideBar';
 import { toastConfig } from '@functions/global';
 import AreaItem from '@components/AreaItem';
 import PrivateItem from '@components/PrivateItem';
+import {
+  CubeIcon,
+  PlusCircleIcon,
+  Squares2X2Icon,
+  SquaresPlusIcon,
+  UserGroupIcon,
+  UserIcon,
+  UserPlusIcon,
+} from '@heroicons/react/20/solid';
 
 const Blooway = () => {
   const params = useParams<{ blooway?: string }>();
@@ -129,7 +138,7 @@ const Blooway = () => {
       id='blooway-layout'
       className='overflow-hidden pt-14 pb-2 h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-slate-800'
     >
-      <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base font-semibold flex items-center'>
+      <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base flex items-center'>
         <div className='flex z-20 items-center'>
           <DropMenu
             menuTitle={userData?.Blooways.find((v) => v.link === blooway)?.name}
@@ -141,10 +150,11 @@ const Blooway = () => {
                 <button
                   onClick={onClickInviteBlooway}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-slate-800'
+                    active ? 'bg-amber-500 text-white font-semibold' : 'text-slate-800'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  <span className='text-ellipsis overflow-hidden max-w-[70px]'>
+                  <UserPlusIcon className='w-4 mr-1' />
+                  <span className='text-ellipsis line-clamp-1 overflow-hidden max-w-[80px]'>
                     {userData?.Blooways.find((v) => v.link === blooway)?.name}
                   </span>
                   에 멤버 초대
@@ -158,10 +168,11 @@ const Blooway = () => {
                   type='button'
                   onClick={onClickAddArea}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-slate-800'
+                    active ? 'bg-amber-500 text-white font-semibold' : 'text-slate-800'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  <span className='text-ellipsis overflow-hidden max-w-[70px]'>
+                  <CubeIcon className='w-4 mr-1' />
+                  <span className='text-ellipsis line-clamp-1 overflow-hidden max-w-[80px]'>
                     {userData?.Blooways.find((v) => v.link === blooway)?.name}
                   </span>
                   에 에리어 추가
@@ -174,10 +185,10 @@ const Blooway = () => {
                   type='button'
                   onClick={onClickCreateBlooway}
                   className={`${
-                    active ? 'bg-amber-500 text-white' : 'text-slate-800'
+                    active ? 'bg-amber-500 text-white font-semibold' : 'text-slate-800'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  새 블루웨이 생성
+                  <SquaresPlusIcon className='w-4 mr-1' />새 블루웨이 생성
                 </button>
               )}
             </Menu.Item>
@@ -192,6 +203,13 @@ const Blooway = () => {
                         active ? 'bg-amber-500 text-white' : 'text-slate-800'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
+                      {blooway.link === 'all' ? (
+                        <UserGroupIcon className='w-4 mr-1' />
+                      ) : blooway.link === userData.username ? (
+                        <UserIcon className='w-4 mr-1' />
+                      ) : (
+                        <Squares2X2Icon className='w-4 mr-1' />
+                      )}
                       {blooway.name}
                     </Link>
                   )}
@@ -200,6 +218,11 @@ const Blooway = () => {
             })}
           </DropMenu>
           {userData?.username === blooway && (
+            <span className='ml-2 inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-800 ring-1 ring-inset ring-slate-500/10'>
+              Me
+            </span>
+          )}
+          {'all' === blooway && (
             <span className='ml-2 inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-800 ring-1 ring-inset ring-slate-500/10'>
               Base
             </span>

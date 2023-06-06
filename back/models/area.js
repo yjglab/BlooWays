@@ -11,7 +11,6 @@ module.exports = class Area extends Model {
         },
         secret: {
           type: DataTypes.BOOLEAN,
-          allowNull: true,
           defaultValue: false,
         },
       },

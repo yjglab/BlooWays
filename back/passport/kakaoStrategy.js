@@ -28,6 +28,7 @@ module.exports = (passport) => {
               social: "kakao",
               socialId: profile.id,
             });
+            // 기본 블루웨이 생성
             const baseBlooway = await Blooway.create({
               name: newSocialUser.username,
               link: newSocialUser.username,
@@ -40,6 +41,21 @@ module.exports = (passport) => {
             });
             await baseBlooway.addMembers(newSocialUser);
             await baseArea.addMembers(newSocialUser);
+            // 전체 블루웨이에 추가
+            const allMembersBlooway = await Blooway.findOne({
+              where: {
+                id: 1,
+                link: "all",
+              },
+            });
+            const allMembersArea = await Area.findOne({
+              where: {
+                id: 1,
+              },
+            });
+            await allMembersBlooway.addMembers(newSocialUser);
+            await allMembersArea.addMembers(newSocialUser);
+
             done(null, newSocialUser);
           }
         } catch (error) {

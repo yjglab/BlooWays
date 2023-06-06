@@ -28,7 +28,7 @@ const production = process.env.NODE_ENV === "production";
 if (production) {
   app.enable("trust proxy");
   app.use(morgan("combined"));
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(hpp());
 } else {
   app.use(morgan("dev"));

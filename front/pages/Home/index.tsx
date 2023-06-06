@@ -1,5 +1,6 @@
 import ApiFetcher from '@functions/ApiFetcher';
 import { logoUrl } from '@functions/global';
+import { Squares2X2Icon, UserIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useSWR from 'swr';
@@ -21,11 +22,20 @@ const Home = () => {
               </p>
               <div className='mt-5 flex items-center justify-center gap-x-6'>
                 {userData ? (
-                  <Link to={`/blooway/${userData?.username}/area/전체`}>
-                    <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
-                      나의 블루웨이
-                    </span>
-                  </Link>
+                  <>
+                    <Link to={`/blooway/all/area/전체`}>
+                      <span className='flex cursor-pointer rounded-md bg-slate-500/80 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                        <Squares2X2Icon className='w-4 mr-1' />
+                        전체 블루웨이
+                      </span>
+                    </Link>
+                    <Link to={`/blooway/${userData?.username}/area/전체`}>
+                      <span className='flex cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
+                        <UserIcon className='w-4 mr-1' />
+                        나의 블루웨이
+                      </span>
+                    </Link>
+                  </>
                 ) : (
                   <Link to='/signup'>
                     <span className='cursor-pointer rounded-md bg-amber-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500'>
@@ -46,7 +56,7 @@ const Home = () => {
                 <Link to='/version-release'>
                   <span className='cursor-pointer font-semibold text-amber-500 hover:text-amber-600'>
                     <span className='absolute inset-0' aria-hidden='true' />
-                    변경된 내용 알아보기 <span aria-hidden='true'>&rarr;</span>
+                    무엇이 바뀌었나요? <span aria-hidden='true'>&rarr;</span>
                   </span>
                 </Link>
               </div>

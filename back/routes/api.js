@@ -856,6 +856,22 @@ router.post("/users", isNotSignIn, async (req, res, next) => {
     });
     await baseBlooway.addMembers(user);
     await baseArea.addMembers(user);
+
+    // 전체 블루웨이에 추가
+    const allMembersBlooway = await Blooway.findOne({
+      where: {
+        id: 1,
+        link: "all",
+      },
+    });
+    const allMembersArea = await Area.findOne({
+      where: {
+        id: 1,
+      },
+    });
+    await allMembersBlooway.addMembers(user);
+    await allMembersArea.addMembers(user);
+
     res.status(201).send("ok");
   } catch (error) {
     console.error(error);

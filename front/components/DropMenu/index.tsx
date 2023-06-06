@@ -34,7 +34,7 @@ const DropMenu: FC<PropsWithChildren<DropMenuProps>> = ({ children, menuTitle, c
           <Menu.Items
             className={`absolute ${
               direction === 'right' ? 'right-0' : 'left-0'
-            } mt-2 w-44 origin-top-right divide-y divide-slate-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+            } mt-2 w-52 origin-top-right divide-y divide-slate-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           >
             <div className='px-1 py-1 '>{children}</div>
           </Menu.Items>
