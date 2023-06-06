@@ -48,6 +48,7 @@ const Blooway = () => {
   interface CreateBloowayValues {
     bloowayName: string;
     bloowayLink: string;
+    description: string;
   }
   const {
     register,
@@ -58,7 +59,7 @@ const Blooway = () => {
 
   const onCreateBlooway: SubmitHandler<CreateBloowayValues> = useCallback(
     (formData) => {
-      const { bloowayName, bloowayLink } = formData;
+      const { bloowayName, bloowayLink, description } = formData;
       if (!bloowayName || !bloowayName.trim()) {
         return toast.error('블루웨이 이름을 입력해주세요', toastConfig);
       }
@@ -75,12 +76,15 @@ const Blooway = () => {
         .post('/api/blooways', {
           blooway: bloowayName,
           link: bloowayLink,
+          description,
         })
         .then(() => {
           revalidateUser();
           setShowCreateBloowayModal(false);
           setValue('bloowayName', '');
           setValue('bloowayLink', '');
+          setValue('description', '');
+          return toast.success('새 블루웨이가 생성되었습니다', toastConfig);
         })
         .catch((error) => {
           console.dir(error);
@@ -278,7 +282,7 @@ const Blooway = () => {
               <input
                 id='bloowayName'
                 type='text'
-                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='2-14자 이내로 입력해주세요'
                 {...register('bloowayName', {
                   minLength: 2,
@@ -291,11 +295,21 @@ const Blooway = () => {
               <input
                 id='bloowayLink'
                 type='text'
-                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                 placeholder='링크에 표시할 키워드입니다'
                 {...register('bloowayLink', {
                   minLength: 2,
                 })}
+              />
+            </div>
+            <div className='mt-2'>
+              <span>블루웨이 정보</span>
+              <input
+                id='description'
+                type='text'
+                className='mt-2 relative block w-full appearance-none rounded-md  border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                placeholder='누구나 환영해요'
+                {...register('description', {})}
               />
             </div>
           </div>

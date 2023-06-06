@@ -128,7 +128,7 @@ const SignIn = () => {
                   id='email'
                   type='text'
                   placeholder='이메일 주소'
-                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-slate-300 px-3 py-2  placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('email', {
                     required: '이메일은 필수 입력입니다',
                     pattern: {
@@ -144,7 +144,7 @@ const SignIn = () => {
                   id='password'
                   type='password'
                   placeholder='비밀번호'
-                  className='relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
+                  className='relative block w-full appearance-none rounded-none rounded-b-md border border-slate-300 px-3 py-2 placeholder-slate-300 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
                   })}

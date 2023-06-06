@@ -54,6 +54,7 @@ router.post("/blooways", isSignIn, async (req, res, next) => {
         name: req.body.blooway,
         link: req.body.link,
         BuilderId: req.user.id,
+        description: req.body.description,
       },
       {
         transaction,
