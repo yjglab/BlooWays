@@ -10,9 +10,10 @@ import { backUrl, logoUrl } from '@functions/global';
 import Modal from '@components/Modal';
 
 const SignUp = () => {
-  const { data: userData, error } = useSWR('/api/users', ApiFetcher);
+  const { data: userData } = useSWR('/api/users', ApiFetcher);
   const [signUpError, setSignUpError] = useState(false);
   const [signUpDone, setSignUpDone] = useState(false);
+  const [signUpLoading, setSignUpLoading] = useState(false);
   const [toggleTerm, setToggleTerm] = useState(false);
 
   interface SignUpValues {
@@ -40,10 +41,10 @@ const SignUp = () => {
   const onSignUp: SubmitHandler<SignUpValues> = useCallback(
     (formData) => {
       const { email, username, password, passwordCheck } = formData;
-      const slCheck = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
-      if (username.search(/\s/) !== -1 || slCheck.test(username)) {
+      // const slCheck = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
+      if (username.search(/\s/) !== -1) {
         return setError('username', {
-          message: '사용자명에 공백 또는 특수문자가 들어갈 수 없습니다.',
+          message: '사용자명에 공백이 들어갈 수 없습니다.',
         });
       }
       if (password.indexOf(' ') !== -1) {
@@ -56,18 +57,21 @@ const SignUp = () => {
           message: '비밀번호 확인이 일치하지 않습니다',
         });
       }
+      setSignUpLoading(true);
       setSignUpError(false);
       setSignUpDone(false);
       axios
         .post('/api/users', { email, username, password })
         .then(() => {
           setSignUpDone(true);
+          setSignUpLoading(false);
           setValue('email', '');
           setValue('username', '');
           setValue('password', '');
           setValue('passwordCheck', '');
         })
         .catch((error) => {
+          setSignUpLoading(false);
           setError('email', { message: error.response?.data });
         });
     },
@@ -183,21 +187,21 @@ const SignUp = () => {
                 <input
                   id='password'
                   type='password'
-                  placeholder='비밀번호 (영문/숫자/특수기호 조합 8-14자)'
+                  placeholder='비밀번호 (8-14자)'
                   className='relative block w-full appearance-none rounded-none  border border-slate-300 px-3 py-2  placeholder-slate-500 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm'
                   {...register('password', {
                     required: '비밀번호를 입력해주세요',
-                    pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
-                    },
+                    // pattern: {
+                    //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                    //   message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                    // },
                     minLength: {
                       value: 8,
-                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                      message: '8-14자 이내로 입력해주세요.',
                     },
                     maxLength: {
                       value: 14,
-                      message: '영문, 숫자, 특수기호를 조합한 8-14자 이내로 입력해주세요.',
+                      message: '8-14자 이내로 입력해주세요.',
                     },
                   })}
                 />
@@ -306,8 +310,7 @@ const SignUp = () => {
                     aria-hidden='true'
                   />
                 </span>
-                {!error && !userData && isSubmitting && <ArrowPathIcon className='w-5 mr-1 animate-spin' />}{' '}
-                가입하기
+                {signUpLoading ? <ArrowPathIcon className='w-5 mr-1 animate-spin' /> : '가입하기'}
               </button>
             </div>
           </form>

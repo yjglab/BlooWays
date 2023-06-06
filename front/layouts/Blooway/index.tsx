@@ -22,7 +22,6 @@ import AreaItem from '@components/AreaItem';
 import PrivateItem from '@components/PrivateItem';
 import {
   CubeIcon,
-  PlusCircleIcon,
   Squares2X2Icon,
   SquaresPlusIcon,
   UserGroupIcon,

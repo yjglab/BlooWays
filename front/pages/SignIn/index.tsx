@@ -3,13 +3,14 @@ import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import useSWR from 'swr';
-import { LockClosedIcon } from '@heroicons/react/20/solid';
+import { ArrowPathIcon, LockClosedIcon } from '@heroicons/react/20/solid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { backUrl, logoUrl } from '@functions/global';
 
 const SignIn = () => {
   const { data: userData, error: apiError, mutate } = useSWR('/api/users', ApiFetcher);
   const [signInError, setSignInError] = useState(false);
+  const [signInLoading, setSignInLoading] = useState(false);
 
   interface SignInValues {
     email: string;
@@ -25,6 +26,7 @@ const SignIn = () => {
     (formData) => {
       const { email, password } = formData;
       setSignInError(false);
+      setSignInLoading(true);
       axios
         .post(
           '/api/users/signin',
@@ -35,9 +37,11 @@ const SignIn = () => {
         )
         .then(() => {
           mutate();
+          setSignInLoading(false);
         })
         .catch((error) => {
           console.dir(error);
+          setSignInLoading(false);
           setSignInError(error.response?.status === 401);
         });
     },
@@ -178,7 +182,7 @@ const SignIn = () => {
                       aria-hidden='true'
                     />
                   </span>
-                  로그인
+                  {signInLoading ? <ArrowPathIcon className='w-5 mr-1 animate-spin' /> : '로그인'}
                 </button>
               </div>
             </div>
