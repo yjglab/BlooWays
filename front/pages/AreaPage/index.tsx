@@ -93,6 +93,7 @@ const AreaPage = () => {
         data.Area.name === area &&
         (data.content.startsWith('uploads\\') ||
           data.content.startsWith('uploads/') ||
+          data.content.startsWith('https://bloowaysbucket') ||
           data.UserId !== userData?.id)
       ) {
         mutateTalk((talkData) => {
