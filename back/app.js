@@ -28,15 +28,7 @@ const production = process.env.NODE_ENV === "production";
 if (production) {
   app.enable("trust proxy");
   app.use(morgan("combined"));
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-      crossOriginEmbedderPolicy: false,
-      crossOriginResourcePolicy: false,
-      crossOriginOpenerPolicy: false,
-      crossOriginResourcePolicy: false,
-    })
-  );
+  app.use(helmet());
   app.use(hpp());
 } else {
   app.use(morgan("dev"));
@@ -46,6 +38,9 @@ app.use(
     origin: true,
     credentials: true,
     webSocket: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
   })
 );
 app.use(express.static(path.join(__dirname, "public")));
