@@ -28,6 +28,7 @@ const PrivatePage: FC = () => {
     ApiFetcher,
     {
       onSuccess(data) {
+        console.log('data', data.length, data);
         if (data?.length === 1) {
           setTimeout(() => {
             scrollbarRef.current?.scrollToBottom();
@@ -40,7 +41,6 @@ const PrivatePage: FC = () => {
   const [talkArrived, setTalkArrived] = useState(false);
   const scrollbarRef = useRef<Scrollbars>(null);
   const [, setDragOver] = useState(false);
-
   const isEmpty = talkData?.[0]?.length === 0;
   const isDataEnd = isEmpty || (talkData && talkData[talkData.length - 1]?.length < PAGE_SIZE);
 

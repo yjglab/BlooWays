@@ -142,6 +142,7 @@ const Blooway = () => {
     >
       <div className='pt-2.5 h-9 border-b-amber-500 border-b p-2 justify-between text-base flex items-center'>
         <div className='flex z-20 items-center'>
+          <Squares2X2Icon className='w-4 mr-1' />
           <DropMenu
             menuTitle={userData?.Blooways.find((v) => v.link === blooway)?.name}
             chevron={true}
