@@ -32,7 +32,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
             if (matched) {
               return (
                 <Link key={match + index} to={`/blooway/${blooway}/private/${matched[2]}`}>
-                  @{matched[1]}
+                  <span className='text-amber-500 font-semibold hover:text-amber-600'>@{matched[1]}</span>
                 </Link>
               );
             }

@@ -28,6 +28,7 @@ const InviteAreaModal: FC<InviteAreaModalProps> = ({ show, onCloseModal, setShow
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<InviteMemberValues>();
   const onInviteMember: SubmitHandler<InviteMemberValues> = useCallback(
@@ -41,6 +42,7 @@ const InviteAreaModal: FC<InviteAreaModalProps> = ({ show, onCloseModal, setShow
           email: memberEmail,
         })
         .then(() => {
+          setValue('memberEmail', '');
           revalidateMembers();
           setShowInviteAreaModal(false);
           toast.success(`${memberEmail}님을 ${area} 에리어에 초대했습니다.`, toastConfig);
@@ -50,7 +52,7 @@ const InviteAreaModal: FC<InviteAreaModalProps> = ({ show, onCloseModal, setShow
           toast.error(error.response?.data, toastConfig);
         });
     },
-    [area, revalidateMembers, setShowInviteAreaModal, blooway],
+    [area, revalidateMembers, setShowInviteAreaModal, blooway, setValue],
   );
 
   return (

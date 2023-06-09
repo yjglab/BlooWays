@@ -1,12 +1,20 @@
+import Modal from '@components/Modal';
+import TermsContent from '@components/TermsContent';
 import ApiFetcher from '@functions/ApiFetcher';
-import { logoUrl } from '@functions/global';
+import { bloosLogoUrl, logoUrl } from '@functions/global';
 import { Squares2X2Icon, UserIcon } from '@heroicons/react/20/solid';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 
 const Home = () => {
   const { data: userData } = useSWR('/api/users', ApiFetcher);
+  const [toggleTerm, setToggleTerm] = useState(false);
+
+  const onToggleTerms = useCallback(() => {
+    setToggleTerm(!toggleTerm);
+  }, [toggleTerm]);
+
   return (
     <div className='text-slate-800 isolate bg-white min-h-screen'>
       <div className='min-h-screen relative flex items-center justify-center'>
@@ -77,9 +85,11 @@ const Home = () => {
           <p className='mt-3 text-center text-sm leading-6 text-slate-500'>
             © 2023 yjglab. All rights reserved.
           </p>
-
-          <div className='mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700'>
-            <span className='cursor-pointer'>서비스 이용 약관</span>
+          <img src={bloosLogoUrl} className='h-10 w-auto mx-auto opacity-90 relative top-3' />
+          <div className='mt-12 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700'>
+            <button type='button' onClick={onToggleTerms} className='cursor-pointer'>
+              서비스 이용 약관
+            </button>
             <div className='h-4 w-px bg-slate-500/20' />
             <Link to='/version-release'>
               <span className='cursor-pointer'>버전 릴리즈</span>
@@ -87,6 +97,31 @@ const Home = () => {
           </div>
         </div>
       </footer>
+      {toggleTerm && (
+        <Modal modalType={0} modalTitle='' show={true} onCloseModal={() => {}}>
+          <div className='bottom-6 group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
+            <div className='mx-auto max-w-2xl text-center relative top-14'>
+              <h2 className='text-sm font-semibold leading-6 text-amber-500'>BlooWays</h2>
+              <p className=' text-2xl font-bold tracking-tight  sm:text-2xl '>서비스 이용 약관</p>
+              <p className='mt-1 text-sm leading-6 '>
+                공정거래위원회 표준약관 제10023호 <br />
+                (2015. 6. 26. 개정)
+              </p>
+            </div>
+
+            <TermsContent />
+          </div>
+          <div className='w-full h-8'>
+            <button
+              onClick={onToggleTerms}
+              type='button'
+              className='group mt-1.5 relative flex w-1/5 mx-auto justify-center rounded-md border border-transparent bg-amber-500 py-2 px-4 text-sm font-medium text-white hover:bg-amber-600'
+            >
+              확인
+            </button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

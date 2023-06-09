@@ -28,6 +28,7 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm<onAddAreaValues>();
 
@@ -45,6 +46,7 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
           name: areaName,
         })
         .then(() => {
+          setValue('areaName', '');
           revalidateArea();
           setShowAddAreaModal(false);
           toast.success(`에리어 ${areaName}를 생성했습니다.`, toastConfig);
@@ -54,7 +56,7 @@ const AddAreaModal: FC<AddAreaModalProps> = ({ show, onCloseModal, setShowAddAre
           toast.error(error.response?.data, toastConfig);
         });
     },
-    [setShowAddAreaModal, blooway, revalidateArea],
+    [setShowAddAreaModal, blooway, revalidateArea, setValue],
   );
 
   return (

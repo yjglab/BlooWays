@@ -2,12 +2,8 @@ import { ToastPosition } from 'react-toastify';
 const isProdiction = process.env.NODE_ENV === 'production';
 export const backUrl = isProdiction ? 'https://blooways.online' : 'http://localhost:4094';
 export const logoUrl = isProdiction ? '/images/blooways_logo.png' : '/public/images/blooways_logo.png';
-export const yjglabLogoUrl = isProdiction
-  ? '/images/yjglab_logo_slate500.png'
-  : '/public/images/yjglab_logo_slate500.png';
-export const blooboltFullLogoUrl = isProdiction
-  ? '/images/bloobolt-full-logo.png'
-  : '/public/images/bloobolt-full-logo.png';
+export const bloosLogoUrl = isProdiction ? '/images/bloos_logo.png' : '/public/images/bloos_logo.png';
+export const bloosLogoBUrl = isProdiction ? '/images/bloos_logo_b.png' : '/public/images/bloos_logo_b.png';
 
 interface ToastConfig {
   position: ToastPosition | undefined;

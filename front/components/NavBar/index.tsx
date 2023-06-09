@@ -4,7 +4,7 @@ import React, { FC, useCallback } from 'react';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { blooboltFullLogoUrl, logoUrl, toastConfig, yjglabLogoUrl } from '@functions/global';
+import { bloosLogoBUrl, logoUrl, toastConfig } from '@functions/global';
 import useSWR from 'swr';
 import ApiFetcher from '@functions/ApiFetcher';
 import { User } from '@typings/types';
@@ -178,11 +178,8 @@ const NavBar: FC = () => {
                     © 2023 yjglab. All rights reserved.
                   </p>
                   <div className='gap-4 flex w-full mt-2 opacity-80 justify-center items-center left-0 right-0 mx-auto'>
-                    <a href='https://github.com/yjglab'>
-                      <img className='h-4 w-auto' src={yjglabLogoUrl} />{' '}
-                    </a>
                     <a href='https://bloobolt.com'>
-                      <img className='h-5 w-auto' src={blooboltFullLogoUrl} />
+                      <img className='h-5 w-auto' src={bloosLogoBUrl} />
                     </a>
                   </div>
                 </div>
