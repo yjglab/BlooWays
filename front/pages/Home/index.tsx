@@ -53,7 +53,11 @@ const Home = () => {
                     </Link>
                   )}
                 </div>
-                <a href='https://github.com/yjglab/BlooWays' target='_blank' rel='noreferrer'>
+                <a
+                  href='https://github.com/yjglab/BlooWays/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C'
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   <span className=' cursor-pointer text-sm font-semibold leading-6 '>
                     GitHub 가이드
                     <span aria-hidden='true'>→</span>

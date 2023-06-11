@@ -39,7 +39,7 @@ const PrivateItem: FC<PrivateItemProps> = ({ member, isOnline }) => {
         <Avvvatars size={24} shadow={true} style='shape' value={member.email} />
         <div
           className={`${
-            isOnline ? 'bg-emerald-400' : 'bg-slate-400'
+            isOnline ? 'bg-emerald-400' : 'bg-slate-300'
           } absolute right-0 bottom-0 border border-white w-[9px] h-[9px] rounded-full`}
         ></div>
       </div>

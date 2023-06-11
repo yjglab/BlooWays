@@ -1,6 +1,6 @@
 # BlooWays 0.0.0 Beta
 
-![image](https://github.com/yjglab/BlooWays/assets/70316567/74f4bbf2-0b86-4505-b413-85a7d77945ef)
+![image](https://github.com/yjglab/BlooWays/assets/70316567/840617e9-b6ef-4004-927b-8e1404ba29dd)
 
 BlooWays는 소켓을 이용한 실시간 라이브 토크 기능을 제공하는 웹 서비스입니다.
 [https://blooways.online](https://blooways.online "BlooWays")
@@ -60,3 +60,5 @@ BlooWays는 소켓을 이용한 실시간 라이브 토크 기능을 제공하�
 ## 🗓 Version Release
 
 - [BlooWays 0.0.0 Beta](https://github.com/yjglab/BlooWays/releases/tag/BlooWays-0.0.0 "BlooWays")
+
+![image](https://github.com/yjglab/BlooWays/assets/70316567/0326c40d-d8b1-40aa-b41c-da3a964efbda)

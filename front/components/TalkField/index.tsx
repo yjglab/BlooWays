@@ -22,7 +22,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
         <img
           id='image'
           src={process.env.NODE_ENV === 'production' ? `${data.content}` : `${backUrl + '/' + data.content}`}
-          className='max-h-52'
+          className='max-h-52 rounded-md'
         />
       ) : (
         regexifyString({
