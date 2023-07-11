@@ -25,7 +25,7 @@ BlooWays는 소켓을 이용한 실시간 라이브 토크 기능을 제공하�
 <img src="https://img.shields.io/badge/amazon--s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
 </div>
 
-프로덕션 배포용 코드는 Master Branch, 테스트 코드는 Develop Branch에서 작업됩니다.
+프로덕션 배포용 코드는 Master Branch, 개발용 코드는 Develop Branch에서 작업됩니다.
 
 ## 🏛 서비스 소개 / [결과물 바로보기](https://blooways.online)
 

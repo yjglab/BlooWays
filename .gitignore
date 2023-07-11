@@ -7,3 +7,4 @@ node_modules
 blooways.cer
 tsconfig.tsbuildinfo
 tsconfig-for-webpack-config.json
+.DS_Store
