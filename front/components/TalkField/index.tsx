@@ -21,6 +21,7 @@ const TalkField: FC<TalkFieldProps> = memo(({ data }) => {
       data.content.startsWith('https://bloowaysbucket') ? (
         <img
           id='image'
+          alt='user-sending-image'
           src={process.env.NODE_ENV === 'production' ? `${data.content}` : `${backUrl + '/' + data.content}`}
           className='max-h-52 rounded-md'
         />

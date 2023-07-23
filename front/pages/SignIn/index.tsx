@@ -66,13 +66,13 @@ const SignIn = () => {
         <div className='w-full max-w-md space-y-8'>
           <div>
             <div className='mx-auto h-24 w-24  relative'>
-              <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
+              <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo' />
             </div>
             <h2 className='mt-5 text-center text-2xl font-bold tracking-tight '>
               보유한 계정으로 로그인하세요
             </h2>
             <p className='mt-2 text-center text-sm '>
-              BlooWays 멤버가 아니신가요?{' '}
+              blooways 멤버가 아니신가요?{' '}
               <Link key={''} to='/signup'>
                 <span className='underline cursor-pointer font-medium text-amber-500 hover:text-amber-600'>
                   가입하기
@@ -94,7 +94,11 @@ const SignIn = () => {
                 className='group  relative flex w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300  hover:bg-slate-100 py-2 px-4 text-sm font-medium'
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                  <img className='w-5 grayscale' src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg' />
+                  <img
+                    alt='google-logo'
+                    className='w-5 grayscale'
+                    src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
+                  />
                 </span>
                 Google
               </button>
@@ -105,6 +109,7 @@ const SignIn = () => {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
+                    alt='kakao-logo'
                     className='w-8 grayscale'
                     src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                   />

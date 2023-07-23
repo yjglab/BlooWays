@@ -91,12 +91,12 @@ const SignUp = () => {
         <div className='w-full max-w-md space-y-8 '>
           <div>
             <div className='mx-auto h-24 w-24  relative'>
-              <img className='aspect-square cursor-pointer' src={logoUrl} alt='logo-image' />
+              <img alt='logo' className='aspect-square cursor-pointer' src={logoUrl} />
             </div>
             <h2 className='mt-6 text-center text-2xl font-bold  '>환영합니다</h2>
             <div className='mt-2 text-center text-sm '>
               <div className='text-center mx-auto w-[80%] md:w-full font-medium  '>
-                BlooWays에서 전세계 어디서든 끊김없는 라이브 토크를 시작하세요.
+                blooways에서 전세계 어디서든 끊김없는 라이브 토크를 시작하세요.
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ const SignUp = () => {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
-                    alt=''
+                    alt='google-logo'
                     className='w-5 grayscale'
                     src='https://cdn.cdnlogo.com/logos/g/35/google-icon.svg'
                   />
@@ -129,7 +129,7 @@ const SignUp = () => {
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <img
-                    alt=''
+                    alt='kakao-logo'
                     className='w-8 grayscale'
                     src='https://developers.kakao.com/static/images/pc/product/icon/kakaoTalk.png'
                   />
@@ -235,7 +235,7 @@ const SignUp = () => {
                     onClick={onToggleTerms}
                     className='cursor-pointer underline  hover:text-amber-500'
                   >
-                    BlooWays 서비스 이용 약관
+                    blooways 서비스 이용 약관
                   </button>
                   에 동의합니다.
                 </label>
@@ -251,7 +251,7 @@ const SignUp = () => {
               <Modal modalType={0} modalTitle='' show={true} onCloseModal={() => {}}>
                 <div className='bottom-6 group relative h-96 overflow-y-scroll  w-full justify-center rounded-md border border-transparent ring-1 ring-slate-300 py-2 px-4 text-sm '>
                   <div className='mx-auto max-w-2xl text-center relative top-14'>
-                    <h2 className='text-sm font-semibold leading-6 text-amber-500'>BlooWays</h2>
+                    <h2 className='text-sm font-semibold leading-6 text-amber-500'>blooways</h2>
                     <p className=' text-2xl font-bold tracking-tight  sm:text-2xl '>서비스 이용 약관</p>
                     <p className='mt-1 text-sm leading-6 '>
                       공정거래위원회 표준약관 제10023호 <br />

@@ -170,16 +170,16 @@ const NavBar: FC = () => {
                 <div className='absolute bottom-5 mt-2 px-4 py-6 w-full'>
                   <div className='flex w-36 items-center left-0 right-0 mx-auto'>
                     <div className='w-7 h-7'>
-                      <img className='h-7 w-auto' src={logoUrl} />
+                      <img alt='navbar-logo' className='h-7 w-auto' src={logoUrl} />
                     </div>
-                    <span className='text-[20px] font-bold ml-0.5 text-amber-500'>BlooWays</span>
+                    <span className='text-[20px] font-bold ml-0.5 text-amber-500'>blooways</span>
                   </div>
                   <p className='mt-4 text-center text-sm leading-6 text-slate-500'>
-                    © 2023 yjglab. All rights reserved.
+                    © 2023 Jaekyeong Yuk. All rights reserved.
                   </p>
                   <div className='gap-4 flex w-full mt-2 opacity-80 justify-center items-center left-0 right-0 mx-auto'>
                     <a href='https://bloobolt.com'>
-                      <img className='h-5 w-auto' src={bloosLogoBUrl} />
+                      <img alt='bloos logo' className='h-5 w-auto' src={bloosLogoBUrl} />
                     </a>
                   </div>
                 </div>
@@ -197,9 +197,9 @@ const NavBar: FC = () => {
               {/* Logo */}
               <div className='flex ml-2'>
                 <Link className='flex items-center' to='/'>
-                  <span className='sr-only'>BlooWays</span>
-                  <img className='h-7 w-auto' src={logoUrl} alt='' />
-                  <span className='ml-0.5 text-amber-500 font-bold text-lg'>BlooWays</span>
+                  <span className='sr-only'>blooways</span>
+                  <img alt='logo' className='h-7 w-auto' src={logoUrl} />
+                  <span className='ml-0.5 text-amber-500 font-bold text-lg'>blooways</span>
                 </Link>
               </div>
 

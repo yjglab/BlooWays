@@ -12,7 +12,6 @@ module.exports = (server, app) => {
     if (!onlineMap[socket.nsp.name]) {
       onlineMap[socket.nsp.name] = {};
     }
-    socket.emit("hello", socket.nsp.name);
     socket.on("signin", ({ id, areas }) => {
       onlineMap[socket.nsp.name][socket.id] = id;
       newNamespace.emit(

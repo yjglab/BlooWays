@@ -5,6 +5,12 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     // './*/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {},
+  theme: {
+    extend: {
+      fontFamily: {
+        main: ['Pretendard Variable', 'sans-serif'],
+      },
+    },
+  },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio')],
 };

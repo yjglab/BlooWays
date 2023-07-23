@@ -8,9 +8,9 @@ const VersionRelease: FC = () => {
       <div className=' flex relative mt-20 md:mt-24 pb-36 items-center max-w-2xl lg:max-w-4xl px-6 lg:px-8 mx-auto'>
         <div className='lg:pr-8 lg:pt-4'>
           <h2 className='text-base font-semibold leading-7 text-amber-500'>Version Release</h2>
-          <p className='mt-2 text-3xl font-bold tracking-tight  sm:text-4xl'>BlooWays 0.0.0</p>
+          <p className='mt-2 text-3xl font-bold tracking-tight  sm:text-4xl'>blooways 0.0.0</p>
           <p className='mt-6 text-lg leading-8 '>
-            BlooWays의 베타 단계 개발을 완료했습니다. BlooWays 서비스 버전에 관한 변경 내역을 알려드립니다.
+            blooways 베타 단계 개발을 완료했습니다. blooways 서비스 버전에 관한 변경 내역을 알려드립니다.
           </p>
           <div className='flex lg:flex-row flex-col mt-10 w-full gap-10 text-base leading-7  lg:max-w-none'>
             <div className='lg:w-1/2 w-full relative pl-9'>
